@@ -19,7 +19,7 @@ public class CompanyApiController {
 	
 	@GetMapping("/info")
 	public List<CompanyDto> getCompany() {
-		
+		System.out.println(companyService.getCompanyInformation());
 		return companyService.getCompanyInformation();
 	}
 }
