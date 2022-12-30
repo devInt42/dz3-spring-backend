@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.example.backend.mapper.CompanyMapper">
+	<resultMap id="companyMap"
+		type="com.example.backend.dto.CompanyDto">
+		<result property="companyCode" column="company_code"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="companyName" column="company_name"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		</resultMap>
+		
+		<!-- select문 -->
+		<select id= "get" parameterType="int" resultMap="companyMap">
+		 	select * from
+		 	company
+		 	where company_code = #{companyCode}	
+		</select>
+		
+		<!-- delete문 -->
+		<delete id="delete" parameterType="int">
+			delete from company where company_code= #{companyCode}
+		 </delete>
+		 
+</mapper>
