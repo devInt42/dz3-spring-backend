@@ -10,12 +10,25 @@
 		<result property="employeeName" column="employee_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
-	
+
 	<select id="get" parameterType="int" resultMap="employeeMap">
 		select * from
 		employee
-		where employee_id = #{employeeId}
 	</select>
-	
-	
-</mapper>
+
+	<select id="getList"
+		parameterType="com.example.backend.dto.EmployeeDto"
+		resultMap="employeeMap">
+		select * from
+		employee
+		<where>
+			<if test="employeeId != null and employeeId !=''">
+				AND employee_id = #{employeeId}
+			</if>
+			<if test="employeeName != null and employeeName !=''">
+				And employee_name = #{employeeName}
+			</if>
+		</where>
+	</select>
+
+</mapper> 
