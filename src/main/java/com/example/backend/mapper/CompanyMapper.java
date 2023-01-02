@@ -7,5 +7,6 @@ import com.example.backend.dto.CompanyDto;
 public interface CompanyMapper {
 	List<CompanyDto> getList (CompanyDto dto); //list 값
 	CompanyDto get(int companyCode); //get 
-	int delete(int companyCode); //delete 
+//	int delete(int companyCode); //delete 
+	List<CompanyDto> getCompanyList(CompanyDto dto);//List
 }

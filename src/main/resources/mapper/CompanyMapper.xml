@@ -18,9 +18,9 @@
 		 	where company_code = #{companyCode}	
 		</select>
 		
-		<!-- delete문 -->
-		<delete id="delete" parameterType="int">
-			delete from company where company_code= #{companyCode}
-		 </delete>
-		 
+		<!-- List -->
+		<select id="getCompanyList" parameterType="com.example.backend.dto.CompanyDto"
+		 resultMap="companyMap">
+		select*from company
+		</select>
 </mapper>
