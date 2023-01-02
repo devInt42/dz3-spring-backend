@@ -1,17 +1,20 @@
 package com.example.backend.dto;
 
-import lombok.Data;
+//import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-
+//@Data
 public class CompanyDto {
 	
+//	private int companyCode, companyAccountant;
+//	private String companyName, companyAbbreviation, companyItem, companyBusniess,
+//					companyPageaddress, companyStartdate, companyOpening, companyClose;
+//	private String companyIdcategory;
 	private int company_code, company_accountant;
 	private String company_name, company_abbreviation, company_item, company_busniess,
 					company_pageaddress, company_startdate, company_opening, company_close;
 	private String company_idcategory;
-	
 	public int getCompany_code() {
 		return company_code;
 	}

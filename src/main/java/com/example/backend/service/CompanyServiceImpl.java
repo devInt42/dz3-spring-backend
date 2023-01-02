@@ -19,7 +19,12 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Override
 	public List<CompanyDto> getCompanyInformation() {
-		return sqlSession.getMapper(CompanyMapper.class).getCompanyInfo();
+		return sqlSession.getMapper(CompanyMapper.class).getallCompanyInfo();
+	}
+
+	@Override
+	public CompanyDto getCompanyInfo(int company_code) {
+		return sqlSession.getMapper(CompanyMapper.class).getCompanyInfo(company_code);
 	}
 
 }

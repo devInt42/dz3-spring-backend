@@ -6,4 +6,5 @@ import com.example.backend.dto.CompanyDto;
 
 public interface CompanyService {
 	List <CompanyDto> getCompanyInformation();
+	CompanyDto getCompanyInfo(int company_code);
 }

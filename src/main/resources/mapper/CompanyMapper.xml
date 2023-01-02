@@ -2,9 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace = "com.example.backend.mapper.CompanyMapper">
-
-	<select id = "getCompanyInfo" resultType = "com.example.backend.dto.CompanyDto">
+	<mapper namespace = "com.example.backend.mapper.CompanyMapper">
+	
+	<!-- <resultMap type = "com.example.backend.dto.CompanyDto" id = "dto">
+		<result column = "company_code" property = "companyCode"
+		javaType="java.lang.Integer" jdbcType="INTEGER"/>
+		<result column = "company_accountant" property="companyAccountant"
+		javaType="java.lang.Integer" jdbcType="INTEGER"/>
+		<result column = "company_name" property= "companyName"
+		javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column = "company_abbreviation" property = "companyAbbreviation"
+		javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column = "company_item" property="companyItem"
+		javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column = "company_busniess" property= "companyBusniess"
+		javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column = "company_pageaddress" property = "companyPageaddress"
+		javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result column = "company_startdate" property = "companyStartdate"
+		javaType="java.sql.Date" />
+		<result column = "company_opening" property = "companyOpening"
+		javaType="java.sql.Date"/>
+		<result column = "company_close" property = "companyClose"
+		javaType="java.sql.Date"/>
+		<result column = "company_idcategory" property = "companyIdcategory"
+		javaType="java.lang.String" jdbcType="VARCHAR"/>	
+	</resultMap> -->
+	
+	<select id = "getallCompanyInfo" resultType = "com.example.backend.dto.CompanyDto">
 		select * from Company
 	</select>
-</mapper>
+	
+	<select id = "getCompanyInfo" resultType = "com.example.backend.dto.CompanyDto" parameterType = "int">
+		select * from Company
+		<where>
+			<if test = "#{company_code} != null || #{company_code} != 0">
+				company_code = #{company_code}
+			</if>
+		</where>
+	</select>
+	
+	</mapper>
