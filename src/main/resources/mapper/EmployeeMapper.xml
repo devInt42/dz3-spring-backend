@@ -11,9 +11,9 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
-	<select id="get" parameterType="int" resultMap="employeeMap">
+	<select id="getById" parameterType="int" resultMap="employeeMap">
 		select * from
-		employee
+		employee where employee_id = #{employeeId}
 	</select>
 
 	<select id="getList"
@@ -29,6 +29,17 @@
 				And employee_name = #{employeeName}
 			</if>
 		</where>
-	</select>
-
+	</select >
+	
+	<delete id="remove" parameterType="int">
+		delete from employee where employee_id = #{employeeId}
+	</delete>
+	
+	<insert id="add" parameterType="map">
+		insert into employee(employee_name) values(#{employeeName})
+	</insert>
+	
+	<update id="set">
+		update employee set employee_name = #{employeeName} where employee_id = #{employeeId}  
+	</update>
 </mapper> 
