@@ -1,13 +1,14 @@
 package com.example.backend.mapper;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
+import java.util.Map;
 
 import com.example.backend.dto.EmployeeDto;
 
 public interface EmployeeMapper {
 	List<EmployeeDto> getList(EmployeeDto dto);
-	EmployeeDto get(int employeeId);
+	EmployeeDto getById(int employeeId);
+	void remove(int employeeId);
+	void add(Map<String, String> map);
+	void set(Map<String, String> map);
 }
