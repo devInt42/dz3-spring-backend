@@ -23,4 +23,9 @@
 		 resultMap="companyMap">
 		select*from company
 		</select>
+		
+		<!-- delete -->
+		<delete id="delete" parameterType="int">
+		delete from company where company_code = #{companyCode}
+		</delete>
 </mapper>
