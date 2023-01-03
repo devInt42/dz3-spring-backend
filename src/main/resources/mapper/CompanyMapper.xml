@@ -11,7 +11,7 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		</resultMap>
 		
-		<!-- select문 -->
+		<!-- select -->
 		<select id= "get" parameterType="int" resultMap="companyMap">
 		 	select * from
 		 	company
@@ -28,4 +28,14 @@
 		<delete id="delete" parameterType="int">
 		delete from company where company_code = #{companyCode}
 		</delete>
+		
+		<!-- insert -->
+		<insert id="add" parameterType="map">
+		insert into company(company_name) values(#{companyName})
+		</insert>
+		
+		<!-- update -->
+		<update id="set">
+		update company set company_name= #{companyName} where company_code = #{companyCode}
+		</update>
 </mapper>
