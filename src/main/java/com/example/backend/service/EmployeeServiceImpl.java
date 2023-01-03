@@ -16,9 +16,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public EmployeeDto getEmployeeById(int employeeId) {
+	public EmployeeDto getEmployeeByCode(int employeeCode) {
 		// TODO Auto-generated method stub
-		return sqlSession.getMapper(EmployeeMapper.class).getById(employeeId);
+		return sqlSession.getMapper(EmployeeMapper.class).getByCode(employeeCode);
 	}
 
 	@Override
@@ -31,8 +31,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	// delete
 	@Override
-	public void removeEmployee(int employeeId) {
-		sqlSession.getMapper(EmployeeMapper.class).remove(employeeId);
+	public void removeEmployee(int employeeCode) {
+		sqlSession.getMapper(EmployeeMapper.class).remove(employeeCode);
 	}
 	
 	// update set

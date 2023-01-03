@@ -7,7 +7,7 @@ import com.example.backend.dto.EmployeeDto;
 
 public interface EmployeeMapper {
 	List<EmployeeDto> getList(EmployeeDto dto);
-	EmployeeDto getById(int employeeId);
+	EmployeeDto getByCode(int employeeCode);
 	void remove(int employeeId);
 	void add(Map<String, String> map);
 	void set(Map<String, String> map);
