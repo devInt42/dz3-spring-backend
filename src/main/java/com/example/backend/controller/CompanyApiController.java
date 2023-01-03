@@ -38,4 +38,11 @@ public class CompanyApiController {
 		System.out.println(111);
 		companyService.insertCompany(dto);
 	}
+	
+	@PostMapping("/update/{company_code}")
+	public void updateCompany(@PathVariable("company_code") int company_code, @RequestBody CompanyDto dto) {
+		dto.setCompany_code(company_code);
+		System.out.println("dto :: " + dto.toString());
+		companyService.updateCompany(dto);
+	}
 }

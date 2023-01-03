@@ -12,20 +12,13 @@ public class CompanyDto {
 //					companyPageaddress, companyStartdate, companyOpening, companyClose;
 //	private String companyIdcategory;
 	private int company_code;
-	private String company_name, company_category, company_call, company_registnum,
+	private String company_name, company_category, company_call, company_regist,
 								company_president, company_domain, company_addr, company_homepage;
 	public int getCompany_code() {
 		return company_code;
 	}
 	public void setCompany_code(int company_code) {
 		this.company_code = company_code;
-	}
-	@Override
-	public String toString() {
-		return "CompanyDto [company_code=" + company_code + ", company_name=" + company_name + ", company_category="
-				+ company_category + ", company_call=" + company_call + ", company_registnum=" + company_registnum
-				+ ", company_president=" + company_president + ", company_domain=" + company_domain + ", company_addr="
-				+ company_addr + ", company_homepage=" + company_homepage + "]";
 	}
 	public String getCompany_name() {
 		return company_name;
@@ -45,11 +38,11 @@ public class CompanyDto {
 	public void setCompany_call(String company_call) {
 		this.company_call = company_call;
 	}
-	public String getCompany_registnum() {
-		return company_registnum;
+	public String getCompany_regist() {
+		return company_regist;
 	}
-	public void setCompany_registnum(String company_registnum) {
-		this.company_registnum = company_registnum;
+	public void setCompany_regist(String company_regist) {
+		this.company_regist = company_regist;
 	}
 	public String getCompany_president() {
 		return company_president;
@@ -75,4 +68,12 @@ public class CompanyDto {
 	public void setCompany_homepage(String company_homepage) {
 		this.company_homepage = company_homepage;
 	}
+	@Override
+	public String toString() {
+		return "CompanyDto [company_code=" + company_code + ", company_name=" + company_name + ", company_category="
+				+ company_category + ", company_call=" + company_call + ", company_regist=" + company_regist
+				+ ", company_president=" + company_president + ", company_domain=" + company_domain + ", company_addr="
+				+ company_addr + ", company_homepage=" + company_homepage + "]";
+	}
+	
 }

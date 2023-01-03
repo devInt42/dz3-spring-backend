@@ -32,4 +32,10 @@ public class CompanyServiceImpl implements CompanyService {
 		sqlSession.getMapper(CompanyMapper.class).insertCompanyInfo(dto);
 	}
 
+	@Override
+	public void updateCompany(CompanyDto dto) {
+		sqlSession.getMapper(CompanyMapper.class).updateCompany(dto);
+		
+	}
+
 }

@@ -9,4 +9,5 @@ public interface CompanyMapper {
 	CompanyDto getCompanyInfo(int company_code);
 	
 	void insertCompanyInfo( CompanyDto dto);
+	void updateCompany(CompanyDto dto);
 }

@@ -1,7 +1,6 @@
 package com.example.backend.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.example.backend.dto.CompanyDto;
 
@@ -10,4 +9,5 @@ public interface CompanyService {
 	CompanyDto getCompanyInfo(int company_code);
 	
 	void insertCompany( CompanyDto dto);
+	void updateCompany(CompanyDto dto);
 }

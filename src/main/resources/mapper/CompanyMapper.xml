@@ -30,11 +30,11 @@
 	</resultMap> -->
 	
 	<select id = "getallCompanyInfo" resultType = "com.example.backend.dto.CompanyDto">
-		SELECT * FROM COMPANY
+		SELECT * FROM company
 	</select>
 	
 	<select id = "getCompanyInfo" resultType = "com.example.backend.dto.CompanyDto" parameterType = "int">
-		SELECT * FROM COMPANY
+		SELECT * FROM company
 		<where>
 			<if test = "#{company_code} != null || #{company_code} != 0">
 				COMPANY_CODE = #{company_code}
@@ -43,7 +43,13 @@
 	</select>
 	
 	<insert id = "insertCompanyInfo" parameterType = "com.example.backend.dto.CompanyDto">
-		INSERT INTO COMPANY VALUES(#{company_code}, #{company_name}, #{company_category}, #{company_call}, #{company_registnum}, #{company_president}, #{company_domain}, #{company_addr}, #{company_homepage})
+		INSERT INTO company VALUES(#{company_code}, #{company_name}, #{company_category}, #{company_call}, #{company_regist}, #{company_president}, #{company_domain}, #{company_addr}, #{company_homepage})
 	</insert>
 	
+	<update id = "updateCompany" parameterType = "com.example.backend.dto.CompanyDto">
+		update company set company_name = #{company_name} ,company_category = #{company_category}, 
+		company_call = #{company_call}, company_regist = #{company_regist}, company_addr = #{company_addr}, 
+		company_homepage = #{company_homepage}
+		where company_code = #{company_code} 
+	</update>
 	</mapper>
