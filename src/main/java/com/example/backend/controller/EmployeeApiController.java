@@ -31,9 +31,9 @@ public class EmployeeApiController {
 	}
 	
 	// 사번으로 사원 조회
-	@GetMapping("/emplist/{employeeId}")
-	public EmployeeDto getEmployee(@PathVariable(required = true) int employeeId) {
-		return employeeService.getEmployeeById(employeeId);
+	@GetMapping("/emplist/{employeeCode}")
+	public EmployeeDto getEmployee(@PathVariable(required = true) int employeeCode) {
+		return employeeService.getEmployeeByCode(employeeCode);
 	}
 	
 	// 사원 추가
@@ -43,9 +43,9 @@ public class EmployeeApiController {
 	}
 	
 	// 삭제
-	@DeleteMapping("/emplist/{employeeId}")
-	public void removeEmployee(@PathVariable(required=true)  int employeeId) {
-		employeeService.removeEmployee(employeeId);
+	@DeleteMapping("/emplist/{employeeCode}")
+	public void removeEmployee(@PathVariable(required=true)  int employeeCode) {
+		employeeService.removeEmployee(employeeCode);
 	}
 
 	// 수정
