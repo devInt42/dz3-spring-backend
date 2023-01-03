@@ -52,4 +52,8 @@
 		company_homepage = #{company_homepage}
 		where company_code = #{company_code} 
 	</update>
+	
+	<delete id = "DeleteCompany" parameterType = "int">
+	 delete from company where company_code = #{company_code}
+	</delete>
 	</mapper>

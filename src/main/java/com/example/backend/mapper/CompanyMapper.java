@@ -10,4 +10,5 @@ public interface CompanyMapper {
 	
 	void insertCompanyInfo( CompanyDto dto);
 	void updateCompany(CompanyDto dto);
+	void DeleteCompany(int company_code);
 }

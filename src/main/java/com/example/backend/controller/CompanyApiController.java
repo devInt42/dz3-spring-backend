@@ -45,4 +45,9 @@ public class CompanyApiController {
 		System.out.println("dto :: " + dto.toString());
 		companyService.updateCompany(dto);
 	}
+	
+	@GetMapping("/delete/{company_code}")
+	public void deleteCompany(@PathVariable("company_code") int company_code) {
+		companyService.DeleteCompany(company_code);
+	}
 }
