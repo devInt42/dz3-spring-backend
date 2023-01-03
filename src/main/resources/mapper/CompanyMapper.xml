@@ -30,16 +30,20 @@
 	</resultMap> -->
 	
 	<select id = "getallCompanyInfo" resultType = "com.example.backend.dto.CompanyDto">
-		select * from Company
+		SELECT * FROM COMPANY
 	</select>
 	
 	<select id = "getCompanyInfo" resultType = "com.example.backend.dto.CompanyDto" parameterType = "int">
-		select * from Company
+		SELECT * FROM COMPANY
 		<where>
 			<if test = "#{company_code} != null || #{company_code} != 0">
-				company_code = #{company_code}
+				COMPANY_CODE = #{company_code}
 			</if>
 		</where>
 	</select>
+	
+	<insert id = "insertCompanyInfo" parameterType = "com.example.backend.dto.CompanyDto">
+		INSERT INTO COMPANY VALUES(#{company_code}, #{company_name}, #{company_category}, #{company_call}, #{company_registnum}, #{company_president}, #{company_domain}, #{company_addr}, #{company_homepage})
+	</insert>
 	
 	</mapper>

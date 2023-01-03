@@ -27,4 +27,9 @@ public class CompanyServiceImpl implements CompanyService {
 		return sqlSession.getMapper(CompanyMapper.class).getCompanyInfo(company_code);
 	}
 
+	@Override
+	public void insertCompany( CompanyDto dto) {
+		sqlSession.getMapper(CompanyMapper.class).insertCompanyInfo(dto);
+	}
+
 }

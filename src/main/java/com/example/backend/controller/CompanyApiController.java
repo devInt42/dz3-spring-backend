@@ -1,11 +1,14 @@
 package com.example.backend.controller;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.dto.CompanyDto;
@@ -24,8 +27,15 @@ public class CompanyApiController {
 	}
 	
 	@GetMapping("/info/{company_code}")
-	public CompanyDto getCompany(@RequestParam int company_code) {
+	public CompanyDto getCompany(@PathVariable("company_code") int company_code) {
 		
 		return companyService.getCompanyInfo(company_code);
+	}
+	
+	@PostMapping("/insert")
+	public void insertCompany(@RequestBody CompanyDto dto) {
+		System.out.println("dto :: " + dto.toString() );
+		System.out.println(111);
+		companyService.insertCompany(dto);
 	}
 }
