@@ -14,28 +14,28 @@
 		<!-- select -->
 		<select id= "get" parameterType="int" resultMap="companyMap">
 		 	select * from
-		 	company
-		 	where company_code = #{companyCode}	
+		 	COMPANY
+		 	where COMPANY_CODE = #{companyCode}	
 		</select>
 		
 		<!-- List -->
 		<select id="getCompanyList" parameterType="com.example.backend.dto.CompanyDto"
 		 resultMap="companyMap">
-		select*from company
+		select*from COMPANY
 		</select>
 		
 		<!-- delete -->
 		<delete id="delete" parameterType="int">
-		delete from company where company_code = #{companyCode}
+		delete from COMPANY where COMPANY_CODE = #{companyCode}
 		</delete>
 		
 		<!-- insert -->
 		<insert id="add" parameterType="map">
-		insert into company(company_name) values(#{companyName})
+		insert into COMPANY(COMPANY_NAME) values(#{companyName})
 		</insert>
 		
 		<!-- update -->
 		<update id="set">
-		update company set company_name= #{companyName} where company_code = #{companyCode}
+		update COMPANY set COMPANY_NAME= #{companyName} where COMPANY_CODE = #{companyCode}
 		</update>
 </mapper>
