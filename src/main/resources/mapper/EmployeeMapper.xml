@@ -54,7 +54,7 @@
 
 	<delete id="remove" parameterType="int">
 		delete from employee where
-		employee_id = #{employeeId}
+		employee_code = #{employeeCode}
 	</delete>
 
 	<insert id="add" parameterType="map">
@@ -64,6 +64,6 @@
 
 	<update id="set">
 		update employee set employee_name = #{employeeName}
-		where employee_id = #{employeeId}
+		where employee_code = #{employeeCode}
 	</update>
 </mapper> 

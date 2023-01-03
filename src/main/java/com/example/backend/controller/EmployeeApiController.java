@@ -31,7 +31,7 @@ public class EmployeeApiController {
 	}
 	
 	// 사번으로 사원 조회
-	@GetMapping("/emplist/{employeeId}")
+	@GetMapping("/emplist/{employeeCode}")
 	public EmployeeDto getEmployee(@PathVariable(required = true) int employeeCode) {
 		return employeeService.getEmployeeByCode(employeeCode);
 	}
@@ -43,7 +43,7 @@ public class EmployeeApiController {
 	}
 	
 	// 삭제
-	@DeleteMapping("/emplist/{employeeId}")
+	@DeleteMapping("/emplist/{employeeCode}")
 	public void removeEmployee(@PathVariable(required=true)  int employeeCode) {
 		employeeService.removeEmployee(employeeCode);
 	}
