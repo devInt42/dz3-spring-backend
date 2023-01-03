@@ -5,15 +5,36 @@
 <mapper namespace="com.example.backend.mapper.EmployeeMapper">
 	<resultMap id="employeeMap"
 		type="com.example.backend.dto.EmployeeDto">
-		<result property="employeeId" column="employee_id"
+		<result property="employeeCode" column="employee_code"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="employeeId" column="employee_id"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeName" column="employee_name"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeBirth" column="employee_birth"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeCall" column="employee_call"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeePwd" column="employee_pwd"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeePh" column="employee_ph"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeePmail" column="employee_pmail"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeCmail" column="employee_cmail"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeAddr" column="employee_addr"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeDept" column="employee_dept"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="employeePosition" column="employee_position"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
-	<select id="getById" parameterType="int" resultMap="employeeMap">
+	<select id="getByCode" parameterType="int"
+		resultMap="employeeMap">
 		select * from
-		employee where employee_id = #{employeeId}
+		employee where employee_code = #{employeeCode}
 	</select>
 
 	<select id="getList"
@@ -22,24 +43,27 @@
 		select * from
 		employee
 		<where>
-			<if test="employeeId != null and employeeId !=''">
-				AND employee_id = #{employeeId}
+			<if test="employeeCode != null and employeeCode !=''">
+				AND employee_code = #{employeeCode}
 			</if>
 			<if test="employeeName != null and employeeName !=''">
 				And employee_name = #{employeeName}
 			</if>
 		</where>
-	</select >
-	
+	</select>
+
 	<delete id="remove" parameterType="int">
-		delete from employee where employee_id = #{employeeId}
+		delete from employee where
+		employee_code = #{employeeCode}
 	</delete>
-	
+
 	<insert id="add" parameterType="map">
-		insert into employee(employee_name) values(#{employeeName})
+		insert into
+		employee(employee_name) values(#{employeeName})
 	</insert>
-	
+
 	<update id="set">
-		update employee set employee_name = #{employeeName} where employee_id = #{employeeId}  
+		update employee set employee_name = #{employeeName}
+		where employee_code = #{employeeCode}
 	</update>
 </mapper> 

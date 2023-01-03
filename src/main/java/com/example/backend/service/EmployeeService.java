@@ -5,7 +5,7 @@ import java.util.Map;
 import com.example.backend.dto.EmployeeDto;
 
 public interface EmployeeService {
-	EmployeeDto getEmployeeById(int employeeId);
+	EmployeeDto getEmployeeByCode(int employeeCode);
 	List<EmployeeDto> getEmployeeList(EmployeeDto dto);
 	void removeEmployee(int employeeId);
 	void setEmployee(Map<String, String> map);
