@@ -4,24 +4,24 @@
 
 <mapper namespace="com.example.backend.mapper.DeptMapper">
 
-<select id="getList" resultType="com.example.backend.dto.DeptDto">
-	select * from dept
-</select>
-
-<insert id="insertDept" parameterType="map">
-	insert into dept (dept_name, location) values (#{deptName}, #{location})
-</insert>
-
-<delete id="deleteDept" parameterType="Integer">
-	delete from dept where dept_code = #{dept_code}
-</delete>
-
-<update id="updateDept" parameterType="com.example.backend.dto.DeptDto">
-	update dept set dept_name=#{dept_name}, location=#{location} where dept_code = #{dept_code}
-</update>
-
-<select id="getSearchDept" parameterType="Integer" resultType="com.example.backend.dto.DeptDto">
-	select dept_name, location from dept where dept_code = #{dept_code}
-</select>
+	<select id="getList" resultType="com.example.backend.dto.DeptDto">
+		select * from dept
+	</select>
+	
+	<insert id="insertDept" parameterType="map">
+		insert into dept (dept_name, location) values (#{deptName}, #{location})
+	</insert>
+	
+	<delete id="deleteDept" parameterType="Integer">
+		delete from dept where dept_code = #{dept_code}
+	</delete>
+	
+	<update id="updateDept" parameterType="com.example.backend.dto.DeptDto">
+		update dept set dept_name=#{dept_name}, location=#{location} where dept_code = #{dept_code}
+	</update>
+	
+	<select id="getSearchDept" parameterType="Integer" resultType="com.example.backend.dto.DeptDto">
+		select dept_name, location from dept where dept_code = #{dept_code}
+	</select>
 
 </mapper>

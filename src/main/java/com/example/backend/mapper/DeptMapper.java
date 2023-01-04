@@ -11,15 +11,15 @@ import com.example.backend.dto.DeptDto;
 public interface DeptMapper {
 	List<DeptDto> getList();
 
-	// user 삽입
+	// 부서 삽입
 	void insertDept(Map<String, String> map);
 
-	// user 삭제
+	// 부서 삭제
 	int deleteDept(int dept_code);
 
-	// user 수정
+	// 부서 수정
 	int updateDept(DeptDto dto);
 
-	// user 검색
+	// 부서 검색
 	List<DeptDto> getSearchDept(int dept_code);
 }
