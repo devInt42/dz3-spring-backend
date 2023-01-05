@@ -1,5 +1,39 @@
-package com.example.backend.mapper;
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-public interface CompanyMapper {
- 
-}
+<mapper namespace="com.example.backend.mapper.CompanyMapper">
+	<resultMap id="companyMap"
+		type="com.example.backend.dto.CompanyDto">
+		<result property="companySeq" column="company_seq"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="companyCode" column="company_code"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="companyName" column="company_name"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyBusiness" column="company_business"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyItem" column="company_item"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyCall" column="company_call"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyRegist" column="company_regist"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyCorporate" column="company_corporate"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyPresident" column="company_president"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyHomepage" column="company_homepage"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyAddr" column="company_addr"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyEstablicsh" column="company_establish"
+			javaType="java.util.Date" jdbcType="DATE" />
+		<result property="companyClosingDay" column="company_closingday"
+			javaType="java.util.Date" jdbcType="DATE" />
+		<result property="flag" column="flag"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+	</resultMap>
+
+
+</mapper> 

@@ -14,10 +14,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-
 	@Override
-	   public List<DepartmentDto> getDepartmentList(DepartmentDto dto) {
-	      // TODO Auto-generated method stub
-	      return sqlSession.getMapper(DepartmentMapper.class).getList(dto);
+	public List<DepartmentDto> getDepartmentList(DepartmentDto dto) {
+	// TODO Auto-generated method stub
+	return sqlSession.getMapper(DepartmentMapper.class).getList(dto);
 	   }
 }
