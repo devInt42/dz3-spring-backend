@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.example.backend.dto.EmployeeDto;
 
-public interface EmployeeMapper {
+public interface ExampleMapper {
 	List<EmployeeDto> getList(EmployeeDto dto);
 	EmployeeDto getByCode(int employeeCode);
 	void remove(int employeeId);
