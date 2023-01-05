@@ -23,8 +23,8 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public CompanyDto getCompanyInfo(int company_code) {
-		return sqlSession.getMapper(CompanyMapper.class).getCompanyInfo(company_code);
+	public CompanyDto getCompanyInfo(int companySeq) {
+		return sqlSession.getMapper(CompanyMapper.class).getCompanyInfo(companySeq);
 	}
 
 	@Override
@@ -39,9 +39,9 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public void DeleteCompany(int company_code) {
+	public void DeleteCompany(int companySeq) {
 		
-		sqlSession.getMapper(CompanyMapper.class).DeleteCompany(company_code);
+		sqlSession.getMapper(CompanyMapper.class).DeleteCompany(companySeq);
 		
 	}
 

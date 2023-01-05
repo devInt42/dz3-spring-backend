@@ -26,10 +26,10 @@ public class CompanyApiController {
 		return companyService.getCompanyInformation();
 	}
 	
-	@GetMapping("/info/{company_code}")
-	public CompanyDto getCompany(@PathVariable("company_code") int company_code) {
+	@GetMapping("/info/{companySeq}")
+	public CompanyDto getCompany(@PathVariable("companySeq") int companySeq) {
 		
-		return companyService.getCompanyInfo(company_code);
+		return companyService.getCompanyInfo(companySeq);
 	}
 	
 	@PostMapping("/insert")
@@ -39,15 +39,15 @@ public class CompanyApiController {
 		companyService.insertCompany(dto);
 	}
 	
-	@PostMapping("/update/{company_code}")
-	public void updateCompany(@PathVariable("company_code") int company_code, @RequestBody CompanyDto dto) {
-		dto.setCompany_code(company_code);
+	@PostMapping("/update/{companySeq}")
+	public void updateCompany(@PathVariable("companySeq") int companySeq, @RequestBody CompanyDto dto) {
+		 dto.setCompanySeq(companySeq);
 		System.out.println("dto :: " + dto.toString());
 		companyService.updateCompany(dto);
 	}
 	
-	@GetMapping("/delete/{company_code}")
-	public void deleteCompany(@PathVariable("company_code") int company_code) {
-		companyService.DeleteCompany(company_code);
+	@GetMapping("/delete/{companySeq}")
+	public void deleteCompany(@PathVariable("companySeq") int companySeq) {
+		companyService.DeleteCompany(companySeq);
 	}
 }

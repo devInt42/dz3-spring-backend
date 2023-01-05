@@ -6,9 +6,9 @@ import com.example.backend.dto.CompanyDto;
 
 public interface CompanyMapper {
 	List<CompanyDto> getallCompanyInfo();
-	CompanyDto getCompanyInfo(int company_code);
+	CompanyDto getCompanyInfo(int companySeq);
 	
 	void insertCompanyInfo( CompanyDto dto);
 	void updateCompany(CompanyDto dto);
-	void DeleteCompany(int company_code);
+	void DeleteCompany(int companySeq);
 }
