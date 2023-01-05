@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.backend.mapper.AuthMenuMapper">
+	<resultMap id="authMenuMap"
+		type="com.example.backend.dto.mapping.AuthMenuDto">
+		<result property="menuSeq" column="menu_seq"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="authSeq" column="auth_seq"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		
+	</resultMap>
+
+
+</mapper> 
