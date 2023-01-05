@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmployeeServiceImpl implements EmployeeService {
+public class AuthServiceImpl implements AuthService {
 //	@Autowired
 //	private SqlSessionTemplate sqlSession;
 

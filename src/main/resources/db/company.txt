@@ -1,0 +1,20 @@
+CREATE TABLE `company` (
+	`company_seq` INT(11) NOT NULL AUTO_INCREMENT,
+	`company_code` INT(11) NOT NULL,
+	`company_name` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`company_business` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`company_item` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`company_call` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`company_regist` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`company_corporate` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`company_president` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`company_homepage` VARCHAR(200) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`company_addr` VARCHAR(200) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`company_establish` DATE NULL DEFAULT NULL,
+	`company_closingday` DATE NULL DEFAULT NULL,
+	`flag` INT(11) NULL DEFAULT NULL,
+	PRIMARY KEY (`company_seq`) USING BTREE
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;

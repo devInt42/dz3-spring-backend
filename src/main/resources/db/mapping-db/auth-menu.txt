@@ -1,0 +1,7 @@
+CREATE TABLE `auth_menu` (
+	`menu_seq` INT(11) NOT NULL,
+	`auth_seq` INT(11) NOT NULL
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
