@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.backend.mapper.EmployeeMapper">
+	<resultMap id="employeeMap"
+		type="com.example.backend.dto.EmployeeDto">
+		<result property="employeeSeq" column="employee_seq"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="employeeCode" column="employee_code"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="employeeId" column="employee_id"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeName" column="employee_name"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeBirth" column="employee_birth"
+			javaType="java.util.Date" jdbcType="DATE" />
+		<result property="employeeCall" column="employee_call"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeePwd" column="employee_pwd"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeePh" column="employee_ph"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeePmail" column="employee_pmail"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeCmail" column="employee_cmail"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeAddr" column="employee_addr"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeePicture" column="employee_picture"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeJoin" column="employee_join"
+			javaType="java.util.Date" jdbcType="DATE" />
+		<result property="employeeLeave" column="employee_leave"
+			javaType="java.util.Date" jdbcType="DATE" />
+		<result property="flag" column="flag"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+	</resultMap>
+
+
+</mapper> 

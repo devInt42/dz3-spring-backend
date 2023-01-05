@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.backend.mapper.WorkplaceMapper">
+	<resultMap id="workplaceMap"
+		type="com.example.backend.dto.WorkplaceDto">
+		<result property="workplaceSeq" column="workplace_seq"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="companySeq" column="company_seq"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="workplaceCode" column="workplace_code"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="workplaceName" column="workplace_name"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="workplaceAddr" column="workplace_addr"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="workplacePresident"
+			column="workplace_president" javaType="java.lang.Integer"
+			jdbcType="INTEGER" />
+		<result property="workplaceCall" column="workplace_call"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="workplaceEmail"
+			column="workplace_email" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+
+</mapper> 

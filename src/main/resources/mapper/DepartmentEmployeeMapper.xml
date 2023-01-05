@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.example.backend.mapper.DepartmentEmployeeMapper">
+	<resultMap id="departmentEmployeeMap"
+		type="com.example.backend.dto.mapping.DepartmentEmployeeDto">
+		<result property="employeeSeq" column="employee_seq"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="workplaceSeq" column="workplace_seq"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="departmentSeq" column="department_seq"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="compnaySeq" column="company_seq"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="subDepartmentSeq" column="sub_department_seq"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="title" column="title"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+</mapper> 
