@@ -2,53 +2,76 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	<!-- <mapper namespace = "com.example.backend.mapper.CompanyMapper"> -->
-	<mapper namespace = "com.example.backend.mapper.companymapper">
-	<resultMap type = "com.example.backend.dto.CompanyDTO" id = "dto">
-		<result column = "company_seq" property = "companySeq"/>
-		<result column = "company_code" property = "companyCode"/>
-		<result column = "company_name" property= "companyName"/>
-		<result column = "company_business" property= "companyBusiness"/>
-		<result column = "company_item" property="companyItem"/>
-		<result column = "company_call" property= "companyCall"/>
-		<result column = "company_regist" property = "companyRegist"/>
-		<result column = "company_corporate" property="companyCorporate"/>
-		<result column = "company_president" property = "companyPresident"/>
-		<result column = "company_homepage" property= "companyHomepage"/>
-		<result column = "company_addr" property="companyAddr"/>
-		<result column = "company_establish" property= "companyEstablish"/>
-		<result column = "company_closingday" property="companyClosingday"/>
-		<result column = "company_flag" property= "companyflag"/>
+<mapper namespace="com.example.backend.mapper.CompanyMapper">
+	<resultMap id="companyMap"
+		type="com.example.backend.dto.CompanyDto">
+		<result property="companySeq" column="company_seq"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="companyCode" column="company_code"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="companyName" column="company_name"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyBusiness" column="company_business"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyItem" column="company_item"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyCall" column="company_call"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyRegist" column="company_regist"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyCorporate" column="company_corporate"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyPresident" column="company_president"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyHomepage" column="company_homepage"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyAddr" column="company_addr"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyEstablicsh" column="company_establish"
+			javaType="java.util.Date" jdbcType="DATE" />
+		<result property="companyClosingDay"
+			column="company_closingday" javaType="java.util.Date" jdbcType="DATE" />
+		<result property="flag" column="flag"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
 	</resultMap>
-	
-	<select id = "getallCompanyInfo" resultMap = "dto">
+
+	<select id="getallCompanyInfo" resultMap="dto">
 		SELECT * FROM company1
 	</select>
-	
-	<select id = "getCompanyInfo" resultMap = "dto" parameterType = "int">
+
+	<select id="getCompanyInfo" resultMap="dto" parameterType="int">
 		SELECT * FROM company1
 		<where>
-			<if test = "#{companySeq} != null || #{companySeq} != 0">
+			<if test="#{companySeq} != null || #{companySeq} != 0">
 				company_seq = #{companySeq}
 			</if>
 		</where>
 	</select>
-	
-	<insert id = "insertCompanyInfo" parameterType = "com.example.backend.dto.CompanyDTO">
-		INSERT INTO company1 VALUES(#{companySeq},#{companyCode}, #{companyName}, #{companyBusiness}, #{companyItem}, #{companyCall}, #{companyRegist}, #{companyCorporate}, #{companyPresident}, #{companyHomepage},
+
+	<insert id="insertCompanyInfo"
+		parameterType="com.example.backend.dto.CompanyDTO">
+		INSERT INTO company1
+		VALUES(#{companySeq},#{companyCode}, #{companyName},
+		#{companyBusiness}, #{companyItem}, #{companyCall}, #{companyRegist},
+		#{companyCorporate}, #{companyPresident}, #{companyHomepage},
 		#{companyAddr}, #{companyEstablish}, #{companyClosingday}, true);
 	</insert>
-	
-	<update id = "updateCompany" parameterType = "com.example.backend.dto.CompanyDTO">
-		update company1 set company_code = #{companyCode},company_name = #{companyName} ,company_business = #{companyBusiness}, 
-		company_item = #{companyItem}, company_call = #{companyCall}, company_regist = #{companyRegist}, 
-		company_corporate = #{companyCorporate}, company_homepage = #{companyHomepage}, 
-		company_addr = #{companyAddr}, company_establish =#{companyEstablish}, company_closingday = #{companyClosingday},
+
+	<update id="updateCompany"
+		parameterType="com.example.backend.dto.CompanyDTO">
+		update company1 set company_code =#{companyCode},
+		company_name = #{companyName} ,company_business =#{companyBusiness},
+		company_item = #{companyItem}, company_call =#{companyCall}, 
+		company_regist =#{companyRegist},company_corporate = #{companyCorporate}, 
+		company_homepage = #{companyHomepage},company_addr = #{companyAddr}, 
+		company_establish =#{companyEstablish}, company_closingday = #{companyClosingday},
 		flag = #{companyFlag}
-		where company_seq = #{companySeq} 
+		where
+		company_seq = #{companySeq}
 	</update>
-	
-	<delete id = "DeleteCompany" parameterType = "int">
-	 delete from company1 where company_seq = #{companySeq}
+
+	<delete id="DeleteCompany" parameterType="int">
+		delete from company1
+		where company_seq = #{companySeq}
 	</delete>
-	</mapper>
+</mapper>

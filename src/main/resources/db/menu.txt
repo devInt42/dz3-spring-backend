@@ -1,0 +1,9 @@
+CREATE TABLE `menu` (
+	`menu_seq` INT(11) NOT NULL AUTO_INCREMENT,
+	`menu_code` VARCHAR(50) NOT NULL DEFAULT '' COLLATE 'utf8_general_ci',
+	`menu_name` VARCHAR(50) NOT NULL DEFAULT '' COLLATE 'utf8_general_ci',
+	PRIMARY KEY (`menu_seq`) USING BTREE
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;

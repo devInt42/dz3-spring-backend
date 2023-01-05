@@ -2,13 +2,13 @@ package com.example.backend.mapper;
 
 import java.util.List;
 
-import com.example.backend.dto.CompanyDTO;
+import com.example.backend.dto.CompanyDto;
 
-public interface companymapper {
-	List<CompanyDTO> getallCompanyInfo();
-	CompanyDTO getCompanyInfo(int companySeq);
+public interface CompanyMapper {
+	List<CompanyDto> getallCompanyInfo();
+	CompanyDto getCompanyInfo(int companySeq);
 	
-	void insertCompanyInfo( CompanyDTO dto);
-	void updateCompany(CompanyDTO dto);
+	void insertCompanyInfo( CompanyDto dto);
+	void updateCompany(CompanyDto dto);
 	void DeleteCompany(int companySeq);
 }

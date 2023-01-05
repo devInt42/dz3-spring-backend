@@ -1,5 +1,5 @@
 package com.example.backend.mapper;
 
-public interface EmployeeMapper {
+public interface AuthMenuMapper {
  
 }

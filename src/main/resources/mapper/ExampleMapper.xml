@@ -2,11 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.backend.mapper.EmployeeMapper">
+<mapper namespace="com.example.backend.mapper.ExampleMapper">
 	<resultMap id="employeeMap"
-		type="com.example.backend.dto.EmployeeDto">
-		<result property="employeeSeq" column="employee_seq"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		type="com.example.backend.dto.ExampleDto">
 		<result property="employeeCode" column="employee_code"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="employeeId" column="employee_id"
@@ -14,7 +12,7 @@
 		<result property="employeeName" column="employee_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeBirth" column="employee_birth"
-			javaType="java.util.Date" jdbcType="DATE" />
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeCall" column="employee_call"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeePwd" column="employee_pwd"
@@ -27,15 +25,45 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeAddr" column="employee_addr"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
-		<result property="employeePicture" column="employee_picture"
-			javaType="java.lang.String" jdbcType="VARCHAR" />
-		<result property="employeeJoin" column="employee_join"
-			javaType="java.util.Date" jdbcType="DATE" />
-		<result property="employeeLeave" column="employee_leave"
-			javaType="java.util.Date" jdbcType="DATE" />
-		<result property="flag" column="flag"
+		<result property="employeeDept" column="employee_dept"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="employeePosition" column="employee_position"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
+	<select id="getByCode" parameterType="int"
+		resultMap="employeeMap">
+		select * from
+		employee where employee_code = #{employeeCode}
+	</select>
 
+	<select id="getList"
+		parameterType="com.example.backend.dto.EmployeeDto"
+		resultMap="employeeMap">
+		select * from
+		employee
+		<where>
+			<if test="employeeCode != null and employeeCode !=''">
+				AND employee_code = #{employeeCode}
+			</if>
+			<if test="employeeName != null and employeeName !=''">
+				And employee_name = #{employeeName}
+			</if>
+		</where>
+	</select>
+
+	<delete id="remove" parameterType="int">
+		delete from employee where
+		employee_code = #{employeeCode}
+	</delete>
+
+	<insert id="add" parameterType="map">
+		insert into
+		employee(employee_name) values(#{employeeName})
+	</insert>
+
+	<update id="set">
+		update employee set employee_name = #{employeeName}
+		where employee_code = #{employeeCode}
+	</update>
 </mapper> 

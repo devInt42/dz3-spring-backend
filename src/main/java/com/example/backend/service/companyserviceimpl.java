@@ -6,41 +6,41 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.backend.dto.CompanyDTO;
-import com.example.backend.mapper.companymapper;
+import com.example.backend.dto.CompanyDto;
+import com.example.backend.mapper.CompanyMapper;
 
 
 @Component
-public class companyserviceimpl implements companyservice {
+public class CompanyServiceImpl implements CompanyService {
 
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<CompanyDTO> getCompanyInformation() {
-		return sqlSession.getMapper(companymapper.class).getallCompanyInfo();
+	public List<CompanyDto> getCompanyInformation() {
+		return sqlSession.getMapper(CompanyMapper.class).getallCompanyInfo();
 	}
 
 	@Override
-	public CompanyDTO getCompanyInfo(int companySeq) {
-		return sqlSession.getMapper(companymapper.class).getCompanyInfo(companySeq);
+	public CompanyDto getCompanyInfo(int companySeq) {
+		return sqlSession.getMapper(CompanyMapper.class).getCompanyInfo(companySeq);
 	}
 
 	@Override
-	public void insertCompany( CompanyDTO dto) {
-		sqlSession.getMapper(companymapper.class).insertCompanyInfo(dto);
+	public void insertCompany( CompanyDto dto) {
+		sqlSession.getMapper(CompanyMapper.class).insertCompanyInfo(dto);
 	}
 
 	@Override
-	public void updateCompany(CompanyDTO dto) {
-		sqlSession.getMapper(companymapper.class).updateCompany(dto);
+	public void updateCompany(CompanyDto dto) {
+		sqlSession.getMapper(CompanyMapper.class).updateCompany(dto);
 		
 	}
 
 	@Override
 	public void DeleteCompany(int companySeq) {
-		sqlSession.getMapper(companymapper.class).DeleteCompany(companySeq);
+		sqlSession.getMapper(CompanyMapper.class).DeleteCompany(companySeq);
 	}
 
 }
