@@ -3,7 +3,7 @@ package com.example.backend.dto;
 import lombok.Data;
 
 @Data
-public class MenuDto {
+public class MenuTestDto {
 	private int menu_id;
 	private String menu_name;
 	private int menu_parent;

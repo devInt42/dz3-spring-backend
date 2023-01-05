@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.example.backend.dto.MenuDto;
+import com.example.backend.dto.MenuTestDto;
 
 @Mapper
-public interface MenuMapper {
-	List<MenuDto> getMenuList();
+public interface MenuTestMapper {
+	List<MenuTestDto> getMenuList();
 }

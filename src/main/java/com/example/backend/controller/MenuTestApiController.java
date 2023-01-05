@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.backend.dto.MenuDto;
-import com.example.backend.service.MenuServiceImpl;
+import com.example.backend.dto.MenuTestDto;
+import com.example.backend.service.MenuTestServiceImpl;
 
 @RestController
 @RequestMapping("/menu")
-public class MenuApiController {
+public class MenuTestApiController {
 	
 	@Autowired
-	private MenuServiceImpl menuService;
+	private MenuTestServiceImpl menuService;
 	
 	@GetMapping("/menulist")
-	public List<MenuDto> getMenuList(){
+	public List<MenuTestDto> getMenuList(){
 		return menuService.getMenuList();
 	}
 }
