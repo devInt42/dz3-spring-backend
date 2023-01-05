@@ -14,7 +14,7 @@ public class CompanyDto {
 	private String companyCall;
 	private String companyRegist;
 	private String companyCorporate;
-	private int companyPresident;
+	private String companyPresident;
 	private String companyHomepage;
 	private String companyAddr;
 	private Date companyEstablish;

@@ -13,7 +13,7 @@ import com.example.backend.dto.CompanyDto;
 import com.example.backend.service.CompanyServiceImpl;
 
 @RestController
-@RequestMapping("/api/company")
+@RequestMapping("/company")
 public class CompanyApiController {
 	
 	@Autowired
