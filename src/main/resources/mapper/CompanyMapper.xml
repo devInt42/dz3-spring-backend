@@ -4,36 +4,28 @@
 
 	<!-- <mapper namespace = "com.example.backend.mapper.CompanyMapper"> -->
 	<mapper namespace = "com.example.backend.mapper.companymapper">
-	<!-- <resultMap type = "com.example.backend.dto.CompanyDto" id = "dto">
-		<result column = "company_code" property = "companyCode"
-		javaType="java.lang.Integer" jdbcType="INTEGER"/>
-		<result column = "company_accountant" property="companyAccountant"
-		javaType="java.lang.Integer" jdbcType="INTEGER"/>
-		<result column = "company_name" property= "companyName"
-		javaType="java.lang.String" jdbcType="VARCHAR"/>
-		<result column = "company_abbreviation" property = "companyAbbreviation"
-		javaType="java.lang.String" jdbcType="VARCHAR"/>
-		<result column = "company_item" property="companyItem"
-		javaType="java.lang.String" jdbcType="VARCHAR"/>
-		<result column = "company_busniess" property= "companyBusniess"
-		javaType="java.lang.String" jdbcType="VARCHAR"/>
-		<result column = "company_pageaddress" property = "companyPageaddress"
-		javaType="java.lang.String" jdbcType="VARCHAR"/>
-		<result column = "company_startdate" property = "companyStartdate"
-		javaType="java.sql.Date" />
-		<result column = "company_opening" property = "companyOpening"
-		javaType="java.sql.Date"/>
-		<result column = "company_close" property = "companyClose"
-		javaType="java.sql.Date"/>
-		<result column = "company_idcategory" property = "companyIdcategory"
-		javaType="java.lang.String" jdbcType="VARCHAR"/>	
-	</resultMap> -->
+	<resultMap type = "com.example.backend.dto.CompanyDTO" id = "dto">
+		<result column = "company_seq" property = "companySeq"/>
+		<result column = "company_code" property = "companyCode"/>
+		<result column = "company_name" property= "companyName"/>
+		<result column = "company_business" property= "companyBusiness"/>
+		<result column = "company_item" property="companyItem"/>
+		<result column = "company_call" property= "companyCall"/>
+		<result column = "company_regist" property = "companyRegist"/>
+		<result column = "company_corporate" property="companyCorporate"/>
+		<result column = "company_president" property = "companyPresident"/>
+		<result column = "company_homepage" property= "companyHomepage"/>
+		<result column = "company_addr" property="companyAddr"/>
+		<result column = "company_establish" property= "companyEstablish"/>
+		<result column = "company_closingday" property="companyClosingday"/>
+		<result column = "company_flag" property= "companyflag"/>
+	</resultMap>
 	
-	<select id = "getallCompanyInfo" resultType = "com.example.backend.dto.CompanyDTO">
+	<select id = "getallCompanyInfo" resultMap = "dto">
 		SELECT * FROM company1
 	</select>
 	
-	<select id = "getCompanyInfo" resultType = "com.example.backend.dto.CompanyDTO" parameterType = "int">
+	<select id = "getCompanyInfo" resultMap = "dto" parameterType = "int">
 		SELECT * FROM company1
 		<where>
 			<if test = "#{companySeq} != null || #{companySeq} != 0">
@@ -43,7 +35,7 @@
 	</select>
 	
 	<insert id = "insertCompanyInfo" parameterType = "com.example.backend.dto.CompanyDTO">
-		INSERT INTO company1 VALUES(#{companyCode}, #{companyName}, #{companyBusiness}, #{companyItem}, #{companyCall}, #{companyRegist}, #{companyCorporate}, #{companyPresident}, #{companyHomepage},
+		INSERT INTO company1 VALUES(#{companySeq},#{companyCode}, #{companyName}, #{companyBusiness}, #{companyItem}, #{companyCall}, #{companyRegist}, #{companyCorporate}, #{companyPresident}, #{companyHomepage},
 		#{companyAddr}, #{companyEstablish}, #{companyClosingday}, true);
 	</insert>
 	

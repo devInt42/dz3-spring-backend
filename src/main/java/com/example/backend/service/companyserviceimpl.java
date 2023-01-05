@@ -40,9 +40,7 @@ public class companyserviceimpl implements companyservice {
 
 	@Override
 	public void DeleteCompany(int companySeq) {
-		
 		sqlSession.getMapper(companymapper.class).DeleteCompany(companySeq);
-		
 	}
 
 }
