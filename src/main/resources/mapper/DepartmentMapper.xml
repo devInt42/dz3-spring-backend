@@ -31,6 +31,9 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 
 	</resultMap>
-
+	<select id="getList" parameterType="com.example.backend.dto.DepartmentDto"
+      resultMap="departmentMap">
+      SELECT * FROM department
+      </select>
 
 </mapper> 
