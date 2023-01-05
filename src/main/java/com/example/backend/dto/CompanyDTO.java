@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 
-@Table(name = "company")
+@Table(name = "company1")
 public class CompanyDTO {
 	
 	@Id

@@ -30,11 +30,11 @@
 	</resultMap> -->
 	
 	<select id = "getallCompanyInfo" resultType = "com.example.backend.dto.CompanyDTO">
-		SELECT * FROM company
+		SELECT * FROM company1
 	</select>
 	
 	<select id = "getCompanyInfo" resultType = "com.example.backend.dto.CompanyDTO" parameterType = "int">
-		SELECT * FROM company
+		SELECT * FROM company1
 		<where>
 			<if test = "#{companySeq} != null || #{companySeq} != 0">
 				company_seq = #{companySeq}
@@ -43,12 +43,12 @@
 	</select>
 	
 	<insert id = "insertCompanyInfo" parameterType = "com.example.backend.dto.CompanyDTO">
-		INSERT INTO company VALUES(#{companyCode}, #{companyName}, #{companyBusiness}, #{companyItem}, #{companyCall}, #{companyRegist}, #{companyCorporate}, #{companyPresident}, #{companyHomepage},
+		INSERT INTO company1 VALUES(#{companyCode}, #{companyName}, #{companyBusiness}, #{companyItem}, #{companyCall}, #{companyRegist}, #{companyCorporate}, #{companyPresident}, #{companyHomepage},
 		#{companyAddr}, #{companyEstablish}, #{companyClosingday}, true);
 	</insert>
 	
 	<update id = "updateCompany" parameterType = "com.example.backend.dto.CompanyDTO">
-		update company set company_code = #{companyCode},company_name = #{companyName} ,company_business = #{companyBusiness}, 
+		update company1 set company_code = #{companyCode},company_name = #{companyName} ,company_business = #{companyBusiness}, 
 		company_item = #{companyItem}, company_call = #{companyCall}, company_regist = #{companyRegist}, 
 		company_corporate = #{companyCorporate}, company_homepage = #{companyHomepage}, 
 		company_addr = #{companyAddr}, company_establish =#{companyEstablish}, company_closingday = #{companyClosingday},
@@ -57,6 +57,6 @@
 	</update>
 	
 	<delete id = "DeleteCompany" parameterType = "int">
-	 delete from company where company_seq = #{companySeq}
+	 delete from company1 where company_seq = #{companySeq}
 	</delete>
 	</mapper>
