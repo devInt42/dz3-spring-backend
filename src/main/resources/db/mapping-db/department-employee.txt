@@ -1,0 +1,10 @@
+CREATE TABLE `department_employee` (
+	`company_seq` INT NOT NULL,
+	`workplace_seq` INT NOT NULL,
+	`department_seq` INT NOT NULL,
+	`employee_seq` INT NOT NULL,
+	`sub_department_seq` INT NULL,
+	`title` VARCHAR(50) NULL
+)
+COLLATE='utf8_general_ci'
+;

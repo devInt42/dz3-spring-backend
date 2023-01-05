@@ -1,0 +1,21 @@
+CREATE TABLE `employee` (
+	`employee_seq` INT(11) NOT NULL AUTO_INCREMENT,
+	`employee_code` INT(11) NOT NULL,
+	`employee_id` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`employee_name` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`employee_birth` DATE NOT NULL,
+	`employee_call` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`employee_pwd` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`employee_ph` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`employee_pmail` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`employee_cmail` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`employee_addr` VARCHAR(200) NOT NULL COLLATE 'utf8_general_ci',
+	`employee_picture` VARCHAR(200) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`employee_join` DATE NULL DEFAULT NULL,
+	`employee_leave` DATE NULL DEFAULT NULL,
+	`flag` VARCHAR(50) NOT NULL DEFAULT '1' COLLATE 'utf8_general_ci',
+	PRIMARY KEY (`employee_seq`) USING BTREE
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
