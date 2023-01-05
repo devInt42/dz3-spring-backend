@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 
 @Table(name = "company")
-public class CompanyDto {
+public class CompanyDTO {
 	
 	@Id
 	@Column("company_seq")

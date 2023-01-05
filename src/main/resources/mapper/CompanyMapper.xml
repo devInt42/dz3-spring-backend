@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	<mapper namespace = "com.example.backend.mapper.CompanyMapper">
-	
+	<!-- <mapper namespace = "com.example.backend.mapper.CompanyMapper"> -->
+	<mapper namespace = "com.example.backend.mapper.companymapper">
 	<!-- <resultMap type = "com.example.backend.dto.CompanyDto" id = "dto">
 		<result column = "company_code" property = "companyCode"
 		javaType="java.lang.Integer" jdbcType="INTEGER"/>
@@ -29,11 +29,11 @@
 		javaType="java.lang.String" jdbcType="VARCHAR"/>	
 	</resultMap> -->
 	
-	<select id = "getallCompanyInfo" resultType = "com.example.backend.dto.CompanyDto">
+	<select id = "getallCompanyInfo" resultType = "com.example.backend.dto.CompanyDTO">
 		SELECT * FROM company
 	</select>
 	
-	<select id = "getCompanyInfo" resultType = "com.example.backend.dto.CompanyDto" parameterType = "int">
+	<select id = "getCompanyInfo" resultType = "com.example.backend.dto.CompanyDTO" parameterType = "int">
 		SELECT * FROM company
 		<where>
 			<if test = "#{companySeq} != null || #{companySeq} != 0">
@@ -42,12 +42,12 @@
 		</where>
 	</select>
 	
-	<insert id = "insertCompanyInfo" parameterType = "com.example.backend.dto.CompanyDto">
+	<insert id = "insertCompanyInfo" parameterType = "com.example.backend.dto.CompanyDTO">
 		INSERT INTO company VALUES(#{companyCode}, #{companyName}, #{companyBusiness}, #{companyItem}, #{companyCall}, #{companyRegist}, #{companyCorporate}, #{companyPresident}, #{companyHomepage},
 		#{companyAddr}, #{companyEstablish}, #{companyClosingday}, true);
 	</insert>
 	
-	<update id = "updateCompany" parameterType = "com.example.backend.dto.CompanyDto">
+	<update id = "updateCompany" parameterType = "com.example.backend.dto.CompanyDTO">
 		update company set company_code = #{companyCode},company_name = #{companyName} ,company_business = #{companyBusiness}, 
 		company_item = #{companyItem}, company_call = #{companyCall}, company_regist = #{companyRegist}, 
 		company_corporate = #{companyCorporate}, company_homepage = #{companyHomepage}, 
