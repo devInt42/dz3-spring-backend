@@ -14,6 +14,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+
 	@Override
 	   public List<DepartmentDto> getDepartmentList(DepartmentDto dto) {
 	      // TODO Auto-generated method stub
