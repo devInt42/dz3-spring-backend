@@ -19,5 +19,6 @@ public class CompanyDto {
 	private String companyAddr;
 	private Date companyEstablish;
 	private Date companyClosingDay;
+	private String companyFax;
 	private int flag;
 }

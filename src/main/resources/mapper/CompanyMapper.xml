@@ -33,6 +33,8 @@
 			column="company_closingday" javaType="java.util.Date" jdbcType="DATE" />
 		<result property="flag" column="flag"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="companyFax" column="company_fax"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
 	</resultMap>
 
 	<select id="getallCompanyInfo" resultMap="companyMap">
@@ -54,7 +56,7 @@
 		VALUES(#{companySeq},#{companyCode}, #{companyName},
 		#{companyBusiness}, #{companyItem}, #{companyCall}, #{companyRegist},
 		#{companyCorporate}, #{companyPresident}, #{companyHomepage},
-		#{companyAddr}, #{companyEstablish}, #{companyClosingDay}, true);
+		#{companyAddr}, #{companyEstablish}, #{companyClosingDay}, #{flag}, #{companyFax});
 	</insert>
 
 	<update id="updateCompany"
@@ -65,7 +67,7 @@
 		company_regist =#{companyRegist},company_corporate = #{companyCorporate}, 
 		company_homepage = #{companyHomepage},company_addr = #{companyAddr}, 
 		company_establish =#{companyEstablish}, company_closingday = #{companyClosingday},
-		flag = #{companyFlag}
+		flag = #{companyFlag}, company_fax = #{companyFax}
 		where
 		company_seq = #{companySeq}
 	</update>
