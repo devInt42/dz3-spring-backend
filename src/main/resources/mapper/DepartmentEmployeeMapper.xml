@@ -18,17 +18,59 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="title" column="title"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeName" column="employee_name"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeId" column="employee_id"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeePh" column="employee_ph"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeePicture" column="employee_picture"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeCall" column="employee_call"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+
+
+
 	</resultMap>
-	
+
 	<select id="getList"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
-		select*from department_employee
-		where 
-		company_seq = #{companySeq}
+		SELECT
+		res.employee_seq AS employee_seq, res.workplace_seq AS
+		workplace_seq,
+		res.department_seq AS department_seq, res.company_seq AS
+		company_seq,
+		res.sub_department_seq AS sub_department_seq, res.title AS
+		title,
+		e.employee_name AS employee_name, e.employee_id AS employee_id,
+		e.employee_ph AS employee_ph, e.employee_picture AS employee_picture,
+		e.employee_call AS employee_call
+		FROM
+		(SELECT
+		r1.employee_seq AS employee_seq, d.workplace_seq AS workplace_seq,
+		d.department_seq AS department_seq, d.company_seq AS company_seq,
+		r1.sub_department_seq AS sub_department_seq, r1.title AS title
+		FROM
+		department d
+		JOIN
+		department_employee r1
+		ON
+		d.department_seq = r1.department_seq) res
+		JOIN
+		employee e
+		ON
+		res.employee_seq = e.employee_seq
+		WHERE
+		company_seq =
+		#{companySeq}
 		and workplace_seq = #{workplaceSeq}
-		and department_seq = #{departmentSeq}
-		ORDER BY workplace_seq ASC, department_seq ASC, employee_seq ASC 
+		and department_seq
+		=
+		#{departmentSeq}
+		ORDER BY workplace_seq ASC,
+		department_seq ASC,
+		employee_seq ASC
 		LIMIT #{startPgNum},#{endPgNum}
 	</select>
 
