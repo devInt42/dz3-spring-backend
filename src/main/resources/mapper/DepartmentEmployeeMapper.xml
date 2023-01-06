@@ -45,22 +45,16 @@
 		r1.employee_seq, d.workplace_seq, d.department_seq, d.company_seq,
 		r1.sub_department_seq, r1.title
 		FROM
-		department d
-		JOIN
-		department_employee r1
+		department d JOIN department_employee r1
 		ON
 		d.department_seq = r1.department_seq) res
-		JOIN
-		employee e
+		JOIN employee e
 		ON
 		res.employee_seq = e.employee_seq
 		WHERE
-		company_seq =
-		#{companySeq}
+		company_seq = #{companySeq}
 		and workplace_seq = #{workplaceSeq}
-		and department_seq
-		=
-		#{departmentSeq}
+		and department_seq = #{departmentSeq}
 		ORDER BY workplace_seq ASC,
 		department_seq ASC,
 		employee_seq ASC
