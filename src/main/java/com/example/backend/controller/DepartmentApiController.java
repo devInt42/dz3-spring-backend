@@ -16,12 +16,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/department")
 public class DepartmentApiController {
-	
-	@Autowired
-	private DepartmentServiceImpl departmentService;
-	//전체리스트 중 dept_name만 출력
-	   @GetMapping("/deptnamelist")
-	   public List<DepartmentDto> getDepartmentList(DepartmentDto dto){
-	      return departmentService.getDepartmentList(dto);
-	   }
+   @Autowired
+   private DepartmentServiceImpl departmentService;
+    @GetMapping("/list")
+      public List<DepartmentDto> getDepartmentList(DepartmentDto dto){
+         return departmentService.getDepartmentList(dto);
+      }
 }

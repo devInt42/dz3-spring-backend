@@ -5,7 +5,5 @@ import java.util.List;
 import com.example.backend.dto.DepartmentDto;
 
 public interface DepartmentService {
-
-	List<DepartmentDto> getDepartmentList(DepartmentDto dto);
+      List<DepartmentDto> getDepartmentList(DepartmentDto dto);
 }
-

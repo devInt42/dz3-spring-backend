@@ -3,37 +3,37 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.backend.mapper.DepartmentMapper">
-	<resultMap id="departmentMap"
-		type="com.example.backend.dto.DepartmentDto">
-		<result property="departmentSeq" column="department_seq"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
-		<result property="companySeq" column="company_seq"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
-		<result property="workplaceSeq" column="workplace_seq"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
-		<result property="departmentCode" column="department_code"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
-		<result property="departmentName" column="department_name"
-			javaType="java.lang.String" jdbcType="VARCHAR" />
-		<result property="departmentPresident"
-			column="department_president" javaType="java.lang.Integer"
-			jdbcType="INTEGER" />
-		<result property="departmentCategory"
-			column="department_category" javaType="java.lang.String"
-			jdbcType="VARCHAR" />
-		<result property="departmentCall" column="department_call"
-			javaType="java.lang.String" jdbcType="VARCHAR" />
-		<result property="departmentLoc" column="department_loc"
-			javaType="java.lang.String" jdbcType="VARCHAR" />
-		<result property="departmentParent" column="department_parent"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
-		<result property="flag" column="flag"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
-	</resultMap>
-	
-	<select id="getList" parameterType="com.example.backend.dto.DepartmentDto"
-	 resultMap="departmentMap">
+   <resultMap id="departmentMap"
+      type="com.example.backend.dto.DepartmentDto">
+      <result property="departmentSeq" column="department_seq"
+         javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <result property="companySeq" column="company_seq"
+         javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <result property="workplaceSeq" column="workplace_seq"
+         javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <result property="departmentCode" column="department_code"
+         javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <result property="departmentName" column="department_name"
+         javaType="java.lang.String" jdbcType="VARCHAR" />
+      <result property="departmentPresident"
+         column="department_president" javaType="java.lang.Integer"
+         jdbcType="INTEGER" />
+      <result property="departmentCategory"
+         column="department_category" javaType="java.lang.String"
+         jdbcType="VARCHAR" />
+      <result property="departmentCall" column="department_call"
+         javaType="java.lang.String" jdbcType="VARCHAR" />
+      <result property="departmentLoc" column="department_loc"
+         javaType="java.lang.String" jdbcType="VARCHAR" />
+      <result property="departmentParent" column="department_parent"
+         javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <result property="flag" column="flag"
+         javaType="java.lang.Integer" jdbcType="INTEGER" />
+
+   </resultMap>
+   <select id="getList" parameterType="com.example.backend.dto.DepartmentDto"
+      resultMap="departmentMap">
       SELECT * FROM department
-    </select>
+      </select>
 
 </mapper> 

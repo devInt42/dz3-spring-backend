@@ -11,12 +11,14 @@ import com.example.backend.mapper.DepartmentMapper;
 
 @Component
 public class DepartmentServiceImpl implements DepartmentService {
-	@Autowired
-	private SqlSessionTemplate sqlSession;
+   @Autowired
+   private SqlSessionTemplate sqlSession;
 
-	@Override
-	public List<DepartmentDto> getDepartmentList(DepartmentDto dto) {
-	// TODO Auto-generated method stub
-	return sqlSession.getMapper(DepartmentMapper.class).getList(dto);
-	   }
+   @Override
+   public List<DepartmentDto> getDepartmentList(DepartmentDto dto) {
+      // TODO Auto-generated method stub
+       return sqlSession.getMapper(DepartmentMapper.class).getList(dto);   }
+
+   
+
 }
