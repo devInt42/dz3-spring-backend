@@ -37,20 +37,13 @@
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
 		SELECT
-		res.employee_seq AS employee_seq, res.workplace_seq AS
-		workplace_seq,
-		res.department_seq AS department_seq, res.company_seq AS
-		company_seq,
-		res.sub_department_seq AS sub_department_seq, res.title AS
-		title,
-		e.employee_name AS employee_name, e.employee_id AS employee_id,
-		e.employee_ph AS employee_ph, e.employee_picture AS employee_picture,
-		e.employee_call AS employee_call
+		res.employee_seq, res.workplace_seq,res.department_seq, res.company_seq,
+		res.sub_department_seq, res.title, e.employee_name, e.employee_id,
+		e.employee_ph, e.employee_picture, e.employee_call
 		FROM
 		(SELECT
-		r1.employee_seq AS employee_seq, d.workplace_seq AS workplace_seq,
-		d.department_seq AS department_seq, d.company_seq AS company_seq,
-		r1.sub_department_seq AS sub_department_seq, r1.title AS title
+		r1.employee_seq, d.workplace_seq, d.department_seq, d.company_seq,
+		r1.sub_department_seq, r1.title
 		FROM
 		department d
 		JOIN
