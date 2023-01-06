@@ -10,4 +10,8 @@ public class DepartmentEmployeeDto {
 	private int companySeq;
 	private int subDepartmentSeq;
 	private String title;
+	
+	private int Page;
+	private int startPgNum;
+	private int endPgNum;
 }
