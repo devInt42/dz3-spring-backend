@@ -34,7 +34,7 @@
 		<result property="flag" column="flag"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="companyFax" column="company_fax"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
+			javaType="java.lang.String" jdbcType="INTEGER" />
 	</resultMap>
 
 	<select id="getallCompanyInfo" resultMap="companyMap">
