@@ -36,6 +36,9 @@
 		<result property="flag" column="flag"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 	</resultMap>
-
-
+	<select id="getBySeq" parameterType="int"
+		resultMap="employeeMap">
+		select * from
+		employee where employee_seq = #{employeeSeq}
+	</select>
 </mapper> 
