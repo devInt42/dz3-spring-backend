@@ -12,13 +12,24 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="departmentSeq" column="department_seq"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
-		<result property="compnaySeq" column="company_seq"
+		<result property="companySeq" column="company_seq"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="subDepartmentSeq" column="sub_department_seq"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="title" column="title"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
-
+	
+	<select id="getList"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
+		resultMap="departmentEmployeeMap">
+		select*from department_employee
+		where 
+		company_seq = #{companySeq}
+		and workplace_seq = #{workplaceSeq}
+		and department_seq = #{departmentSeq}
+		ORDER BY workplace_seq ASC, department_seq ASC, employee_seq ASC 
+		LIMIT #{startPgNum},#{endPgNum}
+	</select>
 
 </mapper> 

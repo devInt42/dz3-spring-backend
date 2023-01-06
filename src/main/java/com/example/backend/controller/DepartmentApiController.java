@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class DepartmentApiController {
 	@Autowired
 	private DepartmentServiceImpl departmentService;
-	 @GetMapping("/deptnamelist")
+	 @GetMapping("/list")
 	   public List<DepartmentDto> getDepartmentList(DepartmentDto dto){
 	      return departmentService.getDepartmentList(dto);
 	   }
