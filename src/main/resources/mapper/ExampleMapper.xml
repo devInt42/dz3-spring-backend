@@ -66,4 +66,4 @@
 		update employee set employee_name = #{employeeName}
 		where employee_code = #{employeeCode}
 	</update>
-</mapper> 
+</mapper>

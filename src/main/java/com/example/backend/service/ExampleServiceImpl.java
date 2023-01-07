@@ -28,7 +28,7 @@ public class ExampleServiceImpl implements ExampleService {
 		return sqlSession.getMapper(ExampleMapper.class).getList(dto);
 
 	}
-
+//
 	// delete
 	@Override
 	public void removeEmployee(int employeeCode) {
