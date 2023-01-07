@@ -1,0 +1,14 @@
+CREATE TABLE `workplace` (
+	`workplace_seq` INT(11) NOT NULL AUTO_INCREMENT,
+	`company_seq` INT(11) NOT NULL,
+	`workplace_code` INT(11) NOT NULL DEFAULT '0',
+	`workplace_name` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`workplace_addr` VARCHAR(200) NOT NULL COLLATE 'utf8_general_ci',
+	`workplace_president` INT(11) NULL DEFAULT NULL,
+	`workplace_call` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	`workplace_email` VARCHAR(50) NOT NULL COLLATE 'utf8_general_ci',
+	PRIMARY KEY (`workplace_seq`) USING BTREE
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;

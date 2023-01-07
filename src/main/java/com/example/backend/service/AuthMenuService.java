@@ -1,5 +1,5 @@
 package com.example.backend.service;
 
-public interface EmployeeService {
+public interface AuthMenuService {
  
 }

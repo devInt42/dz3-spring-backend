@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/employee")
-public class EmployeeApiController {
+@RequestMapping("/workplace")
+public class WorkPlaceApiController {
 
 }
