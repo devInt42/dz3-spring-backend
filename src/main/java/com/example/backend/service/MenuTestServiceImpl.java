@@ -15,9 +15,16 @@ public class MenuTestServiceImpl implements MenuTestService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	// 메뉴 리스트 조회
 	@Override
 	public List<MenuTestDto> getMenuList() {
 		return sqlSession.getMapper(MenuTestMapper.class).getMenuList();
+	}
+
+	// 하위 메뉴 조회
+	@Override
+	public List<MenuTestDto> getSubMenuList(String menuId) {
+		return sqlSession.getMapper(MenuTestMapper.class).getSubMenuList(menuId);
 	}
 
 }

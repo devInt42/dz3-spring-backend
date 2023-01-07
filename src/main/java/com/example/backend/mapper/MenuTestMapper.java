@@ -9,4 +9,5 @@ import com.example.backend.dto.MenuTestDto;
 @Mapper
 public interface MenuTestMapper {
 	List<MenuTestDto> getMenuList();
+	List<MenuTestDto> getSubMenuList(String menuId);
 }

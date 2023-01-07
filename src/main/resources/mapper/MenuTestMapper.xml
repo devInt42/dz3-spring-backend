@@ -8,4 +8,8 @@
 		select * from menu_test
 	</select>
 	
+	<select id="getSubMenuList" parameterType="String" resultType="com.example.backend.dto.MenuTestDto">
+		select * from menu_test where menu_parent = #{menuId}
+	</select>
+	
 </mapper>
