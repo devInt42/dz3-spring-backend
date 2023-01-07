@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,10 +17,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/department")
 public class DepartmentApiController {
-   @Autowired
-   private DepartmentServiceImpl departmentService;
-    @GetMapping("/list")
-      public List<DepartmentDto> getDepartmentList(DepartmentDto dto){
-         return departmentService.getDepartmentList(dto);
-      }
+	@Autowired
+	private DepartmentServiceImpl departmentService;
+	 @GetMapping("/list/{companySeq}")
+	   public List<DepartmentDto> getDepartmentList(@PathVariable(required = true)int companySeq, DepartmentDto dto){
+	     dto.setCompanySeq(companySeq);
+		 return departmentService.getDepartmentList(dto);
+	   }
 }
