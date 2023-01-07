@@ -35,6 +35,10 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="companyFax" column="company_fax"
 			javaType="java.lang.String" jdbcType="INTEGER" />
+			<result property="companyZipCode" column = "company_zipcode"
+			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
+			<result property = "companyForeigner" column = "company_foreigner"
+			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
 	</resultMap>
 
 	<select id="getallCompanyInfo" resultMap="companyMap">
@@ -56,7 +60,7 @@
 		VALUES(#{companySeq},#{companyCode}, #{companyName},
 		#{companyBusiness}, #{companyItem}, #{companyCall}, #{companyRegist},
 		#{companyCorporate}, #{companyPresident}, #{companyHomepage},
-		#{companyAddr}, #{companyEstablish}, #{companyClosingDay}, #{flag}, #{companyFax});
+		#{companyAddr}, #{companyEstablish}, #{companyClosingDay}, #{companyFax}, #{flag}, #{companyForeigner}, #{companyZipCode});
 	</insert>
 
 	<update id="updateCompany"
