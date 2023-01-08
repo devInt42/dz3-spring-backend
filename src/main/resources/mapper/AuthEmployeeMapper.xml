@@ -13,10 +13,38 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="departmentSeq" column="department_seq"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
-		<result property="compnaySeq" column="company_seq"
+		<result property="companySeq" column="company_seq"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
-	
+		<result property="authName" column="auth_name"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyName" column="company_name"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="authCode" column="auth_code"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
+	<select id="getAuthListByCompany"
+		parameterType="com.example.backend.dto.mapping.AuthEmployeeDto"
+		resultMap="authEmployeeMap">
+		SELECT distinct
+		res.auth_seq, res.workplace_seq,
+		res.department_seq, c.company_seq, res.auth_name, c.company_name,
+		res.auth_code
+		from
+		(SELECT
+		a.auth_seq, r1.employee_seq, r1.workplace_seq, r1.company_seq,
+		r1.department_seq, a.auth_name, a.auth_code
+		FROM
+		auth a JOIN
+		auth_employee r1
+		ON
+		a.auth_seq = r1.auth_seq) res
+		JOIN company c
+		ON
+		res.company_seq = c.company_seq
+		WHERE
+		c.company_seq = #{companySeq}
+		LIMIT #{startPgNum},#{endPgNum}
+	</select>
 
 </mapper> 

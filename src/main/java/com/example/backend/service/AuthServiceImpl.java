@@ -21,7 +21,10 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
-	public List<AuthDto> getAuthList(AuthDto dto) {
+	public List<AuthDto> getAuthList(int page, AuthDto dto) {
+		dto.setPage(page);
+		dto.setStartPgNum(0+(page-1)*10);
+		dto.setEndPgNum(10+(page-1)*10);
 		return sqlSession.getMapper(AuthMapper.class).getList(dto);
 	}
 
