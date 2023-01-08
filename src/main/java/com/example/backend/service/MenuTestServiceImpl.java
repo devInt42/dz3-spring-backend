@@ -27,4 +27,10 @@ public class MenuTestServiceImpl implements MenuTestService {
 		return sqlSession.getMapper(MenuTestMapper.class).getSubMenuList(menuId);
 	}
 
+	// 최대 depth 조회
+	@Override
+	public int getMaxDepth() {
+		return sqlSession.getMapper(MenuTestMapper.class).getMaxDepth();
+	}
+
 }

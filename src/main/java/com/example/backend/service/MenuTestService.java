@@ -10,5 +10,8 @@ public interface MenuTestService {
 	
 	// 하위 메뉴 조회
 	List<MenuTestDto> getSubMenuList(String menuId);
+	
+	// 최대 depth 조회
+	public int getMaxDepth();
 
 }

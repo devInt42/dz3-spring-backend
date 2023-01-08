@@ -4,12 +4,19 @@
 
 <mapper namespace="com.example.backend.mapper.MenuTestMapper">
 
+	<!-- 메뉴리스트 조회 -->
 	<select id="getMenuList" resultType="com.example.backend.dto.MenuTestDto">
 		select * from menu_test
 	</select>
 	
+	<!-- 하위메뉴 조회 -->
 	<select id="getSubMenuList" parameterType="String" resultType="com.example.backend.dto.MenuTestDto">
 		select * from menu_test where menu_parent = #{menuId}
+	</select>
+	
+	<!-- 최대깊이 조회 -->
+	<select id="getMaxDepth" resultType="Integer">
+		select MAX(menu_depth) from menu_test
 	</select>
 	
 </mapper>

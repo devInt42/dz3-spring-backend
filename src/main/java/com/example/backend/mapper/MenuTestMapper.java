@@ -10,4 +10,5 @@ import com.example.backend.dto.MenuTestDto;
 public interface MenuTestMapper {
 	List<MenuTestDto> getMenuList();
 	List<MenuTestDto> getSubMenuList(String menuId);
+	int getMaxDepth();
 }
