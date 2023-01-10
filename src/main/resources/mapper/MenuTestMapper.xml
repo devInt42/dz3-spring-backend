@@ -14,9 +14,13 @@
 		select * from menu_test where menu_parent = #{menuId}
 	</select>
 	
-	<!-- 최대깊이 조회 -->
-	<select id="getMaxDepth" resultType="Integer">
-		select MAX(menu_depth) from menu_test
+	<!-- 상위메뉴 깊이 조회 -->
+	<select id="getParentDepth" parameterType="String" resultType="Integer">
+		select distinct menu_depth from menu_test where menu_id = #{menuParent}
 	</select>
 	
+	<!-- 메뉴 저장 -->
+	<insert id="insertMenu">
+		insert into menu_test (menu_id, menu_name, menu_parent, menu_depth) VALUES(#{menuId}, #{menuName}, #{menuParent}, #{menuDepth})
+	</insert>
 </mapper>

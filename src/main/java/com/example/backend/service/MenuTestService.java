@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.backend.dto.MenuTestDto;
 
@@ -11,7 +12,9 @@ public interface MenuTestService {
 	// 하위 메뉴 조회
 	List<MenuTestDto> getSubMenuList(String menuId);
 	
-	// 최대 depth 조회
-	public int getMaxDepth();
+	// 상위메뉴 depth 조회
+	Integer getParentDepth(String menuParent);
+	
+	void insertMenu(Map <String, String> map);
 
 }

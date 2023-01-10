@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,15 @@ public class MenuTestServiceImpl implements MenuTestService {
 		return sqlSession.getMapper(MenuTestMapper.class).getSubMenuList(menuId);
 	}
 
-	// 최대 depth 조회
+	// 상위메뉴 depth 조회
 	@Override
-	public int getMaxDepth() {
-		return sqlSession.getMapper(MenuTestMapper.class).getMaxDepth();
+	public Integer getParentDepth(String menuParent) {
+		return sqlSession.getMapper(MenuTestMapper.class).getParentDepth(menuParent);
+	}
+
+	@Override
+	public void insertMenu(Map<String, String> map) {
+		sqlSession.getMapper(MenuTestMapper.class).insertMenu(map);
 	}
 
 }
