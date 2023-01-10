@@ -71,7 +71,8 @@
 		company_regist =#{companyRegist},company_corporate = #{companyCorporate}, 
 		company_homepage = #{companyHomepage},company_addr = #{companyAddr}, 
 		company_establish =#{companyEstablish}, company_closingday = #{companyClosingday},
-		flag = #{companyFlag}, company_fax = #{companyFax}
+		flag = #{companyFlag}, company_fax = #{companyFax}, company_foreigner = #{companyForeigner},
+		company_zipcode=#{companyZipCode}
 		where
 		company_seq = #{companySeq}
 	</update>
