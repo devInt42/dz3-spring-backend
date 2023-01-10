@@ -14,6 +14,13 @@ public class AuthEmployeeDto {
 	private String authCode;
 	
 	
+	private int departmentCode;
+	private String workplaceName;
+	private String departmentName;
+	private String employeeName;
+	private String employeeId;
+	private String title;
+	
 	private int page;
 	private int startPgNum;
 	private int endPgNum;

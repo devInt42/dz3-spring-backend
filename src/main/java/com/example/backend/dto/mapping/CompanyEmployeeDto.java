@@ -8,4 +8,9 @@ public class CompanyEmployeeDto {
 	private int workplaceSeq;
 	private int departmentSeq;
 	private int companySeq;
+	
+	
+	private String employeeId;
+	private String employeePwd;
+	private int companyCode;
 }

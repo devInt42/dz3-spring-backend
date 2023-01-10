@@ -24,15 +24,28 @@ public class AuthEmployeeApiController {
 
 	@Autowired
 	private AuthEmployeeServiceImpl authEmployeeService;
-	
+
 	// 회사별 권한 그룹 조회
 	@GetMapping("/company/page/{page}")
 	public List<AuthEmployeeDto> getAuthListByCompany(@PathVariable(required = true) int page,
 			@RequestParam("companySeq") String companySeq, AuthEmployeeDto dto) {
 		dto.setCompanySeq(Integer.parseInt(companySeq));
-		System.out.println(dto);
-		return authEmployeeService.getAuthEmployeeList(page,dto);
+		return authEmployeeService.getAuthCompanyList(page, dto);
+	}
+
+	// 권한별 사원 조회
+	@GetMapping("/auth/page/{page}")
+	public List<AuthEmployeeDto> getAuthListByAuth(@PathVariable(required = true) int page,
+			@RequestParam("authSeq") String authSeq, AuthEmployeeDto dto) {
+		dto.setAuthSeq(Integer.parseInt(authSeq));
+		return authEmployeeService.getAuthEmployeeList(page, dto);
 	}
 	
-	
+	// 그룹수 카운팅
+	@GetMapping("/count/{companySeq}")
+	public int getAuthCountByCompany(@PathVariable(required = true) String companySeq,
+			AuthEmployeeDto dto) {
+		dto.setCompanySeq(Integer.parseInt(companySeq));
+		return authEmployeeService.getAuthCountByCompany(dto);
+	}
 }

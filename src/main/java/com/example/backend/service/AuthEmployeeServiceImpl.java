@@ -15,12 +15,28 @@ public class AuthEmployeeServiceImpl implements AuthEmployeeService {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
+	public List<AuthEmployeeDto> getAuthCompanyList(int page, AuthEmployeeDto dto) {
+		dto.setPage(page);
+		dto.setStartPgNum(0+(page-1)*10);
+		dto.setEndPgNum(10+(page-1)*10);
+		return sqlSession.getMapper(AuthEmployeeMapper.class).getAuthListByCompany(dto);
+	}
+
+	
+	@Override
 	public List<AuthEmployeeDto> getAuthEmployeeList(int page, AuthEmployeeDto dto) {
 		dto.setPage(page);
 		dto.setStartPgNum(0+(page-1)*10);
-		dto.setEndPgNum(9+(page-1)*10);
-		return sqlSession.getMapper(AuthEmployeeMapper.class).getAuthListByCompany(dto);
+		dto.setEndPgNum(10+(page-1)*10);
+		return sqlSession.getMapper(AuthEmployeeMapper.class).getAuthListByAuth(dto);
 	}
+
+
+	@Override
+	public int getAuthCountByCompany(AuthEmployeeDto dto) {
+		return sqlSession.getMapper(AuthEmployeeMapper.class).getCountByCompany(dto);
+	}
+
 
 	
 
