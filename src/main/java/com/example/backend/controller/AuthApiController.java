@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.dto.AuthDto;
@@ -26,20 +27,15 @@ public class AuthApiController {
 	@Autowired
 	private AuthServiceImpl authService;
 
-	// 전체 사원 조회
-
-	@GetMapping("/authlist")
-	public List<AuthDto> getEmployeeList(AuthDto dto) {
-		return authService.getAuthList(dto);
+	// 회사 시퀀스로 사원 조회
+	@GetMapping("/page/{page}")
+	public List<AuthDto> getList(@PathVariable (required = true) int page,
+			@RequestParam("companySeq") String companySeq, 
+			AuthDto dto)	{
+		
+		return authService.getAuthList(page,dto);
 	}
-
-	// 사번으로 사원 조회
-
-	@GetMapping("/authlist/{authSeq}")
-	public AuthDto getEmployee(@PathVariable(required = true) int authSeq) {
-		return authService.getAuthBySeq(authSeq);
-	}
-
+	
 	// 사원 추가
 
 	@PostMapping
