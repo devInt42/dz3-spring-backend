@@ -104,4 +104,35 @@
 		= #{departmentSeq}
 		LIMIT #{startPgNum},#{endPgNum}
 	</select>
+
+	<select id="getEmployeeCount"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
+		resultType="int">
+		SELECT DISTINCT
+		COUNT(de.employee_seq)
+		FROM
+		department_employee de
+		JOIN
+		department d
+		ON
+		de.department_seq =
+		d.department_seq
+		JOIN
+		employee e
+		ON
+		de.employee_seq =
+		e.employee_seq
+		JOIN
+		company c
+		ON
+		de.company_seq = c.company_seq
+		JOIN
+		workplace w
+		ON
+		de.workplace_seq = w.workplace_seq
+		WHERE
+		de.department_seq
+		= #{departmentSeq}
+	</select>
+
 </mapper> 

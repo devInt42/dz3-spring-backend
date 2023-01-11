@@ -22,11 +22,17 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getList(dto);
 	}
 
+	@Override
 	public List<DepartmentEmployeeDto> getEmployeePagebyDepartment(int page, DepartmentEmployeeDto dto) {
 		dto.setPage(page);
 		dto.setStartPgNum(0+(page-1)*5);
 		dto.setEndPgNum(5+(page-1)*5);
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getListByDepartment(dto);
+	}
+	
+	@Override
+	public int getEmployeeCountByDepartment(DepartmentEmployeeDto dto) {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getEmployeeCount(dto);
 	}
 	
 }
