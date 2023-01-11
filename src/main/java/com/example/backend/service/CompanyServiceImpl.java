@@ -43,4 +43,9 @@ public class CompanyServiceImpl implements CompanyService {
 		sqlSession.getMapper(CompanyMapper.class).DeleteCompany(companySeq);
 	}
 
+	@Override
+	public int DupliCheck(int companyCode) {
+		return sqlSession.getMapper(CompanyMapper.class).DupliCheck(companyCode);
+	}
+
 }

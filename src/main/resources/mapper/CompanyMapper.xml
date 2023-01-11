@@ -55,7 +55,11 @@
 			</if>
 		</where>
 	</select>
-
+	
+	<select id = "DupliCheck" resultType = "int" parameterType = "int">
+		select Count(*) from company where company_code = #{companyCode}
+	</select>
+	
 	<insert id="insertCompanyInfo"
 		parameterType="com.example.backend.dto.CompanyDto">
 		INSERT INTO company
