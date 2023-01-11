@@ -33,4 +33,10 @@ public class DepartmentEmployeeApiController {
 		return departementEmployeeService.getEmployeePage(page,dto);
 	}
 
+	@GetMapping("/department/page/{page}")
+	public List<DepartmentEmployeeDto> getListByDepartment(@PathVariable(required = true) int page,
+			@RequestParam("departmentSeq") String departmentSeq, DepartmentEmployeeDto dto) {
+		dto.setDepartmentSeq(Integer.parseInt(departmentSeq));
+		return departementEmployeeService.getEmployeePagebyDepartment(page,dto);
+	}
 }
