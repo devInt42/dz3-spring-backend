@@ -15,6 +15,12 @@ public class DepartmentEmployeeDto {
 	private String employeePh;
 	private String employeePicture;
 	private String employeeCall;
+	private String employeePmail;
+	private String employeeCmail;
+	private String companyName;
+	private String workplaceName;
+	private String departmentName;
+
 	
 	
 	private int Page;
