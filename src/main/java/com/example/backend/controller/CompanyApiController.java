@@ -26,7 +26,6 @@ public class CompanyApiController {
 	}
 	@GetMapping("/info/check/{companyCode}")
 	public int DupliCheck(@PathVariable("companyCode") int companyCode) {
-
 		return companyService.DupliCheck(companyCode);
 	}
 	@GetMapping("/info/{companySeq}")
