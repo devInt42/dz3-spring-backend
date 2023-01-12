@@ -28,9 +28,9 @@
 		<result property="companyAddr" column="company_addr"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="companyEstablish" column="company_establish"
-			javaType="java.sql.Date" jdbcType="DATE" />
+			javaType="java.util.Date" jdbcType="DATE" />
 		<result property="companyClosingDay"
-			column="company_closingday" javaType="java.sql.Date" jdbcType="DATE" />
+			column="company_closingday" javaType="java.util.Date" jdbcType="DATE" />
 		<result property="companyFax" column="company_fax"
 			javaType="java.lang.String" jdbcType="INTEGER" />
 			<result property="companyZipCode" column = "company_zipcode"
@@ -42,10 +42,6 @@
 			<result property = "pcBuisness" column = "pc_buisness"
 			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
 	</resultMap>
-
-	<select id = "DupliCheck" resultType = "int" parameterType = "int">
-		select Count(*) from company where company_code = #{companyCode}
-	</select>
 
 	<select id="getallCompanyInfo" resultMap="companyMap">
 		SELECT * FROM company
@@ -59,14 +55,18 @@
 			</if>
 		</where>
 	</select>
-
+	
+	<select id = "DupliCheck" resultType = "int" parameterType = "int">
+		select Count(*) from company where company_code = #{companyCode}
+	</select>
+	
 	<insert id="insertCompanyInfo"
 		parameterType="com.example.backend.dto.CompanyDto">
 		INSERT INTO company
 		VALUES(#{companySeq},#{companyCode}, #{companyName},
 		#{companyBusiness}, #{companyItem}, #{companyCall}, #{companyRegist},
 		#{companyCorporate}, #{companyPresident}, #{companyHomepage},
-		#{companyAddr}, #{companyEstablish}, #{companyClosingDay}, #{companyFax},  #{companyForeigner}, #{companyZipCode}, #{useYN}, #{pcBuisness})
+		#{companyAddr}, #{companyEstablish}, #{companyClosingDay}, #{companyFax}, #{companyForeigner}, #{companyZipCode}, #{useYN}, #{pcBuisness});
 	</insert>
 
 	<update id="updateCompany"
@@ -77,7 +77,7 @@
 		company_regist =#{companyRegist},company_corporate = #{companyCorporate}, 
 		company_homepage = #{companyHomepage},company_addr = #{companyAddr}, 
 		company_establish =#{companyEstablish}, company_closingday = #{companyClosingday},
-		use_yn = #{useYN},, company_fax = #{companyFax}, company_foreigner = #{companyForeigner},
+		use_yn = #{useYN}, company_fax = #{companyFax}, company_foreigner = #{companyForeigner},
 		company_zipcode=#{companyZipCode}, pc_buisness =#{pcBuisness}
 		where
 		company_seq = #{companySeq}

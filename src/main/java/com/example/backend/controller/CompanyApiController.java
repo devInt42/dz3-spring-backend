@@ -24,13 +24,16 @@ public class CompanyApiController {
 		System.out.println("getDto:: " + companyService.getCompanyInformation());
 		return companyService.getCompanyInformation();
 	}
+	
+	//중복체크
 	@GetMapping("/info/check/{companyCode}")
 	public int DupliCheck(@PathVariable("companyCode") int companyCode) {
+		
 		return companyService.DupliCheck(companyCode);
 	}
+	
 	@GetMapping("/info/{companySeq}")
 	public CompanyDto getCompany(@PathVariable("companySeq") int companySeq) {
-		
 		return companyService.getCompanyInfo(companySeq);
 	}
 	
