@@ -31,7 +31,6 @@ public class DepartmentEmployeeApiController {
 		dto.setCompanySeq(Integer.parseInt(companySeq));
 		dto.setWorkplaceSeq(Integer.parseInt(workplaceSeq));
 		dto.setDepartmentSeq(Integer.parseInt(departmentSeq));
-
 		return departementEmployeeService.getEmployeePage(page,dto);
 	}
 

@@ -34,40 +34,56 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="companyName" column="company_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="departmentName" column="department_name"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeePmail" column="employee_pmail"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeCmail" column="employee_cmail"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeBirth" column="employee_birth"
+			javaType="java.sql.Date" jdbcType="DATE" />
 	</resultMap>
 
 	<select id="getList"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
 		SELECT
-		res.employee_seq,
-		res.workplace_seq,res.department_seq, res.company_seq,
-		res.sub_department_seq, res.title, e.employee_name, e.employee_id,
-		e.employee_ph, e.employee_picture, e.employee_call
+		de.employee_seq,
+		de.workplace_seq,de.department_seq,
+		de.company_seq,
+		de.sub_department_seq, de.title, e.employee_name,
+		e.employee_id,
+		e.employee_ph, e.employee_picture, e.employee_call,
+		c.company_name,
+		w.workplace_name, e.employee_birth, d.department_name
 		FROM
-		(SELECT
-		r1.employee_seq, d.workplace_seq, d.department_seq, d.company_seq,
-		r1.sub_department_seq, r1.title
-		FROM
-		department d JOIN
-		department_employee r1
-		ON
-		d.department_seq = r1.department_seq) res
-		JOIN
+		department_employee de
+		join
+		department d
+		on
+		de.department_seq =
+		d.department_seq
+		join
 		employee e
-		ON
-		res.employee_seq = e.employee_seq
+		on
+		de.employee_seq = e.employee_seq
+		join
+		company c
+		on
+		de.company_seq = c.company_seq
+		join
+		workplace w
+		on
+		de.workplace_seq = w.workplace_seq
 		WHERE
-		company_seq =
+		de.company_seq =
 		#{companySeq}
-		and workplace_seq = #{workplaceSeq}
-		and department_seq =
+		and
+		de.workplace_seq = #{workplaceSeq}
+		and de.department_seq =
 		#{departmentSeq}
-		ORDER BY workplace_seq ASC,
+		ORDER BY workplace_seq
+		ASC,
 		department_seq ASC,
 		employee_seq ASC
 		LIMIT #{startPgNum},#{endPgNum}
@@ -132,7 +148,8 @@
 		de.workplace_seq = w.workplace_seq
 		WHERE
 		de.department_seq
-		= #{departmentSeq}
+		=
+		#{departmentSeq}
 	</select>
 
 </mapper> 
