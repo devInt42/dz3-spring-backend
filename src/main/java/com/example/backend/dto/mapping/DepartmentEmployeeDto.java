@@ -1,5 +1,7 @@
 package com.example.backend.dto.mapping;
 
+import java.sql.Date;
+
 import lombok.Data;
 
 @Data
@@ -20,7 +22,7 @@ public class DepartmentEmployeeDto {
 	private String companyName;
 	private String workplaceName;
 	private String departmentName;
-
+	private Date employeeBirth;
 	
 	
 	private int Page;
