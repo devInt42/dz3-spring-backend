@@ -12,36 +12,31 @@ import com.example.backend.mapper.MenuMapper;
 
 @Component
 public class MenuServiceImpl implements MenuService {
+	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
+
+	// 메뉴 리스트 조회
 	@Override
-	public MenuDto getMenuBySeq(int menuSeq) {
-		return sqlSession.getMapper(MenuMapper.class).getBySeq(menuSeq);
+	public List<MenuDto> getMenuList() {
+		return sqlSession.getMapper(MenuMapper.class).getMenuList();
+	}
+
+	// 하위 메뉴 조회
+	@Override
+	public List<MenuDto> getSubMenuList(String menuId) {
+		return sqlSession.getMapper(MenuMapper.class).getSubMenuList(menuId);
+	}
+
+	// 상위메뉴 depth 조회
+	@Override
+	public Integer getParentDepth(String menuParent) {
+		return sqlSession.getMapper(MenuMapper.class).getParentDepth(menuParent);
 	}
 
 	@Override
-	public List<MenuDto> getMenuList(MenuDto dto) {
-		return sqlSession.getMapper(MenuMapper.class).getList(dto);
-	}
-	
-
-	@Override
-	public void removeMenu(int menuSeq) {
-		sqlSession.getMapper(MenuMapper.class).remove(menuSeq);
-
-	}
-
-	@Override
-	public void setMenu(Map<String, String> map) {
-		sqlSession.getMapper(MenuMapper.class).set(map);		
-
-	}
-
-	@Override
-	public void addMenu(Map<String, String> map) {
-		sqlSession.getMapper(MenuMapper.class).add(map);		
-		
+	public void insertMenu(Map<String, String> map) {
+		sqlSession.getMapper(MenuMapper.class).insertMenu(map);
 	}
 
 }

@@ -3,12 +3,14 @@ package com.example.backend.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.example.backend.dto.MenuDto;
 
+@Mapper
 public interface MenuMapper {
-	List<MenuDto> getList(MenuDto dto);
-	MenuDto getBySeq(int menuSeq);
-	void remove(int menuSeq);
-	void add(Map<String, String> map);
-	void set(Map<String, String> map);
+	List<MenuDto> getMenuList();
+	List<MenuDto> getSubMenuList(String menuId);
+	Integer getParentDepth(String menuParent);
+	void insertMenu(Map<String, String> map);
 }
