@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class DepartmentDto {
-	private int departementSeq;
+	private int departmentSeq;
 	private int companySeq;
 	private int workplaceSeq;
 	private int departmentCode;

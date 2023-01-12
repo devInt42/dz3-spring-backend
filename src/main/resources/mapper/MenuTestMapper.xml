@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.backend.mapper.MenuTestMapper">
+
+	<!-- 메뉴리스트 조회 -->
+	<select id="getMenuList" resultType="com.example.backend.dto.MenuTestDto">
+		select * from menu_test
+	</select>
+	
+	<!-- 하위메뉴 조회 -->
+	<select id="getSubMenuList" parameterType="String" resultType="com.example.backend.dto.MenuTestDto">
+		select * from menu_test where menu_parent = #{menuId}
+	</select>
+	
+	<!-- 상위메뉴 깊이 조회 -->
+	<select id="getParentDepth" parameterType="String" resultType="Integer">
+		select distinct menu_depth from menu_test where menu_id = #{menuParent}
+	</select>
+	
+	<!-- 메뉴 저장 -->
+	<insert id="insertMenu">
+		insert into menu_test (menu_id, menu_name, menu_parent, menu_depth) VALUES(#{menuId}, #{menuName}, #{menuParent}, #{menuDepth})
+	</insert>
+</mapper>

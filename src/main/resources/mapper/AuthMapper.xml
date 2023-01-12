@@ -12,6 +12,45 @@
 		<result property="authName" column="auth_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
+	
+	<select id="getBySeq" parameterType="int"
+		resultMap="authMap">
+		select * from
+		auth where auth_seq = #{authSeq}
+	</select>
 
+	<select id="getList"
+		parameterType="com.example.backend.dto.AuthDto"
+		resultMap="authMap">
+		select * from
+		auth
+		<where>
+			<if test="authSeq != null and authSeq !=''">
+				AND auth_seq = #{authSeq}
+			</if>
+			<if test="authCode != null and authCode !=''">
+				And auth_code = #{authCode}
+			</if>
+				<if test="authName != null and authName !=''">
+				And auth_name = #{authName}
+			</if>
+		</where>
+	</select>
+
+	<delete id="remove" parameterType="int">
+		delete from auth where
+		auth_seq = #{authSeq}
+	</delete>
+
+	<insert id="add" parameterType="map">
+		insert into
+		auth(auth_code, auth_name) values(#{authCode}, #{authName})
+	</insert>
+
+	<update id="set">
+		update auth set auth_code = #{authCode},
+		auth_name = #{authName}
+		where auth_seq = #{authSeq}
+	</update>
 
 </mapper> 
