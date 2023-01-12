@@ -28,9 +28,9 @@
 		<result property="companyAddr" column="company_addr"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="companyEstablish" column="company_establish"
-			javaType="java.util.Date" jdbcType="DATE" />
+			javaType="java.sql.Date" jdbcType="DATE" />
 		<result property="companyClosingDay"
-			column="company_closingday" javaType="java.util.Date" jdbcType="DATE" />
+			column="company_closingday" javaType="java.sql.Date" jdbcType="DATE" />
 		<result property="companyFax" column="company_fax"
 			javaType="java.lang.String" jdbcType="INTEGER" />
 			<result property="companyZipCode" column = "company_zipcode"
