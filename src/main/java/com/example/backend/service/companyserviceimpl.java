@@ -23,6 +23,10 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
+	public int DupliCheck(int companyCode) {
+		return sqlSession.getMapper(CompanyMapper.class).DupliCheck(companyCode);
+	}
+	@Override
 	public CompanyDto getCompanyInfo(int companySeq) {
 		return sqlSession.getMapper(CompanyMapper.class).getCompanyInfo(companySeq);
 	}
