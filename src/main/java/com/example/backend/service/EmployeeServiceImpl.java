@@ -10,6 +10,7 @@ import com.example.backend.mapper.ExampleMapper;
 
 @Component
 public class EmployeeServiceImpl implements EmployeeService {
+
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 

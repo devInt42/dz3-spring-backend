@@ -1,6 +1,6 @@
 package com.example.backend.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 import lombok.Data;
 
@@ -14,11 +14,14 @@ public class CompanyDto {
 	private String companyCall;
 	private String companyRegist;
 	private String companyCorporate;
-	private int companyPresident;
+	private String companyPresident;
 	private String companyHomepage;
 	private String companyAddr;
 	private Date companyEstablish;
 	private Date companyClosingDay;
-	private int flag;
-
+	private String companyFax;
+	private String companyZipCode;
+	private String companyForeigner;
+	private String useYN;
+	private String pcBuisness;
 }

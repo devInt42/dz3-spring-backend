@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class MenuDto {
 	private int menuSeq;
-	private int menuCode;
+	private String menuCode;
 	private String menuName;
 	private int menuParent;
 	private int menuDepth;
