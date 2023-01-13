@@ -28,12 +28,14 @@ public class MenuApiController {
 	}
 	
 	// 하위 메뉴 조회
-	@GetMapping("/menulist/{menuId}")
-	public List<MenuDto> getSubMenuList(@PathVariable(required=true) String menuId){
-		System.out.println(menuService.getSubMenuList(menuId));
-		if(menuService.getSubMenuList(menuId).isEmpty()) {
-			return menuService.getSubMenuList("none");
-		}else {return menuService.getSubMenuList(menuId);}
+	@GetMapping("/menulist/{menuSequence}")
+	public List<MenuDto> getSubMenuList(@PathVariable(required=true) int menuSequence){
+		System.out.println("여기"+menuSequence);
+		System.out.println(menuService.getSubMenuList(menuSequence));
+		
+		if(menuService.getSubMenuList(menuSequence).isEmpty()) {
+			return menuService.getSubMenuList(0);
+		}else {return menuService.getSubMenuList(menuSequence);}
 		
 	}
 	

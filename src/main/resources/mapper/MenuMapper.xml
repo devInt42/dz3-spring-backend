@@ -19,13 +19,13 @@
 	<!-- 메뉴리스트 조회 -->
 	<select id="getMenuList"
 		resultMap="menuMap">
-		SELECT*FROM menu
+		select * from menu where menu_parent = 0
 	</select>
 
 	<!-- 하위메뉴 조회 -->
-	<select id="getSubMenuList" parameterType="String"
-		resultType="com.example.backend.dto.MenuDto">
-		select * from menu where menu_parent = #{menuParent}
+	<select id="getSubMenuList" parameterType="Integer"
+		resultMap="menuMap">
+		select * from menu where menu_parent = #{menuSequence}
 	</select>
 
 	<!-- 상위메뉴 깊이 조회 -->

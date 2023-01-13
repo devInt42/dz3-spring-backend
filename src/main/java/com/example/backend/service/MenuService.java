@@ -10,7 +10,7 @@ public interface MenuService {
 	List<MenuDto> getMenuList();
 	
 	// 하위 메뉴 조회
-	List<MenuDto> getSubMenuList(String menuId);
+	List<MenuDto> getSubMenuList(int menuSequence);
 	
 	// 상위메뉴 depth 조회
 	Integer getParentDepth(String menuParent);

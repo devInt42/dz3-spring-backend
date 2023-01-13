@@ -24,8 +24,8 @@ public class MenuServiceImpl implements MenuService {
 
 	// 하위 메뉴 조회
 	@Override
-	public List<MenuDto> getSubMenuList(String menuId) {
-		return sqlSession.getMapper(MenuMapper.class).getSubMenuList(menuId);
+	public List<MenuDto> getSubMenuList(int menuSequence) {
+		return sqlSession.getMapper(MenuMapper.class).getSubMenuList(menuSequence);
 	}
 
 	// 상위메뉴 depth 조회
