@@ -7,49 +7,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.backend.dto.CompanyDto;
+import com.example.backend.mapper.CompanyMapper;
+
 
 @Component
 public class CompanyServiceImpl implements CompanyService {
 
+	
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	
 	@Override
 	public List<CompanyDto> getCompanyInformation() {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.getMapper(CompanyMapper.class).getallCompanyInfo();
 	}
 
 	@Override
 	public CompanyDto getCompanyInfo(int companySeq) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.getMapper(CompanyMapper.class).getCompanyInfo(companySeq);
 	}
 
 	@Override
-	public int DupliCheck(int companyCode) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void insertCompany(CompanyDto dto) {
-		// TODO Auto-generated method stub
-		
+	public void insertCompany( CompanyDto dto) {
+		sqlSession.getMapper(CompanyMapper.class).insertCompanyInfo(dto);
 	}
 
 	@Override
 	public void updateCompany(CompanyDto dto) {
-		// TODO Auto-generated method stub
+		sqlSession.getMapper(CompanyMapper.class).updateCompany(dto);
 		
 	}
 
 	@Override
 	public void DeleteCompany(int companySeq) {
-		// TODO Auto-generated method stub
-		
+		sqlSession.getMapper(CompanyMapper.class).DeleteCompany(companySeq);
 	}
-	
-//	@Autowired
-//	private SqlSessionTemplate sqlSession;
 
-	
+	@Override
+	public int DupliCheck(int companyCode) {
+		return sqlSession.getMapper(CompanyMapper.class).DupliCheck(companyCode);
+	}
 
 }
