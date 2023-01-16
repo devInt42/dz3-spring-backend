@@ -24,16 +24,20 @@ public class MenuApiController {
 	// 메뉴 리스트 조회
 	@GetMapping("/menulist")
 	public List<MenuDto> getMenuList(){
+		System.out.println("리스트조회");
 		return menuService.getMenuList();
 	}
 	
 	// 하위 메뉴 조회
-	@GetMapping("/menulist/{menuId}")
-	public List<MenuDto> getSubMenuList(@PathVariable(required=true) String menuId){
-		System.out.println(menuService.getSubMenuList(menuId));
-		if(menuService.getSubMenuList(menuId).isEmpty()) {
-			return menuService.getSubMenuList("none");
-		}else {return menuService.getSubMenuList(menuId);}
+	@GetMapping("/menulist/{menuSequence}")
+	public List<MenuDto> getSubMenuList(@PathVariable(required=true) int menuSequence){
+		System.out.println("시퀀스"+menuSequence);
+		System.out.println(menuService.getSubMenuList(menuSequence));
+		return menuService.getSubMenuList(menuSequence);
+//		if(menuService.getSubMenuList(menuSequence).isEmpty()) {
+//			System.out.println("빈배열");
+//			return menuService.getSubMenuList();
+//		}else {return menuService.getSubMenuList(menuSequence);}
 		
 	}
 	

@@ -10,7 +10,7 @@ import com.example.backend.dto.MenuDto;
 @Mapper
 public interface MenuMapper {
 	List<MenuDto> getMenuList();
-	List<MenuDto> getSubMenuList(String menuId);
+	List<MenuDto> getSubMenuList(int menuSequence);
 	Integer getParentDepth(String menuParent);
 	void insertMenu(Map<String, String> map);
 }
