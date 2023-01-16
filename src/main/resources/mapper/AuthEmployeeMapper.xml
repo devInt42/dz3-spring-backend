@@ -39,25 +39,43 @@
 		parameterType="com.example.backend.dto.mapping.AuthEmployeeDto"
 		resultMap="authEmployeeMap">
 		SELECT distinct
-		res.auth_seq, res.workplace_seq,
-		res.department_seq, c.company_seq, res.auth_name, c.company_name,
-		res.auth_code
+		ae.auth_seq, ae.workplace_seq,
+		ae.department_seq,
+		ae.company_seq, a.auth_name, c.company_name,
+		a.auth_code
 		from
-		(SELECT
-		a.auth_seq, r1.employee_seq, r1.workplace_seq,
-		r1.company_seq,
-		r1.department_seq, a.auth_name, a.auth_code
-		FROM
-		auth a
+		auth_employee ae
 		JOIN
-		auth_employee r1
-		ON
-		a.auth_seq = r1.auth_seq) res
-		JOIN company c
-		ON
-		res.company_seq = c.company_seq
-		WHERE
-		c.company_seq = #{companySeq}
+		auth a
+		on
+		ae.auth_seq = a.auth_seq
+		join
+		company c
+		on
+		ae.company_seq = c.company_seq
+		join
+		workplace w
+		on
+		ae.workplace_seq =
+		w.workplace_seq
+		join
+		department d
+		on
+		ae.department_seq = d.department_seq
+		<where>
+			<if test="companySeq != null and companySeq !=''">
+				AND ae.company_seq = #{companySeq}
+			</if>
+			<if test="workplaceSeq != null and workplaceSeq !=''">
+				AND ae.workplace_seq = #{workplaceSeq}
+			</if>
+			<if test="departmentSeq != null and departmentSeq !=''">
+				AND ae.department_seq = #{departmentSeq}
+			</if>
+			<if test="authName != null and authName !=''">
+				AND a.auth_name like CONCAT('%',#{authName},'%')
+			</if>
+		</where>
 		LIMIT #{startPgNum},#{endPgNum}
 	</select>
 
@@ -106,22 +124,30 @@
 		parameterType="com.example.backend.dto.mapping.AuthEmployeeDto"
 		resultType="int">
 		SELECT distinct
-		COUNT(distinct auth_seq)
+		COUNT(distinct ae.auth_seq)
 		from
-		(SELECT
-		a.auth_seq, r1.employee_seq, r1.workplace_seq,
-		r1.company_seq,
-		r1.department_seq, a.auth_name, a.auth_code
-		FROM
-		auth a
+		auth_employee ae
 		JOIN
-		auth_employee r1
-		ON
-		a.auth_seq = r1.auth_seq) res
-		JOIN company c
-		ON
-		res.company_seq = c.company_seq
+		auth a
+		on
+		ae.auth_seq = a.auth_seq
+		join
+		company c
+		on
+		ae.company_seq = c.company_seq
+		join
+		workplace w
+		on
+		ae.workplace_seq =
+		w.workplace_seq
+		join
+		department d
+		on
+		ae.department_seq = d.department_seq
 		WHERE
 		c.company_seq = #{companySeq}
+		<if test="authName != null and authName !=''">
+				AND a.auth_name like CONCAT('%',#{authName},'%')
+		</if>
 	</select>
 </mapper> 
