@@ -43,7 +43,7 @@ public class MenuApiController {
 	
 	// 상위메뉴 depth 조회
 	@GetMapping("/menulist/getdepth/{menuParent}")
-	public Integer getParentDepth(@PathVariable(required=true) String menuParent) {
+	public Integer getParentDepth(@PathVariable(required=true) int menuParent) {
 		return menuService.getParentDepth(menuParent);
 	}
 	

@@ -30,7 +30,7 @@ public class MenuServiceImpl implements MenuService {
 
 	// 상위메뉴 depth 조회
 	@Override
-	public Integer getParentDepth(String menuParent) {
+	public Integer getParentDepth(int menuParent) {
 		return sqlSession.getMapper(MenuMapper.class).getParentDepth(menuParent);
 	}
 

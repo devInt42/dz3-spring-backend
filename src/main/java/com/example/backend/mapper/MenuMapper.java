@@ -11,6 +11,6 @@ import com.example.backend.dto.MenuDto;
 public interface MenuMapper {
 	List<MenuDto> getMenuList();
 	List<MenuDto> getSubMenuList(int menuSequence);
-	Integer getParentDepth(String menuParent);
+	Integer getParentDepth(int menuParent);
 	void insertMenu(Map<String, String> map);
 }

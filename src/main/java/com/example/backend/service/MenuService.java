@@ -13,7 +13,7 @@ public interface MenuService {
 	List<MenuDto> getSubMenuList(int menuSequence);
 	
 	// 상위메뉴 depth 조회
-	Integer getParentDepth(String menuParent);
+	Integer getParentDepth(int menuParent);
 	
 	void insertMenu(Map <String, String> map);
 

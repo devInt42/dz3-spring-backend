@@ -19,7 +19,7 @@
 	<!-- 메뉴리스트 조회 -->
 	<select id="getMenuList"
 		resultMap="menuMap">
-		select * from menu where menu_parent = 0
+		select * from menu
 	</select>
 
 	<!-- 하위메뉴 조회 -->
@@ -29,17 +29,17 @@
 	</select>
 
 	<!-- 상위메뉴 깊이 조회 -->
-	<select id="getParentDepth" parameterType="String"
+	<select id="getParentDepth" parameterType="Integer"
 		resultType="Integer">
-		select distinct menu_depth from menu where menu_id =
+		select distinct menu_depth from menu where menu_seq =
 		#{menuParent}
 	</select>
 
 	<!-- 메뉴 저장 -->
 	<insert id="insertMenu">
-		insert into menu (menu_id, menu_name,
+		insert into menu (menu_code, menu_name,
 		menu_parent,
-		menu_depth) VALUES(#{menuId}, #{menuName}, #{menuParent},
+		menu_depth) VALUES(#{menuCode}, #{menuName}, #{menuParent},
 		#{menuDepth})
 	</insert>
 </mapper>
