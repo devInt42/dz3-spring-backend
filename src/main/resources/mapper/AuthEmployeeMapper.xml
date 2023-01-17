@@ -39,8 +39,7 @@
 		parameterType="com.example.backend.dto.mapping.AuthEmployeeDto"
 		resultMap="authEmployeeMap">
 		SELECT distinct
-		ae.auth_seq, ae.workplace_seq,
-		ae.department_seq,
+		ae.auth_seq, 
 		ae.company_seq, a.auth_name, c.company_name,
 		a.auth_code
 		from
