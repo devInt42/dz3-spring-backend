@@ -1,10 +1,7 @@
 package com.example.backend.controller.mapping;
 
-import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,23 +32,25 @@ public class AuthEmployeeApiController {
 			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
 			@RequestParam(required = false, name = "workplaceSeq") String workplaceSeq,
 			@RequestParam(required = false, name = "departmentSeq") String departmentSeq,
-			@RequestParam(required = false, name = "authName", defaultValue = "") String authName,
-			AuthEmployeeDto dto,HttpServletRequest request) throws JSONException {
+			@RequestParam(required = false, name = "authName", defaultValue = "") String authName, AuthEmployeeDto dto,
+			HttpServletRequest request) throws JSONException {
 
-		String empInfo= request.getHeader("Authorization");
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
-		System.out.println("집중");
-		System.out.println(jObject.get("companySeq"));
-		System.out.println(jObject.get("employeeSeq"));
-		System.out.println("=================");
+		// 회사 seq가 없을경우 헤더로 보낸 토큰값의 회사번호를 dto에 set
 		if (!companySeq.equals(null) && !companySeq.equals("")) {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
+		} else {
+			if ((int) jObject.get("employeeSeq") == 0) {
+				//admin 계정일 경우
+			} else {
+				dto.setCompanySeq((int) jObject.get("companySeq"));
+			}
 		}
 
+		// 권한명으로 검색했을 경우
 		if (!authName.equals(null) && !authName.equals("")) {
 			dto.setAuthName(authName);
 		}
-		System.out.println(dto);
 
 		return authEmployeeService.getAuthCompanyList(page, dto);
 	}
@@ -61,11 +60,19 @@ public class AuthEmployeeApiController {
 	public List<AuthEmployeeDto> getAuthListByAuth(@PathVariable(required = true) int page,
 			@RequestParam("authSeq") String authSeq,
 			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
-			AuthEmployeeDto dto) {
-		dto.setAuthSeq(Integer.parseInt(authSeq));
+			AuthEmployeeDto dto, HttpServletRequest request) throws JSONException {
+		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+		// 회사 seq가 없을경우 헤더로 보낸 토큰값의 회사번호를 dto에 set
 		if (!companySeq.equals(null) && !companySeq.equals("")) {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
+		} else {
+			if ((int) jObject.get("employeeSeq") == 0) {
+				//admin 계정일 경우
+			} else {
+				dto.setCompanySeq((int) jObject.get("companySeq"));
+			}
 		}
+		dto.setAuthSeq(Integer.parseInt(authSeq));
 		return authEmployeeService.getAuthEmployeeList(page, dto);
 	}
 
@@ -73,10 +80,18 @@ public class AuthEmployeeApiController {
 	@GetMapping("/count")
 	public int getAuthCountByCompany(
 			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
-			@RequestParam(required = false, name = "authName", defaultValue = "") String authName,
-			AuthEmployeeDto dto) {
+			@RequestParam(required = false, name = "authName", defaultValue = "") String authName, AuthEmployeeDto dto,
+			HttpServletRequest request) throws JSONException {
+		String empInfo = request.getHeader("Authorization");
+		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
 		if (!companySeq.equals(null) && !companySeq.equals("")) {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
+		} else {
+			if ((int) jObject.get("employeeSeq") == 0) {
+				//admin 계정일 경우
+			} else {
+				dto.setCompanySeq((int) jObject.get("companySeq"));
+			}
 		}
 		if (!authName.equals(null) && !authName.equals("")) {
 			dto.setAuthName(authName);
