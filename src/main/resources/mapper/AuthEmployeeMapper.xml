@@ -127,8 +127,12 @@
 	<select id="getCountByCompany"
 		parameterType="com.example.backend.dto.mapping.AuthEmployeeDto"
 		resultType="int">
-		SELECT distinct
-		COUNT(distinct ae.auth_seq)
+		SELECT
+		SUM(res.cnt)
+		from
+		(select
+		distinct
+		COUNT(distinct ae.auth_seq) AS cnt
 		from
 		auth_employee ae
 		JOIN
@@ -138,8 +142,7 @@
 		join
 		company c
 		on
-		ae.company_seq =
-		c.company_seq
+		ae.company_seq = c.company_seq
 		join
 		workplace w
 		on
@@ -157,5 +160,7 @@
 				AND a.auth_name like CONCAT('%',#{authName},'%')
 			</if>
 		</where>
+		GROUP BY ae.company_seq
+		) res
 	</select>
 </mapper> 

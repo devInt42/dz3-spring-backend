@@ -40,9 +40,7 @@ public class AuthEmployeeApiController {
 		if (!companySeq.equals(null) && !companySeq.equals("")) {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
 		} else {
-			if ((int) jObject.get("employeeSeq") == 0) {
-				//admin 계정일 경우
-			} else {
+			if ((int) jObject.get("employeeSeq") != 0) {//admin 계정이 아닌 경우
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
 		}
@@ -66,9 +64,7 @@ public class AuthEmployeeApiController {
 		if (!companySeq.equals(null) && !companySeq.equals("")) {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
 		} else {
-			if ((int) jObject.get("employeeSeq") == 0) {
-				//admin 계정일 경우
-			} else {
+			if ((int) jObject.get("employeeSeq") != 0) {//admin 계정이 아닌 경우
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
 		}
@@ -87,9 +83,7 @@ public class AuthEmployeeApiController {
 		if (!companySeq.equals(null) && !companySeq.equals("")) {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
 		} else {
-			if ((int) jObject.get("employeeSeq") == 0) {
-				//admin 계정일 경우
-			} else {
+			if ((int) jObject.get("employeeSeq") != 0) {//admin 계정이 아닌 경우
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
 		}
