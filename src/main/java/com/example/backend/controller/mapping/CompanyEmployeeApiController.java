@@ -38,7 +38,8 @@ public class CompanyEmployeeApiController {
 		if (map.get("employeeId").equals(companyEmployeeService.checkLogin(dto).getEmployeeId())
 				&& map.get("employeePwd").equals(companyEmployeeService.checkLogin(dto).getEmployeePwd()) && Integer
 						.parseInt(map.get("companyCode")) == companyEmployeeService.checkLogin(dto).getCompanyCode()) {
-			return companyEmployeeService.checkLogin(dto);
+			
+			return companyEmployeeService.responseLogin(dto);
 		} else {
 			return null;
 		}
