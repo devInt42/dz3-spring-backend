@@ -17,6 +17,9 @@ public class CompanyEmployeeServiceImpl implements CompanyEmployeeService {
 	public CompanyEmployeeDto checkLogin(CompanyEmployeeDto dto) {
 		return sqlSession.getMapper(CompanyEmployeeMapper.class).check(dto);
 	}
+	public CompanyEmployeeDto responseLogin(CompanyEmployeeDto dto) {
+		return sqlSession.getMapper(CompanyEmployeeMapper.class).response(dto);
+	}
 
 	@Override
 	public List<CompanyEmployeeDto> getCompanyList(CompanyEmployeeDto dto) {
