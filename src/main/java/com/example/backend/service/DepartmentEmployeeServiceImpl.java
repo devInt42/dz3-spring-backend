@@ -15,10 +15,7 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<DepartmentEmployeeDto> getEmployeePage(int page, DepartmentEmployeeDto dto) {
-		dto.setPage(page);
-		dto.setStartPgNum(0+(page-1)*3);
-		dto.setEndPgNum(3+(page-1)*3);
+	public List<DepartmentEmployeeDto> getEmployeePage(DepartmentEmployeeDto dto) {
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getList(dto);
 	}
 
