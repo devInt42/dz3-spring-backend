@@ -7,7 +7,7 @@ public class AuthDto {
 	private int authSeq;
 	private String authCode;
 	private String authName;
-	
+	private int companySeq;
 	
 	private int Page;
 	private int startPgNum;

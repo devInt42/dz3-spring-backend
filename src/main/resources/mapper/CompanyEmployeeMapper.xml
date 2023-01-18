@@ -20,12 +20,17 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeePwd" column="employee_pwd"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+			<result property="companyName" column="company_name"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="check"
 		parameterType="com.example.backend.dto.mapping.CompanyEmployeeDto"
 		resultMap="companyEmployeeMap">
-		SELECT*FROM
+		SELECT
+			ce.company_seq, ce.department_seq, ce.workplace_seq,
+			ce.employee_seq, e.employee_id, e.employee_pwd, c.company_code
+		FROM
 		company_employee ce
 		JOIN
 		employee e
@@ -41,5 +46,47 @@
 		AND company_code =
 		#{companyCode}
 		AND employee_pwd = #{employeePwd}
+	</select>
+	<select id="response"
+		parameterType="com.example.backend.dto.mapping.CompanyEmployeeDto"
+		resultMap="companyEmployeeMap">
+		SELECT
+			ce.company_seq, ce.department_seq, ce.workplace_seq,
+			ce.employee_seq, c.company_code
+		FROM
+		company_employee ce
+		JOIN
+		employee e
+		ON
+		ce.employee_seq = e.employee_seq
+		JOIN
+		company c
+		ON
+		ce.company_seq =
+		c.company_seq
+		WHERE
+		employee_id = #{employeeId}
+		AND company_code =
+		#{companyCode}
+		AND employee_pwd = #{employeePwd}
+	</select>
+	<select id="getList"
+		parameterType="com.example.backend.dto.mapping.CompanyEmployeeDto"
+		resultMap="companyEmployeeMap">
+		SELECT distinct ce.company_seq, c.company_name FROM
+		company_employee ce
+		JOIN
+		employee e
+		ON
+		ce.employee_seq = e.employee_seq
+		JOIN
+		company c
+		ON
+		ce.company_seq = c.company_seq
+		<where>
+			<if test="companySeq != null and companySeq !=''">
+				AND ce.company_seq = #{companySeq}
+			</if>
+		</where>
 	</select>
 </mapper> 

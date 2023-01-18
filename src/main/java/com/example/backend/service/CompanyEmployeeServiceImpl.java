@@ -1,5 +1,7 @@
 package com.example.backend.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,6 +16,14 @@ public class CompanyEmployeeServiceImpl implements CompanyEmployeeService {
 
 	public CompanyEmployeeDto checkLogin(CompanyEmployeeDto dto) {
 		return sqlSession.getMapper(CompanyEmployeeMapper.class).check(dto);
+	}
+	public CompanyEmployeeDto responseLogin(CompanyEmployeeDto dto) {
+		return sqlSession.getMapper(CompanyEmployeeMapper.class).response(dto);
+	}
+
+	@Override
+	public List<CompanyEmployeeDto> getCompanyList(CompanyEmployeeDto dto) {
+		return sqlSession.getMapper(CompanyEmployeeMapper.class).getList(dto);
 	}
 
 }
