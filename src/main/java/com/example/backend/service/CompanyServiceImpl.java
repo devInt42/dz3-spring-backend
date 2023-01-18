@@ -22,8 +22,6 @@ public class CompanyServiceImpl implements CompanyService {
 		return sqlSession.getMapper(CompanyMapper.class).getallCompanyInfo();
 	}
 
-<<<<<<< HEAD
-=======
 	@Override
 	public CompanyDto getCompanyInfo(int companySeq) {
 		return sqlSession.getMapper(CompanyMapper.class).getCompanyInfo(companySeq);
@@ -50,5 +48,4 @@ public class CompanyServiceImpl implements CompanyService {
 		return sqlSession.getMapper(CompanyMapper.class).DupliCheck(companyCode);
 	}
 
->>>>>>> 31e4c5bb275ff433b27ec49031bf4a3b0a6550f4
 }
