@@ -86,7 +86,6 @@
 		ASC,
 		department_seq ASC,
 		employee_seq ASC
-		LIMIT #{startPgNum},#{endPgNum}
 	</select>
 
 	<select id="getListByDepartment"

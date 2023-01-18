@@ -24,14 +24,14 @@ public class DepartmentEmployeeApiController {
 	private DepartmentEmployeeServiceImpl departementEmployeeService;
 
 	// 회사seq, 사업장seq, 부서seq 를 통해 직원 리스트 select
-	@GetMapping("/page/{page}")
-	public List<DepartmentEmployeeDto> getList(@PathVariable(required = true) int page,
-			@RequestParam("companySeq") String companySeq, @RequestParam("workplaceSeq") String workplaceSeq,
-			@RequestParam("departmentSeq") String departmentSeq, DepartmentEmployeeDto dto) {
+	@GetMapping("employeeList")
+	public List<DepartmentEmployeeDto> getList(@RequestParam("companySeq") String companySeq,
+			@RequestParam("workplaceSeq") String workplaceSeq, @RequestParam("departmentSeq") String departmentSeq,
+			DepartmentEmployeeDto dto) {
 		dto.setCompanySeq(Integer.parseInt(companySeq));
 		dto.setWorkplaceSeq(Integer.parseInt(workplaceSeq));
 		dto.setDepartmentSeq(Integer.parseInt(departmentSeq));
-		return departementEmployeeService.getEmployeePage(page, dto);
+		return departementEmployeeService.getEmployeePage(dto);
 	}
 
 	// 부서seq로 해당 부서 직원 select
