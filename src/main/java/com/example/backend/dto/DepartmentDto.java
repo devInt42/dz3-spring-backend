@@ -14,5 +14,5 @@ public class DepartmentDto {
 	private String departmentCall;
 	private String departmentLoc;
 	private int departmentParent;
-	private int flag;
+	private String useYN;
 	}

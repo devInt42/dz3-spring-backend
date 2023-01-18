@@ -118,7 +118,6 @@
 		WHERE
 		de.department_seq
 		= #{departmentSeq}
-		LIMIT #{startPgNum},#{endPgNum}
 	</select>
 
 	<select id="getEmployeeCount"

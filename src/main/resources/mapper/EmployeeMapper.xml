@@ -33,8 +33,8 @@
 			javaType="java.sql.Date" jdbcType="DATE" />
 		<result property="employeeLeave" column="employee_leave"
 			javaType="java.sql.Date" jdbcType="DATE" />
-		<result property="flag" column="flag"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="useYN" column="use_yn"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 	<select id="getBySeq" parameterType="int"
 		resultMap="employeeMap">

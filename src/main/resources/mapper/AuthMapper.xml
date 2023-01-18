@@ -11,6 +11,8 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="authName" column="auth_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+			<result property="companySeq" column="company_seq"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
 	</resultMap>
 	
 	<select id="getBySeq" parameterType="int"
