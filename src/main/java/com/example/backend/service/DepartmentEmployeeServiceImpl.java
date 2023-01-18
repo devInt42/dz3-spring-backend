@@ -23,10 +23,8 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 	}
 
 	@Override
-	public List<DepartmentEmployeeDto> getEmployeePagebyDepartment(int page, DepartmentEmployeeDto dto) {
-		dto.setPage(page);
-		dto.setStartPgNum(0+(page-1)*5);
-		dto.setEndPgNum(5+(page-1)*5);
+	public List<DepartmentEmployeeDto> getEmployeePagebyDepartment( DepartmentEmployeeDto dto) {
+		
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getListByDepartment(dto);
 	}
 	

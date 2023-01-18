@@ -11,47 +11,35 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="menuName" column="menu_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="menuParent" column="menu_parent"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="menuDepth" column="menu_depth"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
 	</resultMap>
-
-<select id="getBySeq" parameterType="int"
+	<!-- 메뉴리스트 조회 -->
+	<select id="getMenuList"
 		resultMap="menuMap">
-		select * from
-		menu where menu_seq = #{menuSeq}
+		select * from menu where menu_parent = 0
 	</select>
 
-	<select id="getList"
-		parameterType="com.example.backend.dto.MenuDto"
+	<!-- 하위메뉴 조회 -->
+	<select id="getSubMenuList" parameterType="Integer"
 		resultMap="menuMap">
-		select * from
-		menu
-		<where>
-			<if test="menuSeq != null and menuSeq !=''">
-				AND menu_seq = #{menuSeq}
-			</if>
-			<if test="menuCode != null and menuCode !=''">
-				And menu_code = #{menuCode}
-			</if>
-				<if test="menuName != null and menuName !=''">
-				And menu_name = #{menuName}
-			</if>
-		</where>
+		select * from menu where menu_parent = #{menuSequence}
 	</select>
 
-	<delete id="remove" parameterType="int">
-		delete from menu where
-		menu_seq = #{menuSeq}
-	</delete>
+	<!-- 상위메뉴 깊이 조회 -->
+	<select id="getParentDepth" parameterType="String"
+		resultType="Integer">
+		select distinct menu_depth from menu where menu_id =
+		#{menuParent}
+	</select>
 
-	<insert id="add" parameterType="map">
-		insert into
-		menu(menu_code, menu_name) values(#{menuCode}, #{menuName})
+	<!-- 메뉴 저장 -->
+	<insert id="insertMenu">
+		insert into menu (menu_id, menu_name,
+		menu_parent,
+		menu_depth) VALUES(#{menuId}, #{menuName}, #{menuParent},
+		#{menuDepth})
 	</insert>
-
-	<update id="set">
-		update menu set menu_code = #{menuCode},
-		menu_name = #{menuName}
-		where menu_seq = #{menuSeq}
-	</update>
-
-
-</mapper> 
+</mapper>

@@ -1,11 +1,19 @@
 package com.example.backend.controller.mapping;
 
+import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.dto.mapping.CompanyEmployeeDto;
@@ -35,6 +43,19 @@ public class CompanyEmployeeApiController {
 			return null;
 		}
 
+	}
+
+	// 사원 소속 회사명 조회
+	@GetMapping("/select")
+	public List<CompanyEmployeeDto> getCompanyListByEmployee(CompanyEmployeeDto dto, HttpServletRequest request)
+			throws JSONException {
+
+		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+		// 헤더로 보낸 토큰값의 회사번호를 dto에 set
+		if ((int) jObject.get("employeeSeq") != 0) {// admin 계정이 아닐경우
+			dto.setCompanySeq((int) jObject.get("companySeq"));
+		}
+		return companyEmployeeService.getCompanyList(dto);
 	}
 
 }
