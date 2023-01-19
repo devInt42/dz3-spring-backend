@@ -103,13 +103,15 @@
 		resultMap="companyMap">
 		select * from company
 		<trim  prefix = "WHERE" prefixOverrides="AND">
-			<if test="companyCode != null and companyCode != 0">
+			<if test='companyCode != null and companyCode != 0'>
 				AND company_code like CONCAT ('%',#{companyCode},'%')
 			</if>
-			<if test="companyName != '' and companyName != null">
+			<if test='companyName != ""  and companyName != null'>
 				AND company_name like CONCAT ('%',#{companyName},'%')
 			</if>
+			<if test = 'useYN!="" and useYN !=null'>
 				AND use_yn = #{useYN}
+			</if>
 		</trim>
 	</select>
 </mapper>
