@@ -11,4 +11,5 @@ public interface CompanyService {
 	void insertCompany( CompanyDto dto);
 	void updateCompany(CompanyDto dto);
 	void DeleteCompany(int companySeq);
+	List <CompanyDto> FindCompany(CompanyDto dto);
 }

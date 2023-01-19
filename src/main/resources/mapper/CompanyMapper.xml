@@ -33,21 +33,22 @@
 			column="company_closingday" javaType="java.sql.Date" jdbcType="DATE" />
 		<result property="companyFax" column="company_fax"
 			javaType="java.lang.String" jdbcType="INTEGER" />
-			<result property="companyZipCode" column = "company_zipcode"
-			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
-			<result property = "companyForeigner" column = "company_foreigner"
-			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
-			<result property="useYN" column="use_yn"
+		<result property="companyZipCode" column="company_zipcode"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
-			<result property = "pcBuisness" column = "pc_buisness"
-			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
+		<result property="companyForeigner" column="company_foreigner"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="useYN" column="use_yn"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="pcBuisness" column="pc_buisness"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="getallCompanyInfo" resultMap="companyMap">
 		SELECT * FROM company
 	</select>
 
-	<select id="getCompanyInfo" resultMap="companyMap" parameterType="int">
+	<select id="getCompanyInfo" resultMap="companyMap"
+		parameterType="int">
 		SELECT * FROM company
 		<where>
 			<if test="#{companySeq} != null || #{companySeq} != 0">
@@ -55,30 +56,39 @@
 			</if>
 		</where>
 	</select>
-	
-	<select id = "DupliCheck" resultType = "int" parameterType = "int">
-		select Count(*) from company where company_code = #{companyCode}
+
+	<select id="DupliCheck" resultType="int" parameterType="int">
+		select
+		Count(*) from company where company_code = #{companyCode}
 	</select>
-	
+
 	<insert id="insertCompanyInfo"
 		parameterType="com.example.backend.dto.CompanyDto">
 		INSERT INTO company
-		VALUES(#{companySeq},#{companyCode}, #{companyName},
-		#{companyBusiness}, #{companyItem}, #{companyCall}, #{companyRegist},
-		#{companyCorporate}, #{companyPresident}, #{companyHomepage},
-		#{companyAddr}, #{companyEstablish}, #{companyClosingDay}, #{companyFax}, #{companyForeigner}, #{companyZipCode}, #{useYN}, #{pcBuisness});
+		VALUES(#{companySeq},#{companyCode},
+		#{companyName},
+		#{companyBusiness}, #{companyItem}, #{companyCall},
+		#{companyRegist},
+		#{companyCorporate}, #{companyPresident},
+		#{companyHomepage},
+		#{companyAddr}, #{companyEstablish},
+		#{companyClosingDay}, #{companyFax}, #{companyForeigner},
+		#{companyZipCode}, #{useYN}, #{pcBuisness});
 	</insert>
 
 	<update id="updateCompany"
 		parameterType="com.example.backend.dto.CompanyDto">
 		update company set company_code =#{companyCode},
 		company_name = #{companyName} ,company_business =#{companyBusiness},
-		company_item = #{companyItem}, company_call =#{companyCall}, 
-		company_regist =#{companyRegist},company_corporate = #{companyCorporate}, 
-		company_homepage = #{companyHomepage},company_addr = #{companyAddr}, 
-		company_establish =#{companyEstablish}, company_closingday = #{companyClosingday},
-		use_yn = #{useYN}, company_fax = #{companyFax}, company_foreigner = #{companyForeigner},
-		company_zipcode=#{companyZipCode}, pc_buisness =#{pcBuisness}
+		company_item = #{companyItem}, company_call =#{companyCall},
+		company_regist =#{companyRegist},company_corporate =
+		#{companyCorporate},
+		company_homepage = #{companyHomepage},company_addr = #{companyAddr},
+		company_establish =#{companyEstablish}, company_closingday = #{companyClosingDay},
+		use_yn = #{useYN}, company_fax = #{companyFax}, company_foreigner =
+		#{companyForeigner},
+		company_zipcode=#{companyZipCode}, pc_buisness
+		=#{pcBuisness}
 		where
 		company_seq = #{companySeq}
 	</update>
@@ -87,4 +97,19 @@
 		delete from company
 		where company_seq = #{companySeq}
 	</delete>
+
+	<select id="FindCompany"
+		parameterType="com.example.backend.dto.CompanyDto"
+		resultMap="companyMap">
+		select * from company
+		<trim  prefix = "WHERE" prefixOverrides="AND">
+			<if test="companyCode != null and companyCode != 0">
+				AND company_code like CONCAT ('%',#{companyCode},'%')
+			</if>
+			<if test="companyName != '' and companyName != null">
+				AND company_name like CONCAT ('%',#{companyName},'%')
+			</if>
+				AND use_yn = #{useYN}
+		</trim>
+	</select>
 </mapper>

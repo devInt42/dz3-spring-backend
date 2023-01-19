@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.dto.CompanyDto;
@@ -21,7 +22,6 @@ public class CompanyApiController {
 	
 	@GetMapping("/info")
 	public List<CompanyDto> getallCompany() {
-		System.out.println("getDto:: " + companyService.getCompanyInformation());
 		return companyService.getCompanyInformation();
 	}
 	
@@ -39,8 +39,6 @@ public class CompanyApiController {
 	
 	@PostMapping("/insert")
 	public void insertCompany(@RequestBody CompanyDto dto) {
-		System.out.println("dto :: " + dto.toString() );
-		System.out.println(111);
 		companyService.insertCompany(dto);
 	}
 	
@@ -54,5 +52,12 @@ public class CompanyApiController {
 	@GetMapping("/delete/{companySeq}")
 	public void deleteCompany(@PathVariable("companySeq") int companySeq) {
 		companyService.DeleteCompany(companySeq);
+	}
+	@GetMapping("/find")
+	public List<CompanyDto> GetFindList(@RequestParam int companycode, 
+			@RequestParam String companyname, @RequestParam String useyn) {
+		CompanyDto dto = new CompanyDto(companycode, companyname, useyn);
+		System.out.println(dto.toString());
+		return companyService.FindCompany(dto);
 	}
 }
