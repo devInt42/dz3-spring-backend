@@ -29,5 +29,11 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 	public int getEmployeeCountByDepartment(DepartmentEmployeeDto dto) {
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getEmployeeCount(dto);
 	}
+
+	@Override
+	public DepartmentEmployeeDto getEmployeeInfo(DepartmentEmployeeDto dto) {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getInfo(dto);
+
+	}
 	
 }

@@ -9,5 +9,6 @@ public interface DepartmentEmployeeMapper {
 	List<DepartmentEmployeeDto> getListByDepartment(DepartmentEmployeeDto dto);
 	int getDepartmentCount(DepartmentEmployeeDto dto);
 	int getEmployeeCount(DepartmentEmployeeDto dto);
+	DepartmentEmployeeDto getInfo(DepartmentEmployeeDto dto);
 
 }

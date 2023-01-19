@@ -43,9 +43,8 @@ public class CompanyEmployeeApiController {
 		} else {
 			return null;
 		}
-
 	}
-
+	
 	// 사원 소속 회사명 조회
 	@GetMapping("/select")
 	public List<CompanyEmployeeDto> getCompanyListByEmployee(CompanyEmployeeDto dto, HttpServletRequest request)
