@@ -15,6 +15,12 @@ public interface MenuService {
 	// 상위메뉴 depth 조회
 	Integer getParentDepth(int menuParent);
 	
+	// 메뉴 삽입
 	void insertMenu(Map <String, String> map);
-
+	
+	// 메뉴 삭제
+	void deleteMenu(int menuSeq);
+	
+	// 메뉴 수정
+	void updateMenu(Map<String, String> map);
 }

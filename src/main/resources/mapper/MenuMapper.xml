@@ -19,27 +19,39 @@
 	<!-- 메뉴리스트 조회 -->
 	<select id="getMenuList"
 		resultMap="menuMap">
-		select * from menu
+		select * from menu_test
 	</select>
 
 	<!-- 하위메뉴 조회 -->
 	<select id="getSubMenuList" parameterType="Integer"
 		resultMap="menuMap">
-		select * from menu where menu_parent = #{menuSequence}
+		select * from menu_test where menu_parent = #{menuSequence}
 	</select>
 
 	<!-- 상위메뉴 깊이 조회 -->
 	<select id="getParentDepth" parameterType="Integer"
 		resultType="Integer">
-		select distinct menu_depth from menu where menu_seq =
+		select distinct menu_depth from menu_test where menu_seq =
 		#{menuParent}
 	</select>
 
 	<!-- 메뉴 저장 -->
 	<insert id="insertMenu">
-		insert into menu (menu_code, menu_name,
+		insert into menu_test (menu_code, menu_name,
 		menu_parent,
 		menu_depth) VALUES(#{menuCode}, #{menuName}, #{menuParent},
 		#{menuDepth})
 	</insert>
+	
+	<!-- 메뉴 삭제 -->
+	<delete id="deleteMenu" parameterType="Integer">
+		delete from menu_test
+		where menu_seq = #{menuSeq}
+	</delete>
+	
+	<!-- 메뉴 수정 -->
+	<update id="updateMenu">
+		update menu_test set menu_code = #{menuCode}, menu_name = #{menuName}, menu_parent = #{menuParent}
+		where menu_seq = #{menu_seq}
+	</update>
 </mapper>

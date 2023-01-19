@@ -13,4 +13,6 @@ public interface MenuMapper {
 	List<MenuDto> getSubMenuList(int menuSequence);
 	Integer getParentDepth(int menuParent);
 	void insertMenu(Map<String, String> map);
+	void deleteMenu(int menuSeq);
+	void updateMenu(Map<String, String> map);
 }

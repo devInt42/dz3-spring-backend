@@ -34,9 +34,22 @@ public class MenuServiceImpl implements MenuService {
 		return sqlSession.getMapper(MenuMapper.class).getParentDepth(menuParent);
 	}
 
+	// 메뉴 저장
 	@Override
 	public void insertMenu(Map<String, String> map) {
 		sqlSession.getMapper(MenuMapper.class).insertMenu(map);
+	}
+
+	// 메뉴 삭제
+	@Override
+	public void deleteMenu(int menuSeq) {
+		sqlSession.getMapper(MenuMapper.class).deleteMenu(menuSeq);
+	}
+
+	// 메뉴 수정
+	@Override
+	public void updateMenu(Map<String, String> map) {
+		sqlSession.getMapper(MenuMapper.class).updateMenu(map);
 	}
 
 }

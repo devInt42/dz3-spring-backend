@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,4 +48,21 @@ public class MenuApiController {
 		System.out.println(map);
 		menuService.insertMenu(map);
 	}
+	
+	// 메뉴 삭제
+	@DeleteMapping("/menulist/delete/{menuSeq}")
+	public void deleteMenu(@PathVariable(required=true) int menuSeq) {
+		System.out.println("삭제 왔다"+menuSeq);
+		menuService.deleteMenu(menuSeq);
+	}
+	
+	// 메뉴 수정
+	@PatchMapping("/menulist/update/{menuSeq}")
+	public void updateMenu(@PathVariable(required=true) String menuSeq, @RequestBody(required=true) Map<String, String> map) {
+		System.out.println(map);
+		map.put("menuSeq", menuSeq);
+		System.out.println(map);
+		//menuService.updateMenu(map);
+	}
+	
 }
