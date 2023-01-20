@@ -7,6 +7,10 @@ public class DepartmentDto {
 	private int departmentSeq;
 	private int companySeq;
 	private int workplaceSeq;
+	private String companyName;
+	private String workplaceName;
+	private int companyCode;
+	private int workplaceCode;
 	private int departmentCode;
 	private String departmentName;
 	private int departmentPresident;
@@ -14,5 +18,5 @@ public class DepartmentDto {
 	private String departmentCall;
 	private String departmentLoc;
 	private int departmentParent;
-	private int flag;
+	private String useYN;
 	}

@@ -27,14 +27,28 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="departmentParent" column="department_parent"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
-		<result property="flag" column="flag"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="useYN" column="use_yn"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyCode" column="company_code"
+			javaType="java.lang.Integer" jdbcType="INTEGER"/>
+		<result property="companyName" column = "company_name"
+		 	javaType= "java.lang.String" jdbcType = "VARCHAR"/>
+		<result property = "workplaceCode" column ="workplace_code"
+			javaType ="java.lang.Integer" jdbcType = "INTEGER"/>
+		<result property = "workplaceName" column = "workplace_name"
+			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
 
 	</resultMap>
-	<select id="getList" parameterType="com.example.backend.dto.DepartmentDto"
-      resultMap="departmentMap">
-      SELECT * FROM department
-      where company_seq = #{companySeq}
+	<select id="GetDepartmentList" resultMap="departmentMap">
+      SELECT c.company_seq, c.company_code, c.company_name,w.workplace_seq, w.workplace_code, w.workplace_name, d.department_seq ,d.department_code, d.department_name FROM 
+		department d
+		JOIN workplace w ON d.workplace_seq = w.workplace_seq
+		JOIN company c ON c.company_seq = w.company_seq
+	UNION
+	SELECT c.company_seq, c.company_code, c.company_name,w.workplace_seq, w.workplace_code, w.workplace_name, d.department_seq, d.department_code, d.department_name from
+		department d
+		RIGHT JOIN workplace w ON d.workplace_seq = w.workplace_seq
+		RIGHT JOIN company c ON c.company_seq = w.company_seq
       </select>
 
 </mapper> 
