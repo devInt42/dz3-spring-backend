@@ -30,8 +30,6 @@ public class AuthEmployeeApiController {
 	@GetMapping("/company/page/{page}")
 	public List<AuthEmployeeDto> getAuthListByCompany(@PathVariable(required = true) int page,
 			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
-			@RequestParam(required = false, name = "workplaceSeq") String workplaceSeq,
-			@RequestParam(required = false, name = "departmentSeq") String departmentSeq,
 			@RequestParam(required = false, name = "authName", defaultValue = "") String authName, AuthEmployeeDto dto,
 			HttpServletRequest request) throws JSONException {
 
@@ -92,4 +90,6 @@ public class AuthEmployeeApiController {
 		}
 		return authEmployeeService.getAuthCountByCompany(dto);
 	}
+	
+
 }

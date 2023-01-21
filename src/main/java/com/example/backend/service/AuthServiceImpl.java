@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.backend.dto.AuthDto;
+import com.example.backend.dto.mapping.AuthEmployeeDto;
+import com.example.backend.mapper.AuthEmployeeMapper;
 import com.example.backend.mapper.AuthMapper;
 
 @Component
@@ -43,5 +45,13 @@ public class AuthServiceImpl implements AuthService {
 	public void addAuth(Map<String, String> map) {
 		sqlSession.getMapper(AuthMapper.class).add(map);		
 	}
+
+	@Override
+	public int checkDupl(AuthDto dto) {
+		return sqlSession.getMapper(AuthMapper.class).check(dto);		
+
+	}
+
+
 
 }
