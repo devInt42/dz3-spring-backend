@@ -1,0 +1,11 @@
+// auth 테이블 추가시 auth_employee에 권한번호, 회사번호 자동 추가해주는 트리거
+
+DELIMITER $$
+create trigger add_auth_employee
+after insert on auth
+for each ROW
+BEGIN
+INSERT INTO auth_employee(auth_seq,company_seq) values(NEW.auth_seq, NEW.company_seq);
+END;
+ $$
+DELIMITER ;
