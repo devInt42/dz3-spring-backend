@@ -15,11 +15,40 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="menuDepth" column="menu_depth"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="child" column="child"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
 	</resultMap>
+
+	<!-- 깊이별 메뉴 조회 -->
+	<select id="getChildListByDepth"
+		parameterType="com.example.backend.dto.MenuDto" resultMap="menuMap">
+		select
+		menu_seq, menu_code, menu_name,
+		menu_parent, menu_depth
+		from menu
+		where
+		menu_depth = #{menuDepth}
+		and
+		menu_parent =
+		#{menuParent}
+	</select>
+
+	<!-- 깊이별 메뉴 조회 -->
+	<select id="getCountListByDepth"
+		parameterType="com.example.backend.dto.MenuDto" resultType="int">
+		select
+		count(*)
+		from menu
+		where
+		menu_depth = #{menuDepth}
+		and
+		menu_parent = #{menuParent}
+	</select>
+
 	<!-- 메뉴리스트 조회 -->
-	<select id="getMenuList"
-		resultMap="menuMap">
-		select * from menu where menu_parent = 0
+	<select id="getMenuList" resultMap="menuMap">
+		select * from menu where
+		menu_parent = 0
 	</select>
 
 	<!-- 하위메뉴 조회 -->

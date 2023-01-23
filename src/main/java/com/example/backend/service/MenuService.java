@@ -6,6 +6,13 @@ import java.util.Map;
 import com.example.backend.dto.MenuDto;
 
 public interface MenuService {
+	
+	// 깊이별 메뉴리스트 조회
+	List<MenuDto> getChildMenuListByDepth(MenuDto dto);
+	
+	// 깊이별 메뉴리스트 카운트
+	int getCountMenuListByDepth(MenuDto dto);
+	
 	// 메뉴 리스트 조회
 	List<MenuDto> getMenuList();
 	

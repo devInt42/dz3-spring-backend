@@ -1,4 +1,4 @@
-// auth 테이블 추가시 auth_employee에 권한번호, 회사번호 자동 추가해주는 트리거
+// auth 테이블 추가시 auth_employee에 권한번호, 회사번호 자동 추가해주는 트리거e
 
 DELIMITER $$
 create trigger add_auth_employee

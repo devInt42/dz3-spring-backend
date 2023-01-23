@@ -16,6 +16,19 @@ public class MenuServiceImpl implements MenuService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	// 깊이별 메뉴리스트 조회
+	@Override
+	public List<MenuDto> getChildMenuListByDepth(MenuDto dto) {
+		return sqlSession.getMapper(MenuMapper.class).getChildListByDepth(dto);
+	}
+
+	// 깊이별 메뉴리스트 카운트
+	@Override
+	public int getCountMenuListByDepth(MenuDto dto) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(MenuMapper.class).getCountListByDepth(dto);
+	}
+	
 	// 메뉴 리스트 조회
 	@Override
 	public List<MenuDto> getMenuList() {
@@ -38,5 +51,9 @@ public class MenuServiceImpl implements MenuService {
 	public void insertMenu(Map<String, String> map) {
 		sqlSession.getMapper(MenuMapper.class).insertMenu(map);
 	}
+
+
+
+
 
 }
