@@ -19,4 +19,5 @@ public class DepartmentDto {
 	private String departmentLoc;
 	private int departmentParent;
 	private String useYN;
-	}
+	private int departmentDepth;
+}

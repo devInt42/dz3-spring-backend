@@ -19,4 +19,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 		// TODO Auto-generated method stub
 		return sqlSession.getMapper(DepartmentMapper.class).GetDepartmentList();
 	}
+
+	@Override
+	public List<DepartmentDto> GetCompanyList() {
+		return sqlSession.getMapper(DepartmentMapper.class).GetCompanyList();
+	}
+
+	@Override
+	public List<DepartmentDto> GetWorkplaceList() {
+		return sqlSession.getMapper(DepartmentMapper.class).GetWorkplaceList();
+	}
 }

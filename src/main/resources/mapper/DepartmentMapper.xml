@@ -37,18 +37,18 @@
 			javaType ="java.lang.Integer" jdbcType = "INTEGER"/>
 		<result property = "workplaceName" column = "workplace_name"
 			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
-
+		<result property = "departmentDepth" column = "department_depth"
+			javaType = "java.lang.Integer" jdbcType ="INTEGER"/>
 	</resultMap>
 	<select id="GetDepartmentList" resultMap="departmentMap">
-      SELECT c.company_seq, c.company_code, c.company_name,w.workplace_seq, w.workplace_code, w.workplace_name, d.department_seq ,d.department_code, d.department_name FROM 
-		department d
-		JOIN workplace w ON d.workplace_seq = w.workplace_seq
-		JOIN company c ON c.company_seq = w.company_seq
-	UNION
-	SELECT c.company_seq, c.company_code, c.company_name,w.workplace_seq, w.workplace_code, w.workplace_name, d.department_seq, d.department_code, d.department_name from
-		department d
-		RIGHT JOIN workplace w ON d.workplace_seq = w.workplace_seq
-		RIGHT JOIN company c ON c.company_seq = w.company_seq
+     SELECT * from department
       </select>
-
+	
+	<select id = "GetCompanyList" resultMap="departmentMap">
+	SELECT  company_seq, company_code, company_name from company
+	</select>
+	<select id = "GetWorkplaceList" resultMap = "departmentMap">
+	SELECT company_seq,workplace_seq, workplace_code, workplace_name from workplace
+	</select>
+	
 </mapper> 

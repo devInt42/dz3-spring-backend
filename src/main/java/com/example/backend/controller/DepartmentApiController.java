@@ -24,4 +24,14 @@ public class DepartmentApiController {
 	 public List<DepartmentDto> getDepartmentList() {	 
 		 return departmentService.GetDepartmentList();
 	 }
+	 
+	 @GetMapping("/list/company")
+	 public List<DepartmentDto> getCompanyList() {
+		 return departmentService.GetCompanyList();
+	 }
+	 
+	 @GetMapping("/list/workplace")
+	 public List<DepartmentDto> getWorkplaceList() {
+		 return departmentService.GetWorkplaceList();
+	 }
 }
