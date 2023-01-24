@@ -2,7 +2,11 @@ package com.example.backend.controller.mapping;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +28,7 @@ public class DepartmentEmployeeApiController {
 	private DepartmentEmployeeServiceImpl departementEmployeeService;
 
 	// 회사seq, 사업장seq, 부서seq 를 통해 직원 리스트 select
-	@GetMapping("employeeList")
+	@GetMapping("/employeeList")
 	public List<DepartmentEmployeeDto> getList(@RequestParam("companySeq") String companySeq,
 			@RequestParam("workplaceSeq") String workplaceSeq, @RequestParam("departmentSeq") String departmentSeq,
 			DepartmentEmployeeDto dto) {
@@ -48,5 +52,63 @@ public class DepartmentEmployeeApiController {
 			DepartmentEmployeeDto dto) {
 		dto.setDepartmentSeq(Integer.parseInt(departmentSeq));
 		return departementEmployeeService.getEmployeeCountByDepartment(dto);
+	}
+
+	// 회사 seq를 받아와서 회사를 select
+	@GetMapping("/companyElement")
+	public List<DepartmentEmployeeDto> getCompanyElement(
+			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
+			DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
+		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+
+		if (!companySeq.equals(null) && !companySeq.equals("")) { // 회사 seq가 없을 경우 헤더로 보낸 토큰값의 회사번호를 dto에 set함.
+			dto.setCompanySeq(Integer.parseInt(companySeq));
+			System.out.println(companySeq);
+
+		} else {
+			if ((int) jObject.get("employeeSeq") != 0) { // admin 계정이 아닌 경우
+				dto.setCompanySeq((int) jObject.get("companySeq"));
+			}
+		}
+		return departementEmployeeService.getCompanyElement(dto);
+	}
+
+	// 회사 seq를 받아와서 중복제거된 사업장을 select
+	@GetMapping("/workplaceList")
+	public List<DepartmentEmployeeDto> getWorkplaceList(
+			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
+			DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
+		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+
+		if (!companySeq.equals(null) && !companySeq.equals("")) { // 회사 seq가 없을 경우 헤더로 보낸 토큰값의 회사번호를 dto에 set함.
+			dto.setCompanySeq(Integer.parseInt(companySeq));
+			System.out.println(companySeq);
+
+		} else {
+			if ((int) jObject.get("employeeSeq") != 0) { // admin 계정이 아닌 경우
+				dto.setCompanySeq((int) jObject.get("companySeq"));
+			}
+		}
+		return departementEmployeeService.getWorkplaceInfo(dto);
+
+	}
+
+	// 회사 seq를 받아와서 중복제거된 부서를 select
+	@GetMapping("/departmentList")
+	public List<DepartmentEmployeeDto> getDepartmentList(
+			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
+			DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
+		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+
+		if (!companySeq.equals(null) && !companySeq.equals("")) { // 회사 seq가 없을 경우 헤더로 보낸 토큰값의 회사번호를 dto에 set함.
+			dto.setCompanySeq(Integer.parseInt(companySeq));
+			System.out.println(companySeq);
+
+		} else {
+			if ((int) jObject.get("employeeSeq") != 0) { // admin 계정이 아닌 경우
+				dto.setCompanySeq((int) jObject.get("companySeq"));
+			}
+		}
+		return departementEmployeeService.getDepartmentInfo(dto);
 	}
 }

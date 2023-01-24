@@ -9,4 +9,7 @@ public interface DepartmentEmployeeService {
 	List<DepartmentEmployeeDto>getEmployeePage(DepartmentEmployeeDto dto);
 	List<DepartmentEmployeeDto> getEmployeePagebyDepartment(DepartmentEmployeeDto dto);
 	int getEmployeeCountByDepartment(DepartmentEmployeeDto dto);
+	List<DepartmentEmployeeDto>getCompanyElement(DepartmentEmployeeDto dto);
+	List<DepartmentEmployeeDto>getWorkplaceInfo(DepartmentEmployeeDto dto);
+	List<DepartmentEmployeeDto>getDepartmentInfo(DepartmentEmployeeDto dto);
 }
