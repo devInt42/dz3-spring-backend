@@ -11,7 +11,35 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="menuName" column="menu_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="menuParent" column="menu_parent"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="menuDepth" column="menu_depth"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
 	</resultMap>
+	<!-- 메뉴리스트 조회 -->
+	<select id="getMenuList"
+		resultMap="menuMap">
+		SELECT*FROM menu
+	</select>
 
+	<!-- 하위메뉴 조회 -->
+	<select id="getSubMenuList" parameterType="String"
+		resultType="com.example.backend.dto.MenuDto">
+		select * from menu where menu_parent = #{menuParent}
+	</select>
 
-</mapper> 
+	<!-- 상위메뉴 깊이 조회 -->
+	<select id="getParentDepth" parameterType="String"
+		resultType="Integer">
+		select distinct menu_depth from menu where menu_id =
+		#{menuParent}
+	</select>
+
+	<!-- 메뉴 저장 -->
+	<insert id="insertMenu">
+		insert into menu (menu_id, menu_name,
+		menu_parent,
+		menu_depth) VALUES(#{menuId}, #{menuName}, #{menuParent},
+		#{menuDepth})
+	</insert>
+</mapper>

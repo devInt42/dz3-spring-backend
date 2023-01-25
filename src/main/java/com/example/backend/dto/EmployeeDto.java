@@ -1,6 +1,6 @@
 package com.example.backend.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ public class EmployeeDto {
 	private int employeeCode;
 	private String employeeId;
 	private String employeeName;
-	private String employeeBirth;
+	private Date employeeBirth;
 	private String employeeCall;
 	private String employeePwd;
 	private String employeePh;

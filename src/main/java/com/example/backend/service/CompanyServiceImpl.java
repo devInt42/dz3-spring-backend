@@ -48,4 +48,9 @@ public class CompanyServiceImpl implements CompanyService {
 		return sqlSession.getMapper(CompanyMapper.class).DupliCheck(companyCode);
 	}
 
+	@Override
+	public List<CompanyDto> FindCompany(CompanyDto dto) {
+		return sqlSession.getMapper(CompanyMapper.class).FindCompany(dto);
+	}
+
 }

@@ -14,7 +14,7 @@
 		<result property="employeeName" column="employee_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeBirth" column="employee_birth"
-			javaType="java.util.Date" jdbcType="DATE" />
+			javaType="java.sql.Date" jdbcType="DATE" />
 		<result property="employeeCall" column="employee_call"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeePwd" column="employee_pwd"
@@ -30,12 +30,15 @@
 		<result property="employeePicture" column="employee_picture"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeJoin" column="employee_join"
-			javaType="java.util.Date" jdbcType="DATE" />
+			javaType="java.sql.Date" jdbcType="DATE" />
 		<result property="employeeLeave" column="employee_leave"
-			javaType="java.util.Date" jdbcType="DATE" />
+			javaType="java.sql.Date" jdbcType="DATE" />
 		<result property="flag" column="flag"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 	</resultMap>
-
-
+	<select id="getBySeq" parameterType="int"
+		resultMap="employeeMap">
+		select * from
+		employee where employee_seq = #{employeeSeq}
+	</select>
 </mapper> 

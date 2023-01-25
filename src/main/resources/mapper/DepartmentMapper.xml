@@ -27,10 +27,28 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="departmentParent" column="department_parent"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
-		<result property="flag" column="flag"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
-
+		<result property="useYN" column="use_yn"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companyCode" column="company_code"
+			javaType="java.lang.Integer" jdbcType="INTEGER"/>
+		<result property="companyName" column = "company_name"
+		 	javaType= "java.lang.String" jdbcType = "VARCHAR"/>
+		<result property = "workplaceCode" column ="workplace_code"
+			javaType ="java.lang.Integer" jdbcType = "INTEGER"/>
+		<result property = "workplaceName" column = "workplace_name"
+			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
+		<result property = "departmentDepth" column = "department_depth"
+			javaType = "java.lang.Integer" jdbcType ="INTEGER"/>
 	</resultMap>
-
-
+	<select id="GetDepartmentList" resultMap="departmentMap">
+     SELECT * from department
+      </select>
+	
+	<select id = "GetCompanyList" resultMap="departmentMap">
+	SELECT  company_seq, company_code, company_name from company
+	</select>
+	<select id = "GetWorkplaceList" resultMap = "departmentMap">
+	SELECT company_seq,workplace_seq, workplace_code, workplace_name from workplace
+	</select>
+	
 </mapper> 
