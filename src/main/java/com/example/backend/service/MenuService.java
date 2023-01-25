@@ -20,8 +20,20 @@ public interface MenuService {
 	List<MenuDto> getSubMenuList(int menuSequence);
 	
 	// 상위메뉴 depth 조회
-	Integer getParentDepth(String menuParent);
+	Integer getParentDepth(int menuParent);
 	
+	// 메뉴 삽입
 	void insertMenu(Map <String, String> map);
-
+	
+	// 메뉴 삭제
+	void deleteMenu(int menuSeq);
+	
+	// 메뉴 수정
+	void updateMenu(Map<String, String> map);
+	
+	// 삽입 전 중복조회(메뉴코드)
+	List<MenuDto> checkCode(String menuCode);
+	
+	// 삽입 전 중복조회(메뉴이름)
+	List<MenuDto> checkName(String menuName);
 }

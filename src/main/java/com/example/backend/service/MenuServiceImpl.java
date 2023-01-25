@@ -43,17 +43,38 @@ public class MenuServiceImpl implements MenuService {
 
 	// 상위메뉴 depth 조회
 	@Override
-	public Integer getParentDepth(String menuParent) {
+	public Integer getParentDepth(int menuParent) {
 		return sqlSession.getMapper(MenuMapper.class).getParentDepth(menuParent);
 	}
 
+	// 메뉴 저장
 	@Override
 	public void insertMenu(Map<String, String> map) {
 		sqlSession.getMapper(MenuMapper.class).insertMenu(map);
 	}
 
+	// 메뉴 삭제
+	@Override
+	public void deleteMenu(int menuSeq) {
+		sqlSession.getMapper(MenuMapper.class).deleteMenu(menuSeq);
+	}
 
+	// 메뉴 수정
+	@Override
+	public void updateMenu(Map<String, String> map) {
+		sqlSession.getMapper(MenuMapper.class).updateMenu(map);
+	}
 
+	// 삽입 전 중복조회(메뉴코드)
+	@Override
+	public List<MenuDto> checkCode(String menuCode) {
+		return sqlSession.getMapper(MenuMapper.class).checkCode(menuCode);
+	}
 
+	// 삽입 전 중복조회(메뉴이름)
+	@Override
+	public List<MenuDto> checkName(String menuName) {
+		return sqlSession.getMapper(MenuMapper.class).checkName(menuName);
+	}
 
 }
