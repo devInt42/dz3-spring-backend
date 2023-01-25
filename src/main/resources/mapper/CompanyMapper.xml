@@ -76,7 +76,7 @@
 		company_item = #{companyItem}, company_call =#{companyCall}, 
 		company_regist =#{companyRegist},company_corporate = #{companyCorporate}, 
 		company_homepage = #{companyHomepage},company_addr = #{companyAddr}, 
-		company_establish =#{companyEstablish}, company_closingday = #{companyClosingday},
+		company_establish =#{companyEstablish}, company_closingday = #{companyClosingDay},
 		use_yn = #{useYN}, company_fax = #{companyFax}, company_foreigner = #{companyForeigner},
 		company_zipcode=#{companyZipCode}, pc_buisness =#{pcBuisness}
 		where
