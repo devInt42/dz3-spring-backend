@@ -62,7 +62,21 @@ public class MenuApiController {
 		System.out.println(map);
 		map.put("menuSeq", menuSeq);
 		System.out.println(map);
-		//menuService.updateMenu(map);
+		menuService.updateMenu(map);
+	}
+	
+	// 삽입 전 중복조회(메뉴코드)
+	@GetMapping("/menulist/checkcode/{menuCode}")
+	public List<MenuDto> checkCode(@PathVariable(required=true) String menuCode){
+		System.out.println("중복 코드 잏ㅆ" + menuService.checkCode(menuCode));
+		return menuService.checkCode(menuCode);
+	}
+	
+	// 삽입 전 중복조회(메뉴이름)
+	@GetMapping("/menulist/checkname/{menuName}")
+	public List<MenuDto> checkName(@PathVariable(required=true) String menuName){
+		System.out.println("중복 d=이름 있음" + menuService.checkName(menuName));
+		return menuService.checkName(menuName);
 	}
 	
 }

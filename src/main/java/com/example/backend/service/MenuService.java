@@ -23,4 +23,10 @@ public interface MenuService {
 	
 	// 메뉴 수정
 	void updateMenu(Map<String, String> map);
+	
+	// 삽입 전 중복조회(메뉴코드)
+	List<MenuDto> checkCode(String menuCode);
+	
+	// 삽입 전 중복조회(메뉴이름)
+	List<MenuDto> checkName(String menuName);
 }

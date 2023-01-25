@@ -15,4 +15,6 @@ public interface MenuMapper {
 	void insertMenu(Map<String, String> map);
 	void deleteMenu(int menuSeq);
 	void updateMenu(Map<String, String> map);
+	List<MenuDto> checkCode(String menuCode);
+	List<MenuDto> checkName(String menuName);
 }

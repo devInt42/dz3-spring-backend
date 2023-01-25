@@ -51,7 +51,17 @@
 	
 	<!-- 메뉴 수정 -->
 	<update id="updateMenu">
-		update menu_test set menu_code = #{menuCode}, menu_name = #{menuName}, menu_parent = #{menuParent}
-		where menu_seq = #{menu_seq}
+		update menu_test set menu_code = #{menuCode}, menu_name = #{menuName}, menu_parent = #{menuParent}, menu_depth = #{menuDepth}
+		where menu_seq = #{menuSeq}
 	</update>
+	
+	<!-- 삽입 전 중복조회(메뉴코드) -->
+	<select id="checkCode" parameterType="String" resultMap="menuMap">
+		select * from menu_test where menu_code = #{menu_code}
+	</select>
+	
+	<!-- 삽입 전 중복조회(메뉴이름) -->
+	<select id="checkName" parameterType="String" resultMap="menuMap">
+		select * from menu_test where menu_name = #{menu_name}
+	</select>
 </mapper>

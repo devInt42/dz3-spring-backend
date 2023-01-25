@@ -52,4 +52,16 @@ public class MenuServiceImpl implements MenuService {
 		sqlSession.getMapper(MenuMapper.class).updateMenu(map);
 	}
 
+	// 삽입 전 중복조회(메뉴코드)
+	@Override
+	public List<MenuDto> checkCode(String menuCode) {
+		return sqlSession.getMapper(MenuMapper.class).checkCode(menuCode);
+	}
+
+	// 삽입 전 중복조회(메뉴이름)
+	@Override
+	public List<MenuDto> checkName(String menuName) {
+		return sqlSession.getMapper(MenuMapper.class).checkName(menuName);
+	}
+
 }
