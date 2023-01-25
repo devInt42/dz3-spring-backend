@@ -31,10 +31,14 @@ public class DepartmentEmployeeApiController {
 	@GetMapping("/employeeList")
 	public List<DepartmentEmployeeDto> getList(@RequestParam("companySeq") String companySeq,
 			@RequestParam("workplaceSeq") String workplaceSeq, @RequestParam("departmentSeq") String departmentSeq,
+			@RequestParam(required = false, name = "employeeName", defaultValue = "") String employeeName,
 			DepartmentEmployeeDto dto) {
 		dto.setCompanySeq(Integer.parseInt(companySeq));
 		dto.setWorkplaceSeq(Integer.parseInt(workplaceSeq));
 		dto.setDepartmentSeq(Integer.parseInt(departmentSeq));
+		if (!employeeName.equals(null) && !employeeName.equals("")) { // 회사 seq가 없을 경우 헤더로 보낸 토큰값의 회사번호를 dto에 set함.
+			dto.setEmployeeName(employeeName);
+		}
 		return departementEmployeeService.getEmployeePage(dto);
 	}
 
@@ -111,4 +115,7 @@ public class DepartmentEmployeeApiController {
 		}
 		return departementEmployeeService.getDepartmentInfo(dto);
 	}
+	
+	
+	
 }

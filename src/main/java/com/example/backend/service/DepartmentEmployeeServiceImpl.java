@@ -45,6 +45,7 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 	public List<DepartmentEmployeeDto> getDepartmentInfo(DepartmentEmployeeDto dto) {
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getDepartmentList(dto);
 	}
+
 	
 	
 	
