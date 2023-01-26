@@ -13,5 +13,6 @@ public interface DepartmentEmployeeMapper {
 	List<DepartmentEmployeeDto> getWorkplaceList(DepartmentEmployeeDto dto);
 	List<DepartmentEmployeeDto> getDepartmentList(DepartmentEmployeeDto dto);
 	List<DepartmentEmployeeDto> getEmployeeList(DepartmentEmployeeDto dto);
+	List<DepartmentEmployeeDto> getMyInfo(DepartmentEmployeeDto dto);
 
 }
