@@ -54,22 +54,22 @@
 				AND a.company_seq = #{companySeq}
 			</if>
 			<if test="authName != null and authName !=''">
-				AND
+				AND(
 				a.auth_name like CONCAT('%',#{authName},'%')
 				OR
 				a.auth_code like
-				CONCAT('%',#{authName},'%')
+				CONCAT('%',#{authName},'%'))
 			</if>
 		</where>
 		ORDER BY
 		a.company_seq asc
 		LIMIT #{startPgNum},#{endPgNum}
-		
+
 	</select>
 
 	<select id="getCountByCompany"
 		parameterType="com.example.backend.dto.mapping.AuthEmployeeDto"
-		resultType="int">
+		resultType="INTEGER">
 		SELECT
 		SUM(res.cnt)
 		FROM
@@ -77,7 +77,8 @@
 		COUNT(distinct a.auth_seq) AS
 		cnt
 		FROM
-		auth a
+		auth
+		a
 		JOIN
 		company c
 		ON

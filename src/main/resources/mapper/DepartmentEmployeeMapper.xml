@@ -154,9 +154,11 @@
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
 		SELECT
-		e.employee_name, e.employee_picture, c.company_name, w.workplace_name,
+		e.employee_name, e.employee_picture, c.company_name,
+		w.workplace_name,
 		d.department_name, de.title,
-		de.employee_seq, de.company_seq, de.workplace_seq, de.department_seq
+		de.employee_seq,
+		de.company_seq, de.workplace_seq, de.department_seq
 		FROM
 		department_employee de
 		JOIN
@@ -174,7 +176,8 @@
 		JOIN
 		department d
 		ON
-		de.department_seq = d.department_seq
+		de.department_seq
+		= d.department_seq
 		WHERE
 		de.employee_seq = #{employeeSeq}
 		and
@@ -184,25 +187,31 @@
 	<select id="getCompanyElement"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
-		SELECT DISTINCT de.company_seq, c.company_name from department_employee de
+		SELECT DISTINCT de.company_seq, c.company_name from
+		department_employee de
 		LEFT JOIN
-		company c ON de.company_seq= c.company_seq
+		company c ON de.company_seq=
+		c.company_seq
 		LEFT JOIN workplace w ON
-		de.workplace_seq = w.workplace_seq
+		de.workplace_seq =
+		w.workplace_seq
 		LEFT JOIN department d ON
-		de.department_seq = d.department_seq
+		de.department_seq =
+		d.department_seq
 		WHERE de.company_seq =
 		#{companySeq}
 	</select>
-		
+
 	<select id="getDepartmentList"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
-				SELECT  DISTINCT de.company_seq, c.company_name, de.workplace_seq, w.workplace_name, de.department_seq, d.department_name from department_employee de
-   		LEFT JOIN company c ON de.company_seq= c.company_seq
-   		LEFT JOIN workplace w ON de.workplace_seq = w.workplace_seq
-   		LEFT JOIN department d ON de.department_seq = d.department_seq
-   		WHERE de.company_seq = #{companySeq}
+		SELECT DISTINCT de.company_seq, c.company_name, de.workplace_seq,
+		w.workplace_name, de.department_seq, d.department_name from
+		department_employee de
+		LEFT JOIN company c ON de.company_seq= c.company_seq
+		LEFT JOIN workplace w ON de.workplace_seq = w.workplace_seq
+		LEFT JOIN department d ON de.department_seq = d.department_seq
+		WHERE de.company_seq = #{companySeq}
 
-		</select>
-		</mapper> 
+	</select>
+</mapper> 

@@ -47,7 +47,6 @@ public class AuthEmployeeApiController {
 		if (!authName.equals(null) && !authName.equals("")) {
 			dto.setAuthName(authName);
 		}
-
 		return authEmployeeService.getAuthCompanyList(page, dto);
 	}
 
@@ -88,6 +87,7 @@ public class AuthEmployeeApiController {
 		if (!authName.equals(null) && !authName.equals("")) {
 			dto.setAuthName(authName);
 		}
+
 		return authEmployeeService.getAuthCountByCompany(dto);
 	}
 	
