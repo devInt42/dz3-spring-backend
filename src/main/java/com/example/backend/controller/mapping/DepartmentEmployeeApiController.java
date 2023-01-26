@@ -116,6 +116,14 @@ public class DepartmentEmployeeApiController {
 		return departementEmployeeService.getDepartmentInfo(dto);
 	}
 	
-	
-	
+	//회사 seq를 통해 search값에 해당되는 직원만 select
+	@GetMapping("/search")
+	public List<DepartmentEmployeeDto> getSearchElement(
+		@RequestParam(required = false, name = "employeeName", defaultValue = "") String employeeName, 
+ 		DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
+		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+		dto.setEmployeeName(employeeName); 
+		dto.setCompanySeq((int) jObject.get("companySeq")); 
+		return departementEmployeeService.getEmployeePage(dto);	
+	}
 }

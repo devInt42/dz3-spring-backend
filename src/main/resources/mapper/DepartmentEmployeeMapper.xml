@@ -75,17 +75,21 @@
 		workplace w
 		on
 		de.workplace_seq = w.workplace_seq
-		WHERE
-		de.company_seq =
-		#{companySeq}
-		and
-		de.workplace_seq = #{workplaceSeq}
-		and de.department_seq =
-		#{departmentSeq}
+		<where>
+		   <if test="companySeq != null and companySeq !=''">
+				AND de.company_seq = #{companySeq}
+		   </if>
+		   <if test="workplaceSeq != null and workplaceSeq !=''">
+				AND de.workplace_seq = #{workplaceSeq}
+		   </if>
+		   <if test="departmentSeq != null and departmentSeq !=''">
+				AND de.department_seq = #{departmentSeq}
+		   </if>
+		   <if test="employeeName != null and employeeName !=''">
+				And e.employee_name like CONCAT('%',#{employeeName},'%')		
+		   </if>
+		</where>
 		ORDER BY workplace_seq
-		<if test="employeeName != null and employeeName !=''">
-			And e.employee_name = #{employeeName}
-		</if>
 		ASC,
 		department_seq ASC,
 		employee_seq ASC
