@@ -9,4 +9,5 @@ public class MenuDto {
 	private String menuName;
 	private int menuParent;
 	private int menuDepth;
+	private String menuURL;
 }

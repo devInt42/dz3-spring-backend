@@ -64,4 +64,16 @@ public class MenuServiceImpl implements MenuService {
 		return sqlSession.getMapper(MenuMapper.class).checkName(menuName);
 	}
 
+	// 해당 시퀀스의 URL 조회
+	@Override
+	public String getURL(int menuSeq) {
+		return sqlSession.getMapper(MenuMapper.class).getURL(menuSeq);
+	}
+
+	// 하위메뉴 개수 조회
+	@Override
+	public Integer countMenu(int menuSeq) {
+		return sqlSession.getMapper(MenuMapper.class).countMenu(menuSeq);
+	}
+
 }

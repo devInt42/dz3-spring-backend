@@ -79,4 +79,17 @@ public class MenuApiController {
 		return menuService.checkName(menuName);
 	}
 	
+	// 해당 시퀀스의 URL 조회
+	@GetMapping("/menulist/geturl/{menuSeq}")
+	public String getURL(@PathVariable(required=true) int menuSeq) {
+		System.out.println(menuService.getURL(menuSeq));
+		return menuService.getURL(menuSeq);
+	}
+	
+	// 하위메뉴 개수 조회
+	@GetMapping("/menulist/getcount/{menuSeq}")
+	public Integer countMenu(@PathVariable(required=true) int menuSeq) {
+		return menuService.countMenu(menuSeq);
+	}
+	
 }

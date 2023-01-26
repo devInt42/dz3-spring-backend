@@ -29,4 +29,10 @@ public interface MenuService {
 	
 	// 삽입 전 중복조회(메뉴이름)
 	List<MenuDto> checkName(String menuName);
+	
+	// 해당 시퀀스의 URL 조회
+	String getURL (int menuSeq);
+	
+	// 하위메뉴 개수 조회
+	Integer countMenu(int menuSeq);
 }

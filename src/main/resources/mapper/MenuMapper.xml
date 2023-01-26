@@ -15,6 +15,8 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="menuDepth" column="menu_depth"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="menuURL" column="menu_url"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 	<!-- 메뉴리스트 조회 -->
 	<select id="getMenuList"
@@ -63,5 +65,15 @@
 	<!-- 삽입 전 중복조회(메뉴이름) -->
 	<select id="checkName" parameterType="String" resultMap="menuMap">
 		select * from menu_test where menu_name = #{menu_name}
+	</select>
+	
+	<!-- 해당 시퀀스의 url 조회 -->
+	<select id="getURL" parameterType="Integer" resultType="String">
+		select menu_url from menu_test where menu_seq = #{menuSeq}
+	</select>
+	
+	<!-- 하위메뉴 개수 조회 -->
+	<select id="countMenu" parameterType="Integer" resultType="Integer">
+		select count(*) from menu_test where menu_parent = #{menuSeq}
 	</select>
 </mapper>
