@@ -34,4 +34,15 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public Integer GetDepartmentCount(DepartmentDto dto) {
 		return sqlSession.getMapper(DepartmentMapper.class).GetDepartmentCount(dto);
 	}
+
+	@Override
+	public List<DepartmentDto> GetCompanyWorkplaceName(DepartmentDto dto) {
+		return sqlSession.getMapper(DepartmentMapper.class).GetCompanyWorkplaceName(dto);
+	}
+
+	@Override
+	public List<DepartmentDto> GetDepartment(int departmentSeq) {
+		
+		return sqlSession.getMapper(DepartmentMapper.class).GetDepartment(departmentSeq);
+	}
 }

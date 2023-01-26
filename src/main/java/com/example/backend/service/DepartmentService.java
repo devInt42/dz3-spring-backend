@@ -9,4 +9,6 @@ public interface DepartmentService {
 	   List<DepartmentDto> GetCompanyList();
 	   List<DepartmentDto> GetWorkplaceList();
 	   Integer GetDepartmentCount(DepartmentDto dto);
+	   List<DepartmentDto> GetCompanyWorkplaceName(DepartmentDto dto);
+	   List<DepartmentDto> GetDepartment(int departmentSeq);
 }

@@ -50,4 +50,15 @@ public class DepartmentApiController {
 	public List<DepartmentDto> getWorkplaceList() {
 		return departmentService.GetWorkplaceList();
 	}
+	@GetMapping("/list/{departmentSeq}")
+	public List<DepartmentDto> getDepartment(@PathVariable("departmentSeq") int departmentSeq) {
+		return departmentService.GetDepartment(departmentSeq);
+	}
+	@GetMapping("/list/name")
+	public List<DepartmentDto> getCompanyWorkplaceName(@RequestParam("companySeq") int companySeq,
+			@RequestParam("workplaceSeq") int workplaceSeq, DepartmentDto dto) {
+		dto.setCompanySeq(companySeq);
+		dto.setWorkplaceSeq(workplaceSeq);
+		return departmentService.GetCompanyWorkplaceName(dto);
+	}
 }
