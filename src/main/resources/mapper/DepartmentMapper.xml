@@ -30,25 +30,34 @@
 		<result property="useYN" column="use_yn"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="companyCode" column="company_code"
-			javaType="java.lang.Integer" jdbcType="INTEGER"/>
-		<result property="companyName" column = "company_name"
-		 	javaType= "java.lang.String" jdbcType = "VARCHAR"/>
-		<result property = "workplaceCode" column ="workplace_code"
-			javaType ="java.lang.Integer" jdbcType = "INTEGER"/>
-		<result property = "workplaceName" column = "workplace_name"
-			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
-		<result property = "departmentDepth" column = "department_depth"
-			javaType = "java.lang.Integer" jdbcType ="INTEGER"/>
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="companyName" column="company_name"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="workplaceCode" column="workplace_code"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="workplaceName" column="workplace_name"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="departmentDepth" column="department_depth"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
 	</resultMap>
-	<select id="GetDepartmentList" resultMap="departmentMap">
-     SELECT * from department
-      </select>
-	
-	<select id = "GetCompanyList" resultMap="departmentMap">
-	SELECT  company_seq, company_code, company_name from company
+	<select id="GetDepartmentList"
+		parameterType="com.example.backend.dto.DepartmentDto"
+		resultMap="departmentMap">
+		SELECT * from department where department_depth = #{departmentDepth} and
+		department_parent = #{departmentParent}
 	</select>
-	<select id = "GetWorkplaceList" resultMap = "departmentMap">
-	SELECT company_seq,workplace_seq, workplace_code, workplace_name from workplace
+
+	<select id="GetCompanyList" resultMap="departmentMap">
+		SELECT company_seq, company_code, company_name from company
 	</select>
-	
+	<select id="GetWorkplaceList" resultMap="departmentMap">
+		SELECT company_seq,workplace_seq, workplace_code, workplace_name from
+		workplace
+	</select>
+
+	<select id="GetDepartmentCount"
+		parameterType="com.example.backend.dto.DepartmentDto" resultType="int">
+		SELECT sum(res.cnt) from (select count(distinct d.department_seq) as cnt from department d where department_depth =
+		#{departmentDepth} and department_parent = #{departmentParent} group by department_seq) res
+	</select>
 </mapper> 

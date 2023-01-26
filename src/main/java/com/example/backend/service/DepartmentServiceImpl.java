@@ -15,9 +15,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<DepartmentDto> GetDepartmentList() {
+	public List<DepartmentDto> GetDepartmentList(DepartmentDto dto) {
 		// TODO Auto-generated method stub
-		return sqlSession.getMapper(DepartmentMapper.class).GetDepartmentList();
+		return sqlSession.getMapper(DepartmentMapper.class).GetDepartmentList(dto);
 	}
 
 	@Override
@@ -28,5 +28,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public List<DepartmentDto> GetWorkplaceList() {
 		return sqlSession.getMapper(DepartmentMapper.class).GetWorkplaceList();
+	}
+
+	@Override
+	public Integer GetDepartmentCount(DepartmentDto dto) {
+		return sqlSession.getMapper(DepartmentMapper.class).GetDepartmentCount(dto);
 	}
 }

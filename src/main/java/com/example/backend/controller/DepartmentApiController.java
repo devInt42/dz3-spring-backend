@@ -2,10 +2,12 @@ package com.example.backend.controller;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.dto.DepartmentDto;
@@ -19,19 +21,33 @@ import lombok.RequiredArgsConstructor;
 public class DepartmentApiController {
 	@Autowired
 	private DepartmentServiceImpl departmentService;
-	 
-	 @GetMapping("/list")
-	 public List<DepartmentDto> getDepartmentList() {	 
-		 return departmentService.GetDepartmentList();
+
+	@GetMapping("/list")
+	 public List<DepartmentDto> getDepartmentList(@RequestParam("departmentDepth") String departmentDepth,
+	         @RequestParam("departmentParent") String departmentParent, DepartmentDto dto) {
+		System.out.println("Depth: " +departmentDepth);
+		System.out.println("Parent: " +departmentParent);
+		dto.setDepartmentDepth(Integer.parseInt(departmentDepth));
+		dto.setDepartmentParent(Integer.parseInt(departmentParent));
+		System.out.println(dto);
+		return departmentService.GetDepartmentList(dto);
 	 }
-	 
-	 @GetMapping("/list/company")
-	 public List<DepartmentDto> getCompanyList() {
-		 return departmentService.GetCompanyList();
+	@GetMapping("/count")
+	 public int getDepartmentCount(@RequestParam("departmentDepth") String departmentDepth,
+	         @RequestParam("departmentParent") String departmentParent, DepartmentDto dto) {
+		dto.setDepartmentDepth(Integer.parseInt(departmentDepth));
+		dto.setDepartmentParent(Integer.parseInt(departmentParent));
+		if (departmentService.GetDepartmentCount(dto) == null) {return 0;}
+		return departmentService.GetDepartmentCount(dto);
 	 }
-	 
-	 @GetMapping("/list/workplace")
-	 public List<DepartmentDto> getWorkplaceList() {
-		 return departmentService.GetWorkplaceList();
-	 }
+
+	@GetMapping("/list/company")
+	public List<DepartmentDto> getCompanyList() {
+		return departmentService.GetCompanyList();
+	}
+
+	@GetMapping("/list/workplace")
+	public List<DepartmentDto> getWorkplaceList() {
+		return departmentService.GetWorkplaceList();
+	}
 }
