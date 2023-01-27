@@ -6,6 +6,6 @@ import com.example.backend.dto.mapping.AuthEmployeeDto;
 
 public interface AuthEmployeeService {
 	List<AuthEmployeeDto> getAuthCompanyList(int page, AuthEmployeeDto dto);
-	List<AuthEmployeeDto> getAuthEmployeeList(int page, AuthEmployeeDto dto);
+	List<AuthEmployeeDto> getAuthEmployeeList(AuthEmployeeDto dto);
 	int getAuthCountByCompany(AuthEmployeeDto dto);
 }

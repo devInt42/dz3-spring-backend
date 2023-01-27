@@ -11,17 +11,33 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="authName" column="auth_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="companySeq" column="company_seq"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
 	</resultMap>
-	
-	<select id="getBySeq" parameterType="int"
-		resultMap="authMap">
-		select * from
+
+	<select id="getBySeq" parameterType="int" resultMap="authMap">
+		select *
+		from
 		auth where auth_seq = #{authSeq}
 	</select>
-
+	
+	<select id="check"
+		parameterType="com.example.backend.dto.AuthDto" resultType="int">
+		select count(*)
+		from auth 
+		<where>
+			company_seq = #{companySeq}
+			<if test="authCode != null and authCode !=''">
+				AND auth_code = #{authCode}
+			</if>
+			<if test="authName != null and authName !=''">
+				AND auth_name = #{authName}
+			</if>
+		</where>
+	</select>
+	
 	<select id="getList"
-		parameterType="com.example.backend.dto.AuthDto"
-		resultMap="authMap">
+		parameterType="com.example.backend.dto.AuthDto" resultMap="authMap">
 		select * from
 		auth
 		<where>
@@ -31,7 +47,7 @@
 			<if test="authCode != null and authCode !=''">
 				And auth_code = #{authCode}
 			</if>
-				<if test="authName != null and authName !=''">
+			<if test="authName != null and authName !=''">
 				And auth_name = #{authName}
 			</if>
 		</where>
@@ -44,12 +60,14 @@
 
 	<insert id="add" parameterType="map">
 		insert into
-		auth(auth_code, auth_name) values(#{authCode}, #{authName})
+		auth(auth_code,
+		auth_name,company_seq) values(#{authCode}, #{authName},#{companySeq})
 	</insert>
 
 	<update id="set">
 		update auth set auth_code = #{authCode},
-		auth_name = #{authName}
+		auth_name =
+		#{authName}
 		where auth_seq = #{authSeq}
 	</update>
 

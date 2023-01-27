@@ -15,11 +15,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/employee")
 public class EmployeeApiController {
-	@Autowired
-	private EmployeeServiceImpl employeeService;
+   @Autowired
+   private EmployeeServiceImpl employeeService;
 
-	@GetMapping("/emplist/{employeeSeq}")
-	public EmployeeDto getEmployee(@PathVariable(required = true) int employeeSeq) {
-		return employeeService.getEmployeeBySeq(employeeSeq);
-	}
+   @GetMapping("/emplist/{employeeSeq}")
+   public EmployeeDto getEmployee(@PathVariable(required = true) int employeeSeq) {
+      return employeeService.getEmployeeBySeq(employeeSeq);
+   }
 }

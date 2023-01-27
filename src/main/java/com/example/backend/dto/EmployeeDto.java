@@ -20,6 +20,6 @@ public class EmployeeDto {
 	private String employeePicture;
 	private Date employeeJoin;
 	private Date employeeLeave;
-	private int flag;
+	private String useYN;
 
 }

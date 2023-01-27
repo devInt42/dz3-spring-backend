@@ -24,4 +24,5 @@ public class CompanyDto {
 	private String companyForeigner;
 	private String useYN;
 	private String pcBuisness;
+
 }

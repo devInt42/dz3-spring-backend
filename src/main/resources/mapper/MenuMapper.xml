@@ -15,31 +15,108 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="menuDepth" column="menu_depth"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="child" column="child"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="menuURL" column="menu_url"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
+
+	<!-- 깊이별 메뉴 조회 -->
+	<select id="getChildListByDepth"
+		parameterType="com.example.backend.dto.MenuDto" resultMap="menuMap">
+		select
+		menu_seq, menu_code, menu_name,
+		menu_parent, menu_depth
+		from menu
+		where
+		menu_depth = #{menuDepth}
+		and
+		menu_parent =
+		#{menuParent}
+	</select>
+
+	<!-- 깊이별 메뉴 카운트 조회 -->
+	<select id="getCountListByDepth"
+		parameterType="com.example.backend.dto.MenuDto" resultType="int">
+		select
+		count(*)
+		from menu
+		where
+		menu_depth = #{menuDepth}
+		and
+		menu_parent =
+		#{menuParent}
+	</select>
+
 	<!-- 메뉴리스트 조회 -->
-	<select id="getMenuList"
-		resultMap="menuMap">
-		SELECT*FROM menu
+	<select id="getMenuList" resultMap="menuMap">
+		select * from menu where
+		menu_parent = 0
+
 	</select>
 
 	<!-- 하위메뉴 조회 -->
-	<select id="getSubMenuList" parameterType="String"
-		resultType="com.example.backend.dto.MenuDto">
-		select * from menu where menu_parent = #{menuParent}
+	<select id="getSubMenuList" parameterType="Integer"
+		resultMap="menuMap">
+		select * from menu_test where menu_parent = #{menuSequence}
 	</select>
 
 	<!-- 상위메뉴 깊이 조회 -->
-	<select id="getParentDepth" parameterType="String"
+	<select id="getParentDepth" parameterType="Integer"
 		resultType="Integer">
-		select distinct menu_depth from menu where menu_id =
+		select distinct menu_depth from menu_test where menu_seq =
 		#{menuParent}
 	</select>
 
 	<!-- 메뉴 저장 -->
 	<insert id="insertMenu">
-		insert into menu (menu_id, menu_name,
+		insert into menu_test (menu_code, menu_name,
 		menu_parent,
-		menu_depth) VALUES(#{menuId}, #{menuName}, #{menuParent},
+		menu_depth) VALUES(#{menuCode}, #{menuName},
+		#{menuParent},
 		#{menuDepth})
 	</insert>
+
+	<!-- 메뉴 삭제 -->
+	<delete id="deleteMenu" parameterType="Integer">
+		delete from menu_test
+		where menu_seq = #{menuSeq}
+	</delete>
+
+	<!-- 메뉴 수정 -->
+	<update id="updateMenu">
+		update menu_test set menu_code = #{menuCode},
+		menu_name = #{menuName}, menu_parent = #{menuParent}, menu_depth =
+		#{menuDepth}
+		where menu_seq = #{menuSeq}
+	</update>
+
+	<!-- 삽입 전 중복조회(메뉴코드) -->
+	<select id="checkCode" parameterType="String"
+		resultMap="menuMap">
+		select * from menu_test where menu_code = #{menu_code}
+	</select>
+
+	<!-- 삽입 전 중복조회(메뉴이름) -->
+	<select id="checkName" parameterType="String"
+		resultMap="menuMap">
+		select * from menu_test where menu_name = #{menu_name}
+	</select>
+
+	<select id="getAllList" resultMap="menuMap">
+		select*from menu
+	</select>
+
+	<!-- 해당 시퀀스의 url 조회 -->
+	<select id="getURL" parameterType="Integer" resultType="String">
+		select
+		menu_url from menu_test where menu_seq = #{menuSeq}
+	</select>
+
+	<!-- 하위메뉴 개수 조회 -->
+	<select id="countMenu" parameterType="Integer"
+		resultType="Integer">
+		select count(*) from menu_test where menu_parent =
+		#{menuSeq}
+	</select>
 </mapper>

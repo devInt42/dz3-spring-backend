@@ -38,36 +38,74 @@
 	<select id="getAuthListByCompany"
 		parameterType="com.example.backend.dto.mapping.AuthEmployeeDto"
 		resultMap="authEmployeeMap">
-		SELECT distinct
-		res.auth_seq, res.workplace_seq,
-		res.department_seq, c.company_seq, res.auth_name, c.company_name,
-		res.auth_code
-		from
-		(SELECT
-		a.auth_seq, r1.employee_seq, r1.workplace_seq,
-		r1.company_seq,
-		r1.department_seq, a.auth_name, a.auth_code
+		SELECT
+		a.auth_seq,
+		a.company_seq, a.auth_name, c.company_name,
+		a.auth_code
 		FROM
 		auth a
 		JOIN
-		auth_employee r1
+		company c
 		ON
-		a.auth_seq = r1.auth_seq) res
-		JOIN company c
-		ON
-		res.company_seq = c.company_seq
-		WHERE
-		c.company_seq = #{companySeq}
+		a.company_seq =
+		c.company_seq
+		<where>
+			<if test="companySeq != null and companySeq !=''">
+				AND a.company_seq = #{companySeq}
+			</if>
+			<if test="authName != null and authName !=''">
+				AND(
+				a.auth_name like CONCAT('%',#{authName},'%')
+				OR
+				a.auth_code like
+				CONCAT('%',#{authName},'%'))
+			</if>
+		</where>
+		ORDER BY
+		a.company_seq asc
 		LIMIT #{startPgNum},#{endPgNum}
+
 	</select>
 
+	<select id="getCountByCompany"
+		parameterType="com.example.backend.dto.mapping.AuthEmployeeDto"
+		resultType="INTEGER">
+		SELECT
+		SUM(res.cnt)
+		FROM
+		(SELECT
+		COUNT(distinct a.auth_seq) AS
+		cnt
+		FROM
+		auth
+		a
+		JOIN
+		company c
+		ON
+		a.company_seq = c.company_seq
+		<where>
+			<if test="companySeq != null and companySeq !=''">
+				AND a.company_seq = #{companySeq}
+			</if>
+			<if test="authName != null and authName !=''">
+				AND(
+				a.auth_name like CONCAT('%',#{authName},'%')
+				OR
+				a.auth_code like
+				CONCAT('%',#{authName},'%'))
+			</if>
+		</where>
+		GROUP BY a.company_seq
+		) res
+	</select>
 
 	<select id="getAuthListByAuth"
 		parameterType="com.example.backend.dto.mapping.AuthEmployeeDto"
 		resultMap="authEmployeeMap">
 		SELECT
 		ae.auth_seq, de.company_seq, de.workplace_seq,
-		d.department_seq, de.employee_seq,
+		d.department_seq,
+		de.employee_seq,
 		de.sub_department_seq, de.title,
 		d.department_name,e.employee_name,
 		c.company_name, w.workplace_name,
@@ -97,31 +135,9 @@
 		de.workplace_seq = w.workplace_seq
 		WHERE
 		auth_seq = #{authSeq}
-		LIMIT
-		#{startPgNum},#{endPgNum}
-
+		<if test="companySeq != null and companySeq !=''">
+			AND ae.company_seq = #{companySeq}
+		</if>
 	</select>
 
-	<select id="getCountByCompany"
-		parameterType="com.example.backend.dto.mapping.AuthEmployeeDto"
-		resultType="int">
-		SELECT distinct
-		COUNT(distinct auth_seq)
-		from
-		(SELECT
-		a.auth_seq, r1.employee_seq, r1.workplace_seq,
-		r1.company_seq,
-		r1.department_seq, a.auth_name, a.auth_code
-		FROM
-		auth a
-		JOIN
-		auth_employee r1
-		ON
-		a.auth_seq = r1.auth_seq) res
-		JOIN company c
-		ON
-		res.company_seq = c.company_seq
-		WHERE
-		c.company_seq = #{companySeq}
-	</select>
 </mapper> 

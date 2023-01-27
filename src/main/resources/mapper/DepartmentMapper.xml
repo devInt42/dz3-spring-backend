@@ -27,8 +27,8 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="departmentParent" column="department_parent"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
-		<result property="flag" column="flag"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="useYN" column="use_yn"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 
 	</resultMap>
 	<select id="getList" parameterType="com.example.backend.dto.DepartmentDto"
