@@ -29,7 +29,7 @@
 		<result property="employeeCall" column="employee_call"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="companyCode" column="company_code"
-			javaType="java.lang.String" jdbcType="VARCHAR" />
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="workplaceName" column="workplace_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="companyName" column="company_name"
@@ -75,13 +75,20 @@
 		workplace w
 		on
 		de.workplace_seq = w.workplace_seq
-		WHERE
-		de.company_seq =
-		#{companySeq}
-		and
-		de.workplace_seq = #{workplaceSeq}
-		and de.department_seq =
-		#{departmentSeq}
+		<where>
+			<if test="companySeq != null and companySeq !=''">
+				AND de.company_seq = #{companySeq}
+			</if>
+			<if test="workplaceSeq != null and workplaceSeq !=''">
+				AND de.workplace_seq = #{workplaceSeq}
+			</if>
+			<if test="departmentSeq != null and departmentSeq !=''">
+				AND de.department_seq = #{departmentSeq}
+			</if>
+			<if test="employeeName != null and employeeName !=''">
+				And e.employee_name like CONCAT('%',#{employeeName},'%')
+			</if>
+		</where>
 		ORDER BY workplace_seq
 		ASC,
 		department_seq ASC,
@@ -205,13 +212,36 @@
 	<select id="getDepartmentList"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
-		SELECT DISTINCT de.company_seq, c.company_name, de.workplace_seq,
-		w.workplace_name, de.department_seq, d.department_name from
+
+		SELECT DISTINCT de.company_seq, c.company_name,
+		de.workplace_seq,
+		w.workplace_name, de.department_seq,
+		d.department_name from
 		department_employee de
-		LEFT JOIN company c ON de.company_seq= c.company_seq
-		LEFT JOIN workplace w ON de.workplace_seq = w.workplace_seq
-		LEFT JOIN department d ON de.department_seq = d.department_seq
+		LEFT JOIN company c ON
+		de.company_seq= c.company_seq
+		LEFT JOIN workplace w ON de.workplace_seq
+		= w.workplace_seq
+		LEFT JOIN department d ON de.department_seq =
+		d.department_seq
 		WHERE de.company_seq = #{companySeq}
 
 	</select>
-</mapper> 
+
+	<select id="getMyInfo"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
+		resultMap="departmentEmployeeMap">
+		SELECT * FROM
+		department_employee de
+		LEFT JOIN
+		company c ON
+		de.company_seq = c.company_seq
+		LEFT JOIN
+		employee e ON de.employee_seq =
+		e.employee_seq
+		WHERE de.employee_seq = #{employeeSeq} AND
+		de.company_seq = #{companySeq}
+	</select>
+
+
+</mapper>

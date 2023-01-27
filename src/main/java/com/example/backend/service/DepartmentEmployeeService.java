@@ -13,4 +13,5 @@ public interface DepartmentEmployeeService {
 	List<DepartmentEmployeeDto>getWorkplaceInfo(DepartmentEmployeeDto dto);
 	List<DepartmentEmployeeDto>getDepartmentInfo(DepartmentEmployeeDto dto);
 
+	List<DepartmentEmployeeDto>getmyInfo(DepartmentEmployeeDto dto);
 }

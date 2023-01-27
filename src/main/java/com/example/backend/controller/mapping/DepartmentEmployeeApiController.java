@@ -28,27 +28,43 @@ public class DepartmentEmployeeApiController {
 
 	// 회사seq, 사업장seq, 부서seq 를 통해 직원 리스트 select
 	@GetMapping("/employeeList")
-	public List<DepartmentEmployeeDto> getList(@RequestParam("companySeq") String companySeq,
+	public List<DepartmentEmployeeDto> getList(
+			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
 			@RequestParam("workplaceSeq") String workplaceSeq, @RequestParam("departmentSeq") String departmentSeq,
-			DepartmentEmployeeDto dto) {
-		dto.setCompanySeq(Integer.parseInt(companySeq));
+			@RequestParam(required = false, name = "employeeName", defaultValue = "") String employeeName,
+			DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
+		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+
 		dto.setWorkplaceSeq(Integer.parseInt(workplaceSeq));
 		dto.setDepartmentSeq(Integer.parseInt(departmentSeq));
+
+		if (!companySeq.equals(null) && !companySeq.equals("")) {
+			dto.setCompanySeq(Integer.parseInt(companySeq));
+			System.out.println(companySeq);
+
+		} else {
+			if ((int) jObject.get("employeeSeq") != 0) { // admin 계정이 아닌 경우
+				dto.setCompanySeq((int) jObject.get("companySeq"));
+			}
+		}
+
+		if (!employeeName.equals(null) && !employeeName.equals("")) { // 회사 seq가 없을 경우 헤더로 보낸 토큰값의 회사번호를 dto에 set함.
+			dto.setEmployeeName(employeeName);
+		}
 		return departmentEmployeeService.getEmployeePage(dto);
 	}
 
 	// 로그인한 유저 정보
-		@GetMapping("/info")
-		public DepartmentEmployeeDto userInfo(DepartmentEmployeeDto dto, HttpServletRequest request)	throws JSONException {
-			JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
-			if ((int) jObject.get("employeeSeq") != 0) {// admin 계정이 아닐경우
-				dto.setCompanySeq((int) jObject.get("companySeq"));
-				dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
-			}
-			return departmentEmployeeService.getEmployeeInfo(dto);
+	@GetMapping("/info")
+	public DepartmentEmployeeDto userInfo(DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
+		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+		if ((int) jObject.get("employeeSeq") != 0) {// admin 계정이 아닐경우
+			dto.setCompanySeq((int) jObject.get("companySeq"));
+			dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
 		}
-		
-	
+		return departmentEmployeeService.getEmployeeInfo(dto);
+	}
+
 	// 부서seq로 해당 부서 직원 select
 	@GetMapping("/department")
 	public List<DepartmentEmployeeDto> getListByDepartment(@RequestParam("departmentSeq") String departmentSeq,
@@ -74,7 +90,6 @@ public class DepartmentEmployeeApiController {
 
 		if (!companySeq.equals(null) && !companySeq.equals("")) { // 회사 seq가 없을 경우 헤더로 보낸 토큰값의 회사번호를 dto에 set함.
 			dto.setCompanySeq(Integer.parseInt(companySeq));
-			System.out.println(companySeq);
 
 		} else {
 			if ((int) jObject.get("employeeSeq") != 0) { // admin 계정이 아닌 경우
@@ -121,5 +136,27 @@ public class DepartmentEmployeeApiController {
 			}
 		}
 		return departmentEmployeeService.getDepartmentInfo(dto);
+	}
+
+	// 회사 seq를 통해 search값에 해당되는 직원만 select
+	@GetMapping("/search")
+	public List<DepartmentEmployeeDto> getSearchElement(
+			@RequestParam(required = false, name = "employeeName", defaultValue = "") String employeeName,
+			DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
+		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+		dto.setEmployeeName(employeeName);
+		dto.setCompanySeq((int) jObject.get("companySeq"));
+		return departmentEmployeeService.getEmployeePage(dto);
+	}
+
+	// 회사 seq, 직원 seq를 통해 select
+	@GetMapping("/myInfo")
+	public List<DepartmentEmployeeDto> getMyInfo(DepartmentEmployeeDto dto, HttpServletRequest request)
+			throws JSONException {
+		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+
+		dto.setCompanySeq((int) jObject.get("companySeq"));
+		dto.setEmployeeSeq((int) jObject.getInt("employeeSeq"));
+		return departmentEmployeeService.getmyInfo(dto);
 	}
 }
