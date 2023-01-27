@@ -1,6 +1,5 @@
 package com.example.backend.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +26,23 @@ public class AuthApiController {
 	@Autowired
 	private AuthServiceImpl authService;
 
-	// 회사 시퀀스로 사원 조회
-	@GetMapping("/page/{page}")
-	public List<AuthDto> getList(@PathVariable (required = true) int page,
-			@RequestParam("companySeq") String companySeq, 
-			AuthDto dto)	{
-		
-		return authService.getAuthList(page,dto);
+	// 중복 체크
+	@GetMapping("/check")
+	public int checkDupl(@RequestParam("companySeq") String companySeq,
+			@RequestParam(required = false, name = "authCode", defaultValue = "") String authCode,
+			@RequestParam(required = false, name = "authName", defaultValue = "") String authName, AuthDto dto) {
+		dto.setCompanySeq(Integer.parseInt(companySeq));
+		if (!authCode.equals(null) && !authCode.equals("")) {
+			dto.setAuthCode(authCode);
+		}
+		if (!authName.equals(null) && !authName.equals("")) {
+			dto.setAuthName(authName);
+		}
+		return authService.checkDupl(dto);
 	}
 	
-	// 사원 추가
-
-	@PostMapping
+	// 추가
+	@PostMapping("/add")
 	public void addAuth(@RequestBody(required = true) Map<String, String> map) {
 		authService.addAuth(map);
 	}

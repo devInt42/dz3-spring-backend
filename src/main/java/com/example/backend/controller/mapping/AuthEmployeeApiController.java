@@ -30,8 +30,6 @@ public class AuthEmployeeApiController {
 	@GetMapping("/company/page/{page}")
 	public List<AuthEmployeeDto> getAuthListByCompany(@PathVariable(required = true) int page,
 			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
-			@RequestParam(required = false, name = "workplaceSeq") String workplaceSeq,
-			@RequestParam(required = false, name = "departmentSeq") String departmentSeq,
 			@RequestParam(required = false, name = "authName", defaultValue = "") String authName, AuthEmployeeDto dto,
 			HttpServletRequest request) throws JSONException {
 
@@ -49,13 +47,12 @@ public class AuthEmployeeApiController {
 		if (!authName.equals(null) && !authName.equals("")) {
 			dto.setAuthName(authName);
 		}
-
 		return authEmployeeService.getAuthCompanyList(page, dto);
 	}
 
 	// 권한별 사원 조회
-	@GetMapping("/auth/page/{page}")
-	public List<AuthEmployeeDto> getAuthListByAuth(@PathVariable(required = true) int page,
+	@GetMapping("/auth")
+	public List<AuthEmployeeDto> getAuthListByAuth(
 			@RequestParam("authSeq") String authSeq,
 			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
 			AuthEmployeeDto dto, HttpServletRequest request) throws JSONException {
@@ -69,7 +66,7 @@ public class AuthEmployeeApiController {
 			}
 		}
 		dto.setAuthSeq(Integer.parseInt(authSeq));
-		return authEmployeeService.getAuthEmployeeList(page, dto);
+		return authEmployeeService.getAuthEmployeeList(dto);
 	}
 
 	// 그룹수 카운팅
@@ -90,6 +87,9 @@ public class AuthEmployeeApiController {
 		if (!authName.equals(null) && !authName.equals("")) {
 			dto.setAuthName(authName);
 		}
+
 		return authEmployeeService.getAuthCountByCompany(dto);
 	}
+	
+
 }

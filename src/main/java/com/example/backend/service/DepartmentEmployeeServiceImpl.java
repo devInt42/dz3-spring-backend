@@ -20,15 +20,15 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 	}
 
 	@Override
-	public List<DepartmentEmployeeDto> getEmployeePagebyDepartment( DepartmentEmployeeDto dto) {
-		
+	public List<DepartmentEmployeeDto> getEmployeePagebyDepartment(DepartmentEmployeeDto dto) {
+
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getListByDepartment(dto);
 	}
-	
+
 	@Override
 	public int getEmployeeCountByDepartment(DepartmentEmployeeDto dto) {
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getEmployeeCount(dto);
-	
+
 	}
 
 	@Override
@@ -42,6 +42,12 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 	}
 
 	@Override
+	public DepartmentEmployeeDto getEmployeeInfo(DepartmentEmployeeDto dto) {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getInfo(dto);
+
+	}
+
+	@Override
 	public List<DepartmentEmployeeDto> getDepartmentInfo(DepartmentEmployeeDto dto) {
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getDepartmentList(dto);
 	}
@@ -51,9 +57,8 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getMyInfo(dto);
 	}
 
-	
-
-	
-	
-	
+	@Override
+	public List<DepartmentEmployeeDto> getAuthInfo(DepartmentEmployeeDto dto) {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getMyInfo(dto);
+	}
 }
