@@ -50,4 +50,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public List<DepartmentDto> GetWorkplaceData(int workplaceSeq) {
 		return sqlSession.getMapper(DepartmentMapper.class).GetWorkplaceData(workplaceSeq);
 	}
+
+	@Override
+	public List<DepartmentDto> GetDepartmentParent(int workplaceSeq) {
+		return sqlSession.getMapper(DepartmentMapper.class).GetDepartmentParent(workplaceSeq);
+	}
 }

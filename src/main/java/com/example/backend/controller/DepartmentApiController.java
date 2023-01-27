@@ -65,4 +65,9 @@ public class DepartmentApiController {
 	public List<DepartmentDto> GetWorkplaceData(@PathVariable("workplaceSeq") int workplaceSeq) {
 		return departmentService.GetWorkplaceData(workplaceSeq);
 	}
+	
+	@GetMapping("/departmentparent/{workplaceSeq}") 
+	public List<DepartmentDto> GetDepartmentParent(@PathVariable("workplaceSeq") int workplaceSeq) {
+		return departmentService.GetDepartmentParent(workplaceSeq);
+	}
 }

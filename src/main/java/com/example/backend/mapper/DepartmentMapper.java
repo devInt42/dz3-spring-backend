@@ -12,4 +12,5 @@ public interface DepartmentMapper {
 	   List<DepartmentDto> GetCompanyWorkplaceName(DepartmentDto dto);
 	   List<DepartmentDto> GetDepartment(int departmentSeq);
 	   List<DepartmentDto> GetWorkplaceData(int workplaceSeq);
+	   List<DepartmentDto> GetDepartmentParent(int workplaceSeq);
 }

@@ -83,4 +83,8 @@
 	<select id = "GetWorkplaceData" parameterType = "int" resultMap = "departmentMap">
 		SELECT * FROM workplace where workplace_seq = #{workplaceSeq}
 	</select>
+	
+	<select id = "GetDepartmentParent" parameterType = "int" resultMap = "departmentMap">
+		SELECT * FROM department where workplace_seq = #{workplaceSeq}
+	</select>
 </mapper> 
