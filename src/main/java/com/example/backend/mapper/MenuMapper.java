@@ -25,5 +25,6 @@ public interface MenuMapper {
 	List<MenuDto> checkCode(String menuCode);
 	List<MenuDto> checkName(String menuName);
 	List<MenuDto> getAllList();
-
+	String getURL(int menuSeq);
+	Integer countMenu(int menuSeq);
 }

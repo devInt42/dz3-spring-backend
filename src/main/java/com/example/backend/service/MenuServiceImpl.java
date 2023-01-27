@@ -12,7 +12,7 @@ import com.example.backend.mapper.MenuMapper;
 
 @Component
 public class MenuServiceImpl implements MenuService {
-	
+
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
@@ -28,7 +28,7 @@ public class MenuServiceImpl implements MenuService {
 		// TODO Auto-generated method stub
 		return sqlSession.getMapper(MenuMapper.class).getCountListByDepth(dto);
 	}
-	
+
 	// 메뉴 리스트 조회
 	@Override
 	public List<MenuDto> getMenuList() {
@@ -80,7 +80,18 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public List<MenuDto> getAllMenuList() {
 		return sqlSession.getMapper(MenuMapper.class).getAllList();
+	}
 
+	// 해당 시퀀스의 URL 조회
+	@Override
+	public String getURL(int menuSeq) {
+		return sqlSession.getMapper(MenuMapper.class).getURL(menuSeq);
+	}
+
+	// 하위메뉴 개수 조회
+	@Override
+	public Integer countMenu(int menuSeq) {
+		return sqlSession.getMapper(MenuMapper.class).countMenu(menuSeq);
 	}
 
 }

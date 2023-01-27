@@ -17,6 +17,8 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="child" column="child"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="menuURL" column="menu_url"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<!-- 깊이별 메뉴 조회 -->
@@ -100,8 +102,21 @@
 		resultMap="menuMap">
 		select * from menu_test where menu_name = #{menu_name}
 	</select>
-	
+
 	<select id="getAllList" resultMap="menuMap">
-	select*from menu
+		select*from menu
+	</select>
+
+	<!-- 해당 시퀀스의 url 조회 -->
+	<select id="getURL" parameterType="Integer" resultType="String">
+		select
+		menu_url from menu_test where menu_seq = #{menuSeq}
+	</select>
+
+	<!-- 하위메뉴 개수 조회 -->
+	<select id="countMenu" parameterType="Integer"
+		resultType="Integer">
+		select count(*) from menu_test where menu_parent =
+		#{menuSeq}
 	</select>
 </mapper>
