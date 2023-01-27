@@ -159,4 +159,13 @@ public class DepartmentEmployeeApiController {
 		dto.setEmployeeSeq((int) jObject.getInt("employeeSeq"));
 		return departmentEmployeeService.getmyInfo(dto);
 	}
+
+	// 회사 seq를 받아와서 중복제거된 부서를 select
+	@GetMapping("/auth")
+	public List<DepartmentEmployeeDto> getDepartmentListByAuth(@RequestParam("companySeq") String companySeq,
+			@RequestParam("authSeq") String authSeq, DepartmentEmployeeDto dto) {
+		dto.setAuthSeq(Integer.parseInt(authSeq));
+		dto.setCompanySeq(Integer.parseInt(companySeq));
+		return departmentEmployeeService.getAuthInfo(dto);
+	}
 }

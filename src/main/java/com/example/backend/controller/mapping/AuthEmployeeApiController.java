@@ -51,8 +51,8 @@ public class AuthEmployeeApiController {
 	}
 
 	// 권한별 사원 조회
-	@GetMapping("/auth/page/{page}")
-	public List<AuthEmployeeDto> getAuthListByAuth(@PathVariable(required = true) int page,
+	@GetMapping("/auth")
+	public List<AuthEmployeeDto> getAuthListByAuth(
 			@RequestParam("authSeq") String authSeq,
 			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
 			AuthEmployeeDto dto, HttpServletRequest request) throws JSONException {
@@ -66,7 +66,7 @@ public class AuthEmployeeApiController {
 			}
 		}
 		dto.setAuthSeq(Integer.parseInt(authSeq));
-		return authEmployeeService.getAuthEmployeeList(page, dto);
+		return authEmployeeService.getAuthEmployeeList(dto);
 	}
 
 	// 그룹수 카운팅

@@ -24,10 +24,7 @@ public class AuthEmployeeServiceImpl implements AuthEmployeeService {
 
 	
 	@Override
-	public List<AuthEmployeeDto> getAuthEmployeeList(int page, AuthEmployeeDto dto) {
-		dto.setPage(page);
-		dto.setStartPgNum(0+(page-1)*10);
-		dto.setEndPgNum(10+(page-1)*10);
+	public List<AuthEmployeeDto> getAuthEmployeeList(AuthEmployeeDto dto) {
 		return sqlSession.getMapper(AuthEmployeeMapper.class).getAuthListByAuth(dto);
 	}
 

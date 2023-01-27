@@ -24,7 +24,7 @@ public class DepartmentEmployeeDto {
 	private String workplaceName;
 	private String departmentName;
 	private Date employeeBirth;
-	
+	private int authSeq;
 	
 	private int Page;
 	private int startPgNum;

@@ -24,5 +24,8 @@ public interface DepartmentEmployeeMapper {
 	List<DepartmentEmployeeDto> getEmployeeList(DepartmentEmployeeDto dto);
 
 	List<DepartmentEmployeeDto> getMyInfo(DepartmentEmployeeDto dto);
+	
+	List<DepartmentEmployeeDto> getListByAuth(DepartmentEmployeeDto dto);
+
 
 }

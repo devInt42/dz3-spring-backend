@@ -138,8 +138,6 @@
 		<if test="companySeq != null and companySeq !=''">
 			AND ae.company_seq = #{companySeq}
 		</if>
-		LIMIT
-		#{startPgNum},#{endPgNum}
 	</select>
 
 </mapper> 
