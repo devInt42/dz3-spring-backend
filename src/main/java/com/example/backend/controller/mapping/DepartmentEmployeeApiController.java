@@ -166,6 +166,7 @@ public class DepartmentEmployeeApiController {
 			@RequestParam("authSeq") String authSeq, DepartmentEmployeeDto dto) {
 		dto.setAuthSeq(Integer.parseInt(authSeq));
 		dto.setCompanySeq(Integer.parseInt(companySeq));
+		System.out.println(dto);
 		return departmentEmployeeService.getAuthInfo(dto);
 	}
 }

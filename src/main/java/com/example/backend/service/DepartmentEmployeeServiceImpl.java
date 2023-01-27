@@ -59,6 +59,6 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 
 	@Override
 	public List<DepartmentEmployeeDto> getAuthInfo(DepartmentEmployeeDto dto) {
-		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getMyInfo(dto);
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getListByAuth(dto);
 	}
 }
