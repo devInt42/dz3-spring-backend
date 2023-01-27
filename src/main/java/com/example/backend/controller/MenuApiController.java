@@ -26,22 +26,34 @@ public class MenuApiController {
 
 	// 깊이별 메뉴 테이블 조회
 	@GetMapping("/tree")
-	public List<MenuDto> getMenuListByDepth(
-			@RequestParam(required = false, name = "menuParent") String menuParent,
+	public List<MenuDto> getMenuListByDepth(@RequestParam(required = false, name = "menuParent") String menuParent,
 			@RequestParam(required = false, name = "menuDepth") String menuDepth, MenuDto dto) {
-		dto.setMenuParent(Integer.parseInt(menuParent));
-		dto.setMenuDepth(Integer.parseInt(menuDepth));
+		if (!menuParent.equals(null) && !menuParent.equals("")) {
+			dto.setMenuParent(Integer.parseInt(menuParent));
+		}
+		if (!menuDepth.equals(null) && !menuDepth.equals("")) {
+			dto.setMenuDepth(Integer.parseInt(menuDepth));
+		}
 		return menuService.getChildMenuListByDepth(dto);
 	}
 
 	// 깊이별 메뉴 테이블 카운트
 	@GetMapping("/count")
-	public int getCountMenuListByDepth(
-			@RequestParam(required = false, name = "menuParent") String menuParent,
+	public int getCountMenuListByDepth(@RequestParam(required = false, name = "menuParent") String menuParent,
 			@RequestParam(required = false, name = "menuDepth") String menuDepth, MenuDto dto) {
-		dto.setMenuParent(Integer.parseInt(menuParent));
-		dto.setMenuDepth(Integer.parseInt(menuDepth));
+		if (!menuParent.equals(null) && !menuParent.equals("")) {
+			dto.setMenuParent(Integer.parseInt(menuParent));
+		}
+		if (!menuDepth.equals(null) && !menuDepth.equals("")) {
+			dto.setMenuDepth(Integer.parseInt(menuDepth));
+		}
 		return menuService.getCountMenuListByDepth(dto);
+	}
+
+	// 깊이별 메뉴 테이블 카운트
+	@GetMapping("/select")
+	public List<MenuDto> getAllList() {
+		return menuService.getAllMenuList();
 	}
 	
 	// 메뉴 리스트 조회
@@ -59,7 +71,7 @@ public class MenuApiController {
 
 	// 상위메뉴 depth 조회
 	@GetMapping("/menulist/getdepth/{menuParent}")
-	public Integer getParentDepth(@PathVariable(required=true) int menuParent) {
+	public Integer getParentDepth(@PathVariable(required = true) int menuParent) {
 		return menuService.getParentDepth(menuParent);
 	}
 
@@ -69,35 +81,36 @@ public class MenuApiController {
 		System.out.println(map);
 		menuService.insertMenu(map);
 	}
-	
+
 	// 메뉴 삭제
 	@DeleteMapping("/menulist/delete/{menuSeq}")
-	public void deleteMenu(@PathVariable(required=true) int menuSeq) {
-		System.out.println("삭제 왔다"+menuSeq);
+	public void deleteMenu(@PathVariable(required = true) int menuSeq) {
+		System.out.println("삭제 왔다" + menuSeq);
 		menuService.deleteMenu(menuSeq);
 	}
-	
+
 	// 메뉴 수정
 	@PatchMapping("/menulist/update/{menuSeq}")
-	public void updateMenu(@PathVariable(required=true) String menuSeq, @RequestBody(required=true) Map<String, String> map) {
+	public void updateMenu(@PathVariable(required = true) String menuSeq,
+			@RequestBody(required = true) Map<String, String> map) {
 		System.out.println(map);
 		map.put("menuSeq", menuSeq);
 		System.out.println(map);
 		menuService.updateMenu(map);
 	}
-	
+
 	// 삽입 전 중복조회(메뉴코드)
 	@GetMapping("/menulist/checkcode/{menuCode}")
-	public List<MenuDto> checkCode(@PathVariable(required=true) String menuCode){
+	public List<MenuDto> checkCode(@PathVariable(required = true) String menuCode) {
 		System.out.println("중복 코드 잏ㅆ" + menuService.checkCode(menuCode));
 		return menuService.checkCode(menuCode);
 	}
-	
+
 	// 삽입 전 중복조회(메뉴이름)
 	@GetMapping("/menulist/checkname/{menuName}")
-	public List<MenuDto> checkName(@PathVariable(required=true) String menuName){
+	public List<MenuDto> checkName(@PathVariable(required = true) String menuName) {
 		System.out.println("중복 d=이름 있음" + menuService.checkName(menuName));
 		return menuService.checkName(menuName);
 	}
-	
+
 }

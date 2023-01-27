@@ -24,4 +24,6 @@ public interface MenuMapper {
 	void updateMenu(Map<String, String> map);
 	List<MenuDto> checkCode(String menuCode);
 	List<MenuDto> checkName(String menuName);
+	List<MenuDto> getAllList();
+
 }

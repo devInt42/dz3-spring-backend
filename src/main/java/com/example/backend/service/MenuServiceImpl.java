@@ -77,4 +77,10 @@ public class MenuServiceImpl implements MenuService {
 		return sqlSession.getMapper(MenuMapper.class).checkName(menuName);
 	}
 
+	@Override
+	public List<MenuDto> getAllMenuList() {
+		return sqlSession.getMapper(MenuMapper.class).getAllList();
+
+	}
+
 }

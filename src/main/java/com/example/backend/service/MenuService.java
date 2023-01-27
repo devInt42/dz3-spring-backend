@@ -36,4 +36,6 @@ public interface MenuService {
 	
 	// 삽입 전 중복조회(메뉴이름)
 	List<MenuDto> checkName(String menuName);
+	
+	List<MenuDto> getAllMenuList();
 }
