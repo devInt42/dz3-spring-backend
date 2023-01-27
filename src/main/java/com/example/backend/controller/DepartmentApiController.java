@@ -61,4 +61,8 @@ public class DepartmentApiController {
 		dto.setWorkplaceSeq(workplaceSeq);
 		return departmentService.GetCompanyWorkplaceName(dto);
 	}
+	@GetMapping("/workplace/{workplaceSeq}")
+	public List<DepartmentDto> GetWorkplaceData(@PathVariable("workplaceSeq") int workplaceSeq) {
+		return departmentService.GetWorkplaceData(workplaceSeq);
+	}
 }

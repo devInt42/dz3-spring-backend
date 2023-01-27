@@ -79,4 +79,8 @@
 		join workplace w 
 		on c.company_seq = #{companySeq} AND w.workplace_seq = #{workplaceSeq}
 	</select>
+	
+	<select id = "GetWorkplaceData" parameterType = "int" resultMap = "departmentMap">
+		SELECT * FROM workplace where workplace_seq = #{workplaceSeq}
+	</select>
 </mapper> 
