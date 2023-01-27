@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class DepartmentEmployeeApiController {
 
 	@Autowired
-	private DepartmentEmployeeServiceImpl departementEmployeeService;
+	private DepartmentEmployeeServiceImpl departmentEmployeeService;
 
 	// 회사seq, 사업장seq, 부서seq 를 통해 직원 리스트 select
 	@GetMapping("/employeeList")
@@ -52,7 +52,7 @@ public class DepartmentEmployeeApiController {
 		if (!employeeName.equals(null) && !employeeName.equals("")) { // 회사 seq가 없을 경우 헤더로 보낸 토큰값의 회사번호를 dto에 set함.
 			dto.setEmployeeName(employeeName);
 		}
-		return departementEmployeeService.getEmployeePage(dto);
+		return departmentEmployeeService.getEmployeePage(dto);
 	}
 
 	// 부서seq로 해당 부서 직원 select
@@ -60,7 +60,7 @@ public class DepartmentEmployeeApiController {
 	public List<DepartmentEmployeeDto> getListByDepartment(@RequestParam("departmentSeq") String departmentSeq,
 			DepartmentEmployeeDto dto) {
 		dto.setDepartmentSeq(Integer.parseInt(departmentSeq));
-		return departementEmployeeService.getEmployeePagebyDepartment(dto);
+		return departmentEmployeeService.getEmployeePagebyDepartment(dto);
 	}
 
 	// 부서seq로 해당 부서 직원수 Count
@@ -68,7 +68,7 @@ public class DepartmentEmployeeApiController {
 	public int getEmployeeCountByDepartment(@PathVariable(required = true) String departmentSeq,
 			DepartmentEmployeeDto dto) {
 		dto.setDepartmentSeq(Integer.parseInt(departmentSeq));
-		return departementEmployeeService.getEmployeeCountByDepartment(dto);
+		return departmentEmployeeService.getEmployeeCountByDepartment(dto);
 	}
 
 	// 회사 seq를 받아와서 회사를 select
@@ -86,7 +86,7 @@ public class DepartmentEmployeeApiController {
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
 		}
-		return departementEmployeeService.getCompanyElement(dto);
+		return departmentEmployeeService.getCompanyElement(dto);
 	}
 
 	// 회사 seq를 받아와서 중복제거된 사업장을 select
@@ -105,7 +105,7 @@ public class DepartmentEmployeeApiController {
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
 		}
-		return departementEmployeeService.getWorkplaceInfo(dto);
+		return departmentEmployeeService.getWorkplaceInfo(dto);
 
 	}
 
@@ -125,7 +125,7 @@ public class DepartmentEmployeeApiController {
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
 		}
-		return departementEmployeeService.getDepartmentInfo(dto);
+		return departmentEmployeeService.getDepartmentInfo(dto);
 	}
 	
 	//회사 seq를 통해 search값에 해당되는 직원만 select
@@ -136,7 +136,7 @@ public class DepartmentEmployeeApiController {
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
 		dto.setEmployeeName(employeeName); 
 		dto.setCompanySeq((int) jObject.get("companySeq")); 
-		return departementEmployeeService.getEmployeePage(dto);	
+		return departmentEmployeeService.getEmployeePage(dto);	
 	}
 	
 	//회사 seq, 직원 seq를 통해 select
@@ -147,6 +147,6 @@ public class DepartmentEmployeeApiController {
 	
 		dto.setCompanySeq((int) jObject.get("companySeq"));
 		dto.setEmployeeSeq((int) jObject.getInt("employeeSeq"));
-		return departementEmployeeService.getmyInfo(dto);
+		return departmentEmployeeService.getmyInfo(dto);
     }
 }
