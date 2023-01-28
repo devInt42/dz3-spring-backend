@@ -55,4 +55,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public List<DepartmentDto> GetDepartmentParent(int workplaceSeq) {
 		return sqlSession.getMapper(DepartmentMapper.class).GetDepartmentParent(workplaceSeq);
 	}
+
+	@Override
+	public int DupliCheck(int departmentCode) {
+		return sqlSession.getMapper(DepartmentMapper.class).DupliCheck(departmentCode);
+	}
+
+	@Override
+	public int NameDupliCheck(DepartmentDto dto) {
+		return sqlSession.getMapper(DepartmentMapper.class).NameDupliCheck(dto);
+	}
 }

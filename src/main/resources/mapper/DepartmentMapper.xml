@@ -87,4 +87,12 @@
 	<select id = "GetDepartmentParent" parameterType = "int" resultMap = "departmentMap">
 		SELECT * FROM department where workplace_seq = #{workplaceSeq}
 	</select>
+	
+	<select id = "DupliCheck" parameterType = "int" resultType = "int">
+		SELECT COUNT(*) FROM department WHERE department_code = #{departmentCode}
+	</select>
+	
+	<select id = "NameDupliCheck" parameterType = "com.example.backend.dto.DepartmentDto" resultType ="int">
+		SELECT COUNT(*) FROM department where workplace_seq = #{workplaceSeq} and department_name = #{departmentName}
+	</select>
 </mapper> 

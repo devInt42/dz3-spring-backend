@@ -13,4 +13,6 @@ public interface DepartmentMapper {
 	   List<DepartmentDto> GetDepartment(int departmentSeq);
 	   List<DepartmentDto> GetWorkplaceData(int workplaceSeq);
 	   List<DepartmentDto> GetDepartmentParent(int workplaceSeq);
+	   int DupliCheck(int departmentCode);
+	   int NameDupliCheck(DepartmentDto dto);
 }

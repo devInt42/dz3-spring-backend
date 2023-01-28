@@ -25,11 +25,8 @@ public class DepartmentApiController {
 	@GetMapping("/list")
 	 public List<DepartmentDto> getDepartmentList(@RequestParam("departmentDepth") String departmentDepth,
 	         @RequestParam("departmentParent") String departmentParent, DepartmentDto dto) {
-		System.out.println("Depth: " +departmentDepth);
-		System.out.println("Parent: " +departmentParent);
 		dto.setDepartmentDepth(Integer.parseInt(departmentDepth));
 		dto.setDepartmentParent(Integer.parseInt(departmentParent));
-		System.out.println(dto);
 		return departmentService.GetDepartmentList(dto);
 	 }
 	@GetMapping("/count")
@@ -69,5 +66,23 @@ public class DepartmentApiController {
 	@GetMapping("/departmentparent/{workplaceSeq}") 
 	public List<DepartmentDto> GetDepartmentParent(@PathVariable("workplaceSeq") int workplaceSeq) {
 		return departmentService.GetDepartmentParent(workplaceSeq);
+	}
+	@GetMapping("/info/check/{departmentCode}")
+	public int DupliCheck(@PathVariable("departmentCode") int departmentCode) {
+		if(departmentCode == 0) {
+			return 2;
+		}
+		return departmentService.DupliCheck(departmentCode);
+	}
+	@GetMapping("/info/namecheck") 
+	public int NameDupliCheck(@RequestParam("workplaceSeq")int workplaceSeq, @RequestParam("departmentName") String departmentName, DepartmentDto dto) {
+		if(departmentName == "" || departmentName == null) {
+			return 2;
+		}
+		
+		dto.setWorkplaceSeq(workplaceSeq);
+		dto.setDepartmentName(departmentName);
+		System.out.println(dto);
+		return departmentService.NameDupliCheck(dto);
 	}
 }
