@@ -140,4 +140,45 @@
 		</if>
 	</select>
 
+	<select id="origin"
+		parameterType="com.example.backend.dto.mapping.AuthEmployeeDto"
+		resultMap="authEmployeeMap">
+		SELECT
+		auth_seq, employee_seq, company_seq,workplace_seq,
+		department_seq
+		FROM
+		auth_employee
+		where
+		auth_seq = #{authSeq}
+		and
+		company_seq = #{companySeq}
+	</select>
+
+	<insert id="add" parameterType="java.util.List">
+		INSERT INTO auth_employee(auth_seq, employee_seq, company_seq,
+		workplace_seq, department_seq) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(#{item.authSeq},#{item.employeeSeq},#{item.companySeq},#{item.workplaceSeq},#{item.departmentSeq})
+		</foreach>
+	</insert>
+
+	<delete id="remove" parameterType="java.util.List">
+		DELETE FROM auth_employee WHERE
+			<foreach collection="list" item="item" open="" close=""
+				separator="OR">
+				(
+				auth_seq = #{item.authSeq}
+				and
+				employee_seq =
+				#{item.employeeSeq}
+				and
+				company_seq = #{item.companySeq}
+				and
+				workplace_seq = #{item.workplaceSeq}
+				and
+				department_seq =
+				#{item.departmentSeq})
+			</foreach>
+	</delete>
+
 </mapper> 

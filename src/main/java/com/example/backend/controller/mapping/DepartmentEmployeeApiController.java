@@ -40,7 +40,6 @@ public class DepartmentEmployeeApiController {
 
 		if (!companySeq.equals(null) && !companySeq.equals("")) {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
-			System.out.println(companySeq);
 
 		} else {
 			if ((int) jObject.get("employeeSeq") != 0) { // admin 계정이 아닌 경우
@@ -108,7 +107,6 @@ public class DepartmentEmployeeApiController {
 
 		if (!companySeq.equals(null) && !companySeq.equals("")) { // 회사 seq가 없을 경우 헤더로 보낸 토큰값의 회사번호를 dto에 set함.
 			dto.setCompanySeq(Integer.parseInt(companySeq));
-			System.out.println(companySeq);
 
 		} else {
 			if ((int) jObject.get("employeeSeq") != 0) { // admin 계정이 아닌 경우
@@ -128,7 +126,6 @@ public class DepartmentEmployeeApiController {
 
 		if (!companySeq.equals(null) && !companySeq.equals("")) { // 회사 seq가 없을 경우 헤더로 보낸 토큰값의 회사번호를 dto에 set함.
 			dto.setCompanySeq(Integer.parseInt(companySeq));
-			System.out.println(companySeq);
 
 		} else {
 			if ((int) jObject.get("employeeSeq") != 0) { // admin 계정이 아닌 경우
@@ -166,7 +163,6 @@ public class DepartmentEmployeeApiController {
 			@RequestParam("authSeq") String authSeq, DepartmentEmployeeDto dto) {
 		dto.setAuthSeq(Integer.parseInt(authSeq));
 		dto.setCompanySeq(Integer.parseInt(companySeq));
-		System.out.println(dto);
 		return departmentEmployeeService.getAuthInfo(dto);
 	}
 }

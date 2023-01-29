@@ -1,14 +1,19 @@
 package com.example.backend.controller.mapping;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,7 +43,7 @@ public class AuthEmployeeApiController {
 		if (!companySeq.equals(null) && !companySeq.equals("")) {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
 		} else {
-			if ((int) jObject.get("employeeSeq") != 0) {//admin 계정이 아닌 경우
+			if ((int) jObject.get("employeeSeq") != 0) {// admin 계정이 아닌 경우
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
 		}
@@ -52,8 +57,7 @@ public class AuthEmployeeApiController {
 
 	// 권한별 사원 조회
 	@GetMapping("/auth")
-	public List<AuthEmployeeDto> getAuthListByAuth(
-			@RequestParam("authSeq") String authSeq,
+	public List<AuthEmployeeDto> getAuthListByAuth(@RequestParam("authSeq") String authSeq,
 			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
 			AuthEmployeeDto dto, HttpServletRequest request) throws JSONException {
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
@@ -61,7 +65,7 @@ public class AuthEmployeeApiController {
 		if (!companySeq.equals(null) && !companySeq.equals("")) {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
 		} else {
-			if ((int) jObject.get("employeeSeq") != 0) {//admin 계정이 아닌 경우
+			if ((int) jObject.get("employeeSeq") != 0) {// admin 계정이 아닌 경우
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
 		}
@@ -80,7 +84,7 @@ public class AuthEmployeeApiController {
 		if (!companySeq.equals(null) && !companySeq.equals("")) {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
 		} else {
-			if ((int) jObject.get("employeeSeq") != 0) {//admin 계정이 아닌 경우
+			if ((int) jObject.get("employeeSeq") != 0) {// admin 계정이 아닌 경우
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
 		}
@@ -90,6 +94,33 @@ public class AuthEmployeeApiController {
 
 		return authEmployeeService.getAuthCountByCompany(dto);
 	}
-	
 
+	// 권한별 사원 조회
+	@GetMapping("/origin")
+	public List<AuthEmployeeDto> getOriginCode(@RequestParam("authSeq") String authSeq,
+			@RequestParam("companySeq") String companySeq, AuthEmployeeDto dto) {
+		dto.setAuthSeq(Integer.parseInt(authSeq));
+		dto.setCompanySeq(Integer.parseInt(companySeq));
+		return authEmployeeService.getOriginCode(dto);
+	}
+
+	// 권한-사원 추가
+	@PostMapping("/insert")
+	public void setAuthEmployee(@RequestBody(required = true) List<Object> list) {
+		System.out.println("삽입" + list);
+		System.out.println(list.size());
+		if (list.size() > 0) {
+			authEmployeeService.addAuthEmployee(list);
+		}
+	}
+
+	// 권한-사원 삭제
+	@PostMapping("/delete")
+	public void dropAuthEmployee(@RequestBody(required = true) List<Object> list) {
+		System.out.println("삭제" + list);
+		System.out.println(list.size());
+		if (list.size() > 0) {
+			authEmployeeService.deleteAuthEmployee(list);
+		}
+	}
 }
