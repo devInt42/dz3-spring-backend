@@ -90,7 +90,8 @@
 	</select>
 	
 	<insert id = "InsertDepartment" parameterType = "com.example.backend.dto.DepartmentDto">
-	  INSERT INTO department values(#{companySeq},#{workplaceSeq},#{departmentCode}, #{departmentName},
-	  #{departmentLoc}, #{departmentParent},#{useYN}, #{department_depth})
+	  INSERT INTO department values
+	  (#{departmentSeq},  #{companySeq},#{workplaceSeq},#{departmentCode}, #{departmentName},
+	  #{departmentLoc}, #{departmentParent},#{useYN}, #{departmentDepth})
 	</insert>
 </mapper> 
