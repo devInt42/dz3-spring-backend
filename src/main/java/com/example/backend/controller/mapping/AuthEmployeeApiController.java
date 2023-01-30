@@ -107,8 +107,6 @@ public class AuthEmployeeApiController {
 	// 권한-사원 추가
 	@PostMapping("/insert")
 	public void setAuthEmployee(@RequestBody(required = true) List<Object> list) {
-		System.out.println("삽입" + list);
-		System.out.println(list.size());
 		if (list.size() > 0) {
 			authEmployeeService.addAuthEmployee(list);
 		}
@@ -117,8 +115,6 @@ public class AuthEmployeeApiController {
 	// 권한-사원 삭제
 	@PostMapping("/delete")
 	public void dropAuthEmployee(@RequestBody(required = true) List<Object> list) {
-		System.out.println("삭제" + list);
-		System.out.println(list.size());
 		if (list.size() > 0) {
 			authEmployeeService.deleteAuthEmployee(list);
 		}

@@ -1,6 +1,5 @@
 package com.example.backend.controller.mapping;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.dto.mapping.AuthMenuDto;
@@ -27,20 +25,9 @@ public class AuthMenuApiController {
 	@Autowired
 	private AuthMenuServiceImpl authMenuService;
 
-	@GetMapping("/list/{authSeq}/{menuSeq}")
-	public List<AuthMenuDto> getAuthMenuList(@PathVariable(required = false) int authSeq,
-			@PathVariable(required = false) int menuSeq, AuthMenuDto dto) {
-		System.out.println(authSeq);
-		System.out.println(menuSeq);
-		System.out.println(dto);
-
-		if (authSeq != 0) {
-			dto.setAuthSeq(authSeq);
-		}
-		if (menuSeq != 0) {
-			dto.setMenuSeq(menuSeq);
-		}
-		return authMenuService.getAuthMenuList(dto);
+	@GetMapping("/{authSeq}")
+	public List<AuthMenuDto> getAuthMenuList(@PathVariable int authSeq) {
+		return authMenuService.getAuthMenuList(authSeq);
 	}
 
 	@PostMapping("/list/add")
