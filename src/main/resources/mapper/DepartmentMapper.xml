@@ -94,4 +94,9 @@
 	  (#{departmentSeq},  #{companySeq},#{workplaceSeq},#{departmentCode}, #{departmentName},
 	  #{departmentLoc}, #{departmentParent},#{useYN}, #{departmentDepth})
 	</insert>
+	
+	<update id = "UpdateDepartment" parameterType = "com.example.backend.dto.DepartmentDto">
+	UPDATE department SET department_code = #{departmentCode}, department_name=#{departmentName}, department_loc = #{departmentLoc}, department_parent = #{departmentParent}
+	, use_yn = #{useYN}, department_depth = #{departmentDepth} where department_seq = #{departmentSeq}
+	</update>
 </mapper> 

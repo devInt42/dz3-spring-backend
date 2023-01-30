@@ -16,4 +16,5 @@ public interface DepartmentService {
 	   int DupliCheck(int departmentCode);
 	   int NameDupliCheck(DepartmentDto dto);
 	   void InsertDepartment(DepartmentDto dto);
+	   void UpdateDepartment(DepartmentDto dto);
 }

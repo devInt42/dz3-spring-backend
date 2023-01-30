@@ -99,4 +99,10 @@ public class DepartmentApiController {
 	public void InsertDepartment(@RequestBody DepartmentDto dto) {
 		departmentService.InsertDepartment(dto);
 	}
+
+	@PostMapping("/update/{seq}")
+	public void UpdateDepartment(@RequestBody DepartmentDto dto, @PathVariable("seq") int seq) {
+		dto.setDepartmentSeq(seq);
+		departmentService.UpdateDepartment(dto);
+	}
 }

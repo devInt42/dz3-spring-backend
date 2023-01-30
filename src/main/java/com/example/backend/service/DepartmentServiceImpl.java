@@ -70,4 +70,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public void InsertDepartment(DepartmentDto dto) {
 		sqlSession.getMapper(DepartmentMapper.class).InsertDepartment(dto);
 	}
+
+	@Override
+	public void UpdateDepartment(DepartmentDto dto) {
+		sqlSession.getMapper(DepartmentMapper.class).UpdateDepartment(dto);
+	}
 }
