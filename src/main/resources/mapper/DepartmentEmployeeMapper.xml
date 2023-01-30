@@ -44,6 +44,10 @@
 			javaType="java.sql.Date" jdbcType="DATE" />
 		<result property="authSeq" column="auth_seq"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="departmentParent" column="department_parent"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="departmentDepth" column="department_depth"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
 	</resultMap>
 
 	<select id="getList"
@@ -211,6 +215,24 @@
 		#{companySeq}
 	</select>
 
+	<select id="getWorkplaceList"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
+		resultMap="departmentEmployeeMap">
+
+		SELECT DISTINCT de.company_seq, c.company_name,
+		de.workplace_seq,
+		w.workplace_name from
+		department_employee de
+		LEFT JOIN
+		company c ON
+		de.company_seq= c.company_seq
+		LEFT JOIN workplace w ON
+		de.workplace_seq
+		= w.workplace_seq
+		WHERE de.company_seq = #{companySeq}
+
+	</select>
+
 	<select id="getDepartmentList"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
@@ -281,4 +303,33 @@
 		ae.auth_seq=#{authSeq};
 	</select>
 
+
+	<select id="getDepartmentGroup"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
+		resultMap="departmentEmployeeMap">
+		SELECT company_seq, workplace_seq, department_seq,
+		department_code,
+		department_name, department_parent, department_depth,
+		use_yn FROM
+		department
+		WHERE company_seq = #{companySeq} and
+		department_parent = #{departmentParent} and
+		department_depth =
+		#{departmentDepth} and
+		workplace_seq = #{workplaceSeq}
+	</select>
+
+	<select id="getDepartmentCount"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
+		resultType="INTEGER">
+		select
+		count(*)
+		from department
+		WHERE company_seq =
+		#{companySeq} and
+		department_parent = #{departmentParent} and
+		department_depth = #{departmentDepth} and
+		workplace_seq =
+		#{workplaceSeq}
+	</select>
 </mapper>
