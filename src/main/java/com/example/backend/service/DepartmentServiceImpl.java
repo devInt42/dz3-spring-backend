@@ -65,4 +65,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public int NameDupliCheck(DepartmentDto dto) {
 		return sqlSession.getMapper(DepartmentMapper.class).NameDupliCheck(dto);
 	}
+
+	@Override
+	public void InsertDepartment(DepartmentDto dto) {
+		sqlSession.getMapper(DepartmentMapper.class).InsertDepartment(dto);
+	}
 }

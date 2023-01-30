@@ -15,4 +15,5 @@ public interface DepartmentService {
 	   List<DepartmentDto> GetDepartmentParent(int workplaceSeq);
 	   int DupliCheck(int departmentCode);
 	   int NameDupliCheck(DepartmentDto dto);
+	   void InsertDepartment(DepartmentDto dto);
 }

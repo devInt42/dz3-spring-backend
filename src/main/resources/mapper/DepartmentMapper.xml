@@ -15,18 +15,11 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="departmentName" column="department_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
-		<result property="departmentPresident"
-			column="department_president" javaType="java.lang.Integer"
+		<result property="departmentParent"
+			column="department_parent" javaType="java.lang.Integer"
 			jdbcType="INTEGER" />
-		<result property="departmentCategory"
-			column="department_category" javaType="java.lang.String"
-			jdbcType="VARCHAR" />
-		<result property="departmentCall" column="department_call"
-			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="departmentLoc" column="department_loc"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
-		<result property="departmentParent" column="department_parent"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="useYN" column="use_yn"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="companyCode" column="company_code"
@@ -95,4 +88,9 @@
 	<select id = "NameDupliCheck" parameterType = "com.example.backend.dto.DepartmentDto" resultType ="int">
 		SELECT COUNT(*) FROM department where workplace_seq = #{workplaceSeq} and department_name = #{departmentName}
 	</select>
+	
+	<insert id = "InsertDepartment" parameterType = "com.example.backend.dto.DepartmentDto">
+	  INSERT INTO department values(#{companySeq},#{workplaceSeq},#{departmentCode}, #{departmentName},
+	  #{departmentLoc}, #{departmentParent},#{useYN}, #{department_depth})
+	</insert>
 </mapper> 

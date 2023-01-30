@@ -2,10 +2,11 @@ package com.example.backend.controller;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,20 +24,23 @@ public class DepartmentApiController {
 	private DepartmentServiceImpl departmentService;
 
 	@GetMapping("/list")
-	 public List<DepartmentDto> getDepartmentList(@RequestParam("departmentDepth") String departmentDepth,
-	         @RequestParam("departmentParent") String departmentParent, DepartmentDto dto) {
+	public List<DepartmentDto> getDepartmentList(@RequestParam("departmentDepth") String departmentDepth,
+			@RequestParam("departmentParent") String departmentParent, DepartmentDto dto) {
 		dto.setDepartmentDepth(Integer.parseInt(departmentDepth));
 		dto.setDepartmentParent(Integer.parseInt(departmentParent));
 		return departmentService.GetDepartmentList(dto);
-	 }
+	}
+
 	@GetMapping("/count")
-	 public int getDepartmentCount(@RequestParam("departmentDepth") String departmentDepth,
-	         @RequestParam("departmentParent") String departmentParent, DepartmentDto dto) {
+	public int getDepartmentCount(@RequestParam("departmentDepth") String departmentDepth,
+			@RequestParam("departmentParent") String departmentParent, DepartmentDto dto) {
 		dto.setDepartmentDepth(Integer.parseInt(departmentDepth));
 		dto.setDepartmentParent(Integer.parseInt(departmentParent));
-		if (departmentService.GetDepartmentCount(dto) == null) {return 0;}
+		if (departmentService.GetDepartmentCount(dto) == null) {
+			return 0;
+		}
 		return departmentService.GetDepartmentCount(dto);
-	 }
+	}
 
 	@GetMapping("/list/company")
 	public List<DepartmentDto> getCompanyList() {
@@ -47,10 +51,12 @@ public class DepartmentApiController {
 	public List<DepartmentDto> getWorkplaceList() {
 		return departmentService.GetWorkplaceList();
 	}
+
 	@GetMapping("/list/{departmentSeq}")
 	public List<DepartmentDto> getDepartment(@PathVariable("departmentSeq") int departmentSeq) {
 		return departmentService.GetDepartment(departmentSeq);
 	}
+
 	@GetMapping("/list/name")
 	public List<DepartmentDto> getCompanyWorkplaceName(@RequestParam("companySeq") int companySeq,
 			@RequestParam("workplaceSeq") int workplaceSeq, DepartmentDto dto) {
@@ -58,31 +64,39 @@ public class DepartmentApiController {
 		dto.setWorkplaceSeq(workplaceSeq);
 		return departmentService.GetCompanyWorkplaceName(dto);
 	}
+
 	@GetMapping("/workplace/{workplaceSeq}")
 	public List<DepartmentDto> GetWorkplaceData(@PathVariable("workplaceSeq") int workplaceSeq) {
 		return departmentService.GetWorkplaceData(workplaceSeq);
 	}
-	
-	@GetMapping("/departmentparent/{workplaceSeq}") 
+
+	@GetMapping("/departmentparent/{workplaceSeq}")
 	public List<DepartmentDto> GetDepartmentParent(@PathVariable("workplaceSeq") int workplaceSeq) {
 		return departmentService.GetDepartmentParent(workplaceSeq);
 	}
+
 	@GetMapping("/info/check/{departmentCode}")
 	public int DupliCheck(@PathVariable("departmentCode") int departmentCode) {
-		if(departmentCode == 0) {
-			return 2;
+		if (departmentCode == 0) {
+			return 1;
 		}
 		return departmentService.DupliCheck(departmentCode);
 	}
-	@GetMapping("/info/namecheck") 
-	public int NameDupliCheck(@RequestParam("workplaceSeq")int workplaceSeq, @RequestParam("departmentName") String departmentName, DepartmentDto dto) {
-		if(departmentName == "" || departmentName == null) {
+
+	@GetMapping("/info/namecheck")
+	public int NameDupliCheck(@RequestParam("workplaceSeq") int workplaceSeq,
+			@RequestParam("departmentName") String departmentName, DepartmentDto dto) {
+		if (departmentName == "" || departmentName == null) {
 			return 2;
 		}
-		
 		dto.setWorkplaceSeq(workplaceSeq);
 		dto.setDepartmentName(departmentName);
 		System.out.println(dto);
 		return departmentService.NameDupliCheck(dto);
+	}
+
+	@PostMapping("/insert")
+	public void InsertDepartment(@RequestBody DepartmentDto dto) {
+		departmentService.InsertDepartment(dto);
 	}
 }
