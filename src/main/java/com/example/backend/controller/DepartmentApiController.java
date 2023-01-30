@@ -105,4 +105,9 @@ public class DepartmentApiController {
 		dto.setDepartmentSeq(seq);
 		departmentService.UpdateDepartment(dto);
 	}
+	
+	@GetMapping("/delete/{seq}")
+	public void DeleteDepartment (@PathVariable("seq") int seq) {
+		departmentService.DeleteDepartment(seq);
+	}
 }

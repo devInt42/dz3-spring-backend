@@ -17,4 +17,5 @@ public interface DepartmentMapper {
 	   int NameDupliCheck(DepartmentDto dto);
 	   void InsertDepartment(DepartmentDto dto);
 	   void UpdateDepartment(DepartmentDto dto);
+	   void DeleteDepartment(int seq);
 }
