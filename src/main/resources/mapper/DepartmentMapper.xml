@@ -101,6 +101,6 @@
 	</update>
 	
 	<delete id = "DeleteDepartment" parameterType = "com.example.backend.dto.DepartmentDto">
-	DELETE FROM department WHERE department_seq  = #{departmentSeq}
+	DELETE FROM department WHERE department_seq  = #{departmentSeq} OR department_parent = #{departmentSeq}
 	</delete>
 </mapper> 
