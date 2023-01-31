@@ -75,12 +75,15 @@ public class DepartmentApiController {
 		return departmentService.GetDepartmentParent(workplaceSeq);
 	}
 
-	@GetMapping("/info/check/{departmentCode}")
-	public int DupliCheck(@PathVariable("departmentCode") int departmentCode) {
+	@GetMapping("/info/check/")
+	public int DupliCheck(@RequestParam("departmentCode") int departmentCode,
+			@RequestParam("workplaceSeq") int workplaceSeq, DepartmentDto dto) {
 		if (departmentCode == 0) {
 			return 1;
 		}
-		return departmentService.DupliCheck(departmentCode);
+		dto.setDepartmentCode(departmentCode);
+		dto.setWorkplaceSeq(workplaceSeq);
+		return departmentService.DupliCheck(dto);
 	}
 
 	@GetMapping("/info/namecheck")
