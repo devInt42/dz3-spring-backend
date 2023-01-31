@@ -72,4 +72,5 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getDepartmentCount(dto);
 	}
 
+
 }

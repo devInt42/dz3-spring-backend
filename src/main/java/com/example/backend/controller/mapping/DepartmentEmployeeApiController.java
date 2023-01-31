@@ -176,7 +176,7 @@ public class DepartmentEmployeeApiController {
 
 		return departmentEmployeeService.getDepartmentGroup(dto);
 	}
-
+	
 	// 해당 부서 count
 	@GetMapping("/count")
 	public int getCount(@RequestParam("companySeq") String companySeq,

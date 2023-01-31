@@ -29,6 +29,8 @@ public interface DepartmentEmployeeMapper {
 
 	List<DepartmentEmployeeDto> getDepartmentGroup(DepartmentEmployeeDto dto);
 
+	List<DepartmentEmployeeDto> getDepartmentName(DepartmentEmployeeDto dto);
+
 	
 
 
