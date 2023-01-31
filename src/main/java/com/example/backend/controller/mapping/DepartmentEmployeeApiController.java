@@ -40,7 +40,6 @@ public class DepartmentEmployeeApiController {
 
 		if (!companySeq.equals(null) && !companySeq.equals("")) {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
-			System.out.println(companySeq);
 
 		} else {
 			if ((int) jObject.get("employeeSeq") != 0) { // admin 계정이 아닌 경우
@@ -65,14 +64,6 @@ public class DepartmentEmployeeApiController {
 		return departmentEmployeeService.getEmployeeInfo(dto);
 	}
 
-	// 부서seq로 해당 부서 직원 select
-	@GetMapping("/department")
-	public List<DepartmentEmployeeDto> getListByDepartment(@RequestParam("departmentSeq") String departmentSeq,
-			DepartmentEmployeeDto dto) {
-		dto.setDepartmentSeq(Integer.parseInt(departmentSeq));
-		return departmentEmployeeService.getEmployeePagebyDepartment(dto);
-	}
-
 	// 부서seq로 해당 부서 직원수 Count
 	@GetMapping("/count/{departmentSeq}")
 	public int getEmployeeCountByDepartment(@PathVariable(required = true) String departmentSeq,
@@ -83,20 +74,15 @@ public class DepartmentEmployeeApiController {
 
 	// 회사 seq를 받아와서 회사를 select
 	@GetMapping("/companyElement")
-	public List<DepartmentEmployeeDto> getCompanyElement(
-			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
-			DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
+	public List<DepartmentEmployeeDto> getCompanyElement(DepartmentEmployeeDto dto, HttpServletRequest request)
+			throws JSONException {
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
 
-		if (!companySeq.equals(null) && !companySeq.equals("")) { // 회사 seq가 없을 경우 헤더로 보낸 토큰값의 회사번호를 dto에 set함.
-			dto.setCompanySeq(Integer.parseInt(companySeq));
-
-		} else {
-			if ((int) jObject.get("employeeSeq") != 0) { // admin 계정이 아닌 경우
-				dto.setCompanySeq((int) jObject.get("companySeq"));
-			}
+		if ((int) jObject.get("employeeSeq") != 999) { // admin 계정이 아닌 경우
+			dto.setCompanySeq((int) jObject.get("companySeq"));
 		}
 		return departmentEmployeeService.getCompanyElement(dto);
+
 	}
 
 	// 회사 seq를 받아와서 중복제거된 사업장을 select
@@ -105,16 +91,15 @@ public class DepartmentEmployeeApiController {
 			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
 			DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
-		
+
 		if (!companySeq.equals(null) && !companySeq.equals("")) { // 회사 seq가 없을 경우 헤더로 보낸 토큰값의 회사번호를 dto에 set함.
 			dto.setCompanySeq(Integer.parseInt(companySeq));
-
 		} else {
 			if ((int) jObject.get("employeeSeq") != 0) { // admin 계정이 아닌 경우
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
 		}
-		
+
 		return departmentEmployeeService.getWorkplaceInfo(dto);
 
 	}
@@ -128,7 +113,6 @@ public class DepartmentEmployeeApiController {
 
 		if (!companySeq.equals(null) && !companySeq.equals("")) { // 회사 seq가 없을 경우 헤더로 보낸 토큰값의 회사번호를 dto에 set함.
 			dto.setCompanySeq(Integer.parseInt(companySeq));
-			System.out.println(companySeq);
 
 		} else {
 			if ((int) jObject.get("employeeSeq") != 0) { // admin 계정이 아닌 경우
@@ -166,38 +150,60 @@ public class DepartmentEmployeeApiController {
 			@RequestParam("authSeq") String authSeq, DepartmentEmployeeDto dto) {
 		dto.setAuthSeq(Integer.parseInt(authSeq));
 		dto.setCompanySeq(Integer.parseInt(companySeq));
-		System.out.println(dto);
 		return departmentEmployeeService.getAuthInfo(dto);
 	}
-	
-	//회사 seq를 받아와서 중복제거된 dept name select
-	@GetMapping("/departmentGroup")
-	public List<DepartmentEmployeeDto> getDepartmentGroup(@RequestParam("companySeq") int companySeq,
-			@RequestParam("departmentParent") int departmentParent,
-			@RequestParam("departmentDepth") int departmentDepth,
-			@RequestParam("workplaceSeq") int workplaceSeq,
-			DepartmentEmployeeDto dto){
 
-		dto.setCompanySeq(companySeq);
-		dto.setDepartmentParent(departmentParent);
-		dto.setDepartmentDepth(departmentDepth);
-		dto.setWorkplaceSeq(workplaceSeq);
+	// 회사 seq를 받아와서 중복제거된 dept name select
+	@GetMapping("/departmentGroup")
+	public List<DepartmentEmployeeDto> getDepartmentGroup(
+			@RequestParam(required = false, name = "companySeq") String companySeq,
+			@RequestParam(required = false, name = "departmentParent") String departmentParent,
+			@RequestParam(required = false, name = "departmentDepth") String departmentDepth,
+			@RequestParam(required = false, name = "workplaceSeq") String workplaceSeq, DepartmentEmployeeDto dto) {
+
+		if (!companySeq.equals(null) && !companySeq.equals("")) {
+			dto.setCompanySeq(Integer.parseInt(companySeq));
+		}
+		if (!workplaceSeq.equals(null) && !workplaceSeq.equals("")) {
+			dto.setWorkplaceSeq(Integer.parseInt(workplaceSeq));
+		}
+		if (!departmentParent.equals(null) && !departmentParent.equals("")) {
+			dto.setDepartmentParent(Integer.parseInt(departmentParent));
+		}
+		if (!departmentDepth.equals(null) && !departmentDepth.equals("")) {
+			dto.setDepartmentDepth(Integer.parseInt(departmentDepth));
+		}
+
 		return departmentEmployeeService.getDepartmentGroup(dto);
 	}
-	
-	//해당 부서 count
+
+	// 해당 부서 count
 	@GetMapping("/count")
-	public int getCount(@RequestParam("companySeq") int companySeq,
-			@RequestParam("departmentParent") int departmentParent,
-			@RequestParam("departmentDepth") int departmentDepth,
-			@RequestParam("workplaceSeq") int workplaceSeq,
-			DepartmentEmployeeDto dto){
-		dto.setCompanySeq(companySeq);
-		dto.setDepartmentParent(departmentParent);
-		dto.setDepartmentDepth(departmentDepth);
-		dto.setWorkplaceSeq(workplaceSeq);
+	public int getCount(@RequestParam("companySeq") String companySeq,
+			@RequestParam("departmentParent") String departmentParent,
+			@RequestParam("departmentDepth") String departmentDepth, @RequestParam("workplaceSeq") String workplaceSeq,
+			DepartmentEmployeeDto dto) {
+		if (!companySeq.equals(null) && !companySeq.equals("")) {
+			dto.setCompanySeq(Integer.parseInt(companySeq));
+		}
+		if (!workplaceSeq.equals(null) && !workplaceSeq.equals("")) {
+			dto.setWorkplaceSeq(Integer.parseInt(workplaceSeq));
+		}
+		if (!departmentParent.equals(null) && !departmentParent.equals("")) {
+			dto.setDepartmentParent(Integer.parseInt(departmentParent));
+		}
+		if (!departmentDepth.equals(null) && !departmentDepth.equals("")) {
+			dto.setDepartmentDepth(Integer.parseInt(departmentDepth));
+		}
 
 		return departmentEmployeeService.getDepartmentCount(dto);
 	}
-	
+
+	// 부서seq로 해당 부서 직원 select
+	@GetMapping("/department")
+	public List<DepartmentEmployeeDto> getListByDepartment(@RequestParam("departmentSeq") String departmentSeq,
+			DepartmentEmployeeDto dto) {
+		dto.setDepartmentSeq(Integer.parseInt(departmentSeq));
+		return departmentEmployeeService.getEmployeePagebyDepartment(dto);
+	}
 }

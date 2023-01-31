@@ -17,6 +17,7 @@ public interface DepartmentEmployeeService {
 	List<DepartmentEmployeeDto>getAuthInfo(DepartmentEmployeeDto dto);
 	List<DepartmentEmployeeDto>getDepartmentGroup(DepartmentEmployeeDto dto);
 	int getDepartmentCount(DepartmentEmployeeDto dto);
+
 	
 	
 }
