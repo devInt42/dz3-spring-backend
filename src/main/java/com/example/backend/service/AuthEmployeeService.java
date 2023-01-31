@@ -11,5 +11,6 @@ public interface AuthEmployeeService {
 	List<AuthEmployeeDto> getOriginCode(AuthEmployeeDto dto);
 	void addAuthEmployee(List<Object> list);
 	void deleteAuthEmployee(List<Object> list);
+	List<AuthEmployeeDto> getMenuListByAuthEmployee(AuthEmployeeDto dto);
 
 }

@@ -3,7 +3,10 @@ package com.example.backend.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -50,12 +53,13 @@ public class MenuApiController {
 		return menuService.getCountMenuListByDepth(dto);
 	}
 
+
 	// 깊이별 메뉴 테이블 카운트
 	@GetMapping("/select")
 	public List<MenuDto> getAllList() {
 		return menuService.getAllMenuList();
 	}
-	
+
 	// 메뉴 리스트 조회
 	@GetMapping("/menulist")
 	public List<MenuDto> getMenuList() {
@@ -106,17 +110,17 @@ public class MenuApiController {
 	public List<MenuDto> checkName(@PathVariable(required = true) String menuName) {
 		return menuService.checkName(menuName);
 	}
-	
+
 	// 해당 시퀀스의 URL 조회
 	@GetMapping("/menulist/geturl/{menuSeq}")
-	public String getURL(@PathVariable(required=true) int menuSeq) {
+	public String getURL(@PathVariable(required = true) int menuSeq) {
 		return menuService.getURL(menuSeq);
 	}
-	
+
 	// 하위메뉴 개수 조회
 	@GetMapping("/menulist/getcount/{menuSeq}")
-	public Integer countMenu(@PathVariable(required=true) int menuSeq) {
+	public Integer countMenu(@PathVariable(required = true) int menuSeq) {
 		return menuService.countMenu(menuSeq);
 	}
-	
+
 }

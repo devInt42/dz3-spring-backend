@@ -22,6 +22,14 @@ public class AuthEmployeeDto {
 	private String employeeId;
 	private String title;
 	
+	private int menuSeq;
+	private String menuCode;
+	private String menuName;
+	private int menuParent;
+	private int menuDepth;
+	private String menuUrl;
+	
+	
 	private int page;
 	private int startPgNum;
 	private int endPgNum;

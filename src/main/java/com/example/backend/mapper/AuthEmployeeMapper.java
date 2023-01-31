@@ -17,4 +17,5 @@ public interface AuthEmployeeMapper {
 
 	void remove(List<Object> list);
 
+	List<AuthEmployeeDto> getMenuListByAuthEmployee(AuthEmployeeDto dto);
 }

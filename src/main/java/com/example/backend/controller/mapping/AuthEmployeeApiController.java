@@ -48,14 +48,13 @@ public class AuthEmployeeApiController {
 			if ((int) jObject.get("employeeSeq") != 999) {// admin 계정이 아닌 경우
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
-			dto.setEmployeeSeq((int) jObject.getInt("employeeSeq"));
 		}
 
 		// 권한명으로 검색했을 경우
 		if (!authName.equals(null) && !authName.equals("")) {
 			dto.setAuthName(authName);
 		}
-		System.out.println(authName);
+		System.out.println(dto);
 		return authEmployeeService.getAuthCompanyList(page, dto);
 	}
 
@@ -102,7 +101,22 @@ public class AuthEmployeeApiController {
 		return authEmployeeService.getAuthCountByCompany(dto);
 	}
 
-	// 권한별 사원 조회
+	// 로그인한 사용자별 권한과 메뉴값 가져오기
+	@GetMapping("/employee")
+	public List<AuthEmployeeDto> getMenuListByAuthEmployee(
+			@RequestParam(required = false, name = "menuParent", defaultValue = "") String menuParent,
+			AuthEmployeeDto dto, HttpServletRequest request) throws JSONException {
+		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+		dto.setMenuParent(Integer.parseInt(menuParent));
+		dto.setCompanySeq((int) jObject.get("companySeq"));
+		dto.setWorkplaceSeq((int) jObject.get("workplaceSeq"));
+		dto.setDepartmentSeq((int) jObject.get("departmentSeq"));
+		dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
+
+		return authEmployeeService.getMenuListByAuthEmployee(dto);
+	}
+
+	// 권한별 사원 코드 조회
 	@GetMapping("/origin")
 	public List<AuthEmployeeDto> getOriginCode(@RequestParam("authSeq") String authSeq,
 			@RequestParam("companySeq") String companySeq, AuthEmployeeDto dto) {
