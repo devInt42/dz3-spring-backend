@@ -50,27 +50,26 @@
 
 	<!-- 메뉴리스트 조회 -->
 	<select id="getMenuList" resultMap="menuMap">
-		select * from menu where
-		menu_parent = 0
-
+		select * from menu
+		<!-- where menu_parent = 0 -->
 	</select>
 
 	<!-- 하위메뉴 조회 -->
 	<select id="getSubMenuList" parameterType="Integer"
 		resultMap="menuMap">
-		select * from menu_test where menu_parent = #{menuSequence}
+		select * from menu where menu_parent = #{menuSequence}
 	</select>
 
 	<!-- 상위메뉴 깊이 조회 -->
 	<select id="getParentDepth" parameterType="Integer"
 		resultType="Integer">
-		select distinct menu_depth from menu_test where menu_seq =
+		select distinct menu_depth from menu where menu_seq =
 		#{menuParent}
 	</select>
 
 	<!-- 메뉴 저장 -->
 	<insert id="insertMenu">
-		insert into menu_test (menu_code, menu_name,
+		insert into menu (menu_code, menu_name,
 		menu_parent,
 		menu_depth) VALUES(#{menuCode}, #{menuName},
 		#{menuParent},
@@ -79,13 +78,13 @@
 
 	<!-- 메뉴 삭제 -->
 	<delete id="deleteMenu" parameterType="Integer">
-		delete from menu_test
+		delete from menu
 		where menu_seq = #{menuSeq}
 	</delete>
 
 	<!-- 메뉴 수정 -->
 	<update id="updateMenu">
-		update menu_test set menu_code = #{menuCode},
+		update menu set menu_code = #{menuCode},
 		menu_name = #{menuName}, menu_parent = #{menuParent}, menu_depth =
 		#{menuDepth}
 		where menu_seq = #{menuSeq}
@@ -94,13 +93,13 @@
 	<!-- 삽입 전 중복조회(메뉴코드) -->
 	<select id="checkCode" parameterType="String"
 		resultMap="menuMap">
-		select * from menu_test where menu_code = #{menu_code}
+		select * from menu where menu_code = #{menu_code}
 	</select>
 
 	<!-- 삽입 전 중복조회(메뉴이름) -->
 	<select id="checkName" parameterType="String"
 		resultMap="menuMap">
-		select * from menu_test where menu_name = #{menu_name}
+		select * from menu where menu_name = #{menu_name}
 	</select>
 
 	<select id="getAllList" resultMap="menuMap">
@@ -110,13 +109,13 @@
 	<!-- 해당 시퀀스의 url 조회 -->
 	<select id="getURL" parameterType="Integer" resultType="String">
 		select
-		menu_url from menu_test where menu_seq = #{menuSeq}
+		menu_url from menu where menu_seq = #{menuSeq}
 	</select>
 
 	<!-- 하위메뉴 개수 조회 -->
 	<select id="countMenu" parameterType="Integer"
 		resultType="Integer">
-		select count(*) from menu_test where menu_parent =
+		select count(*) from menu where menu_parent =
 		#{menuSeq}
 	</select>
 </mapper>
