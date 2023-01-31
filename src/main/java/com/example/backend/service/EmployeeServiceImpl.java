@@ -1,5 +1,7 @@
 package com.example.backend.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,9 +15,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+
 	@Override
-	public EmployeeDto getEmployeeBySeq(int employeeSeq) {
-		return sqlSession.getMapper(EmployeeMapper.class).getBySeq(employeeSeq);
+	public List<EmployeeDto> getEmpList() {
+		return sqlSession.getMapper(EmployeeMapper.class).getEmpList();
 	}
 
+	@Override
+	public List<EmployeeDto> getEmployeeBySeq(int employeeSeq) {
+		return sqlSession.getMapper(EmployeeMapper.class).getBySeq(employeeSeq);
+	}
 }
