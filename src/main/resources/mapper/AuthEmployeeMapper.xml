@@ -50,8 +50,11 @@
 		a.company_seq =
 		c.company_seq
 		<where>
-			<if test="companySeq != null and companySeq !=''">
+			<if test="companySeq != null and companySeq !='' and employeeSeq != 999">
 				AND a.company_seq = #{companySeq}
+			</if>
+			<if test="employeeSeq != 999">
+				AND NOT a.auth_seq IN(999)
 			</if>
 			<if test="authName != null and authName !=''">
 				AND(
@@ -62,7 +65,7 @@
 			</if>
 		</where>
 		ORDER BY
-		a.company_seq asc
+		a.company_seq asc 
 		LIMIT #{startPgNum},#{endPgNum}
 
 	</select>
@@ -87,6 +90,9 @@
 			<if test="companySeq != null and companySeq !=''">
 				AND a.company_seq = #{companySeq}
 			</if>
+			<if test="employeeSeq != 999">
+				AND NOT a.auth_seq IN(999)
+			</if>
 			<if test="authName != null and authName !=''">
 				AND(
 				a.auth_name like CONCAT('%',#{authName},'%')
@@ -94,6 +100,7 @@
 				a.auth_code like
 				CONCAT('%',#{authName},'%'))
 			</if>
+
 		</where>
 		GROUP BY a.company_seq
 		) res
@@ -164,21 +171,21 @@
 
 	<delete id="remove" parameterType="java.util.List">
 		DELETE FROM auth_employee WHERE
-			<foreach collection="list" item="item" open="" close=""
-				separator="OR">
-				(
-				auth_seq = #{item.authSeq}
-				and
-				employee_seq =
-				#{item.employeeSeq}
-				and
-				company_seq = #{item.companySeq}
-				and
-				workplace_seq = #{item.workplaceSeq}
-				and
-				department_seq =
-				#{item.departmentSeq})
-			</foreach>
+		<foreach collection="list" item="item" open="" close=""
+			separator="OR">
+			(
+			auth_seq = #{item.authSeq}
+			and
+			employee_seq =
+			#{item.employeeSeq}
+			and
+			company_seq = #{item.companySeq}
+			and
+			workplace_seq = #{item.workplaceSeq}
+			and
+			department_seq =
+			#{item.departmentSeq})
+		</foreach>
 	</delete>
 
 </mapper> 

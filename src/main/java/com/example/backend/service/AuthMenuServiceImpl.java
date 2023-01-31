@@ -21,23 +21,15 @@ public class AuthMenuServiceImpl implements AuthMenuService {
 	}
 
 	@Override
-	public void removeAuthMenu(Map<String, String> map) {
-		sqlSession.getMapper(AuthMenuMapper.class).remove(map);
-		
+	public void addAuthMenu(List<Object> list) {
+		sqlSession.getMapper(AuthMenuMapper.class).add(list);
+
 	}
 
 	@Override
-	public void setAuthMenu(Map<String, String> map) {
-		sqlSession.getMapper(AuthMenuMapper.class).set(map);		
-		
-	}
+	public void removeAuthMenu(List<Object> list) {
+		sqlSession.getMapper(AuthMenuMapper.class).remove(list);
 
-	@Override
-	public void addAuthMenu(Map<String, String> map) {
-		sqlSession.getMapper(AuthMenuMapper.class).add(map);		
-		
 	}
-
-	
 
 }

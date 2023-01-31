@@ -39,19 +39,23 @@ public class AuthEmployeeApiController {
 			HttpServletRequest request) throws JSONException {
 
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+		dto.setEmployeeSeq((int) jObject.getInt("employeeSeq"));
+
 		// 회사 seq가 없을경우 헤더로 보낸 토큰값의 회사번호를 dto에 set
 		if (!companySeq.equals(null) && !companySeq.equals("")) {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
 		} else {
-			if ((int) jObject.get("employeeSeq") != 0) {// admin 계정이 아닌 경우
+			if ((int) jObject.get("employeeSeq") != 999) {// admin 계정이 아닌 경우
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
+			dto.setEmployeeSeq((int) jObject.getInt("employeeSeq"));
 		}
 
 		// 권한명으로 검색했을 경우
 		if (!authName.equals(null) && !authName.equals("")) {
 			dto.setAuthName(authName);
 		}
+		System.out.println(authName);
 		return authEmployeeService.getAuthCompanyList(page, dto);
 	}
 
@@ -61,11 +65,13 @@ public class AuthEmployeeApiController {
 			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
 			AuthEmployeeDto dto, HttpServletRequest request) throws JSONException {
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+		dto.setEmployeeSeq((int) jObject.getInt("employeeSeq"));
+
 		// 회사 seq가 없을경우 헤더로 보낸 토큰값의 회사번호를 dto에 set
 		if (!companySeq.equals(null) && !companySeq.equals("")) {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
 		} else {
-			if ((int) jObject.get("employeeSeq") != 0) {// admin 계정이 아닌 경우
+			if ((int) jObject.get("employeeSeq") != 999) {// admin 계정이 아닌 경우
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
 		}
@@ -81,10 +87,11 @@ public class AuthEmployeeApiController {
 			HttpServletRequest request) throws JSONException {
 		String empInfo = request.getHeader("Authorization");
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+		dto.setEmployeeSeq((int) jObject.getInt("employeeSeq"));
 		if (!companySeq.equals(null) && !companySeq.equals("")) {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
 		} else {
-			if ((int) jObject.get("employeeSeq") != 0) {// admin 계정이 아닌 경우
+			if ((int) jObject.get("employeeSeq") != 999) {// admin 계정이 아닌 경우
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
 		}

@@ -42,7 +42,7 @@ public class DepartmentEmployeeApiController {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
 
 		} else {
-			if ((int) jObject.get("employeeSeq") != 0) { // admin 계정이 아닌 경우
+			if ((int) jObject.get("employeeSeq") != 999) { // admin 계정이 아닌 경우
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
 		}
@@ -57,7 +57,7 @@ public class DepartmentEmployeeApiController {
 	@GetMapping("/info")
 	public DepartmentEmployeeDto userInfo(DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
-		if ((int) jObject.get("employeeSeq") != 0) {// admin 계정이 아닐경우
+		if ((int) jObject.get("employeeSeq") != 999) {// admin 계정이 아닐경우
 			dto.setCompanySeq((int) jObject.get("companySeq"));
 			dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
 		}
@@ -91,7 +91,7 @@ public class DepartmentEmployeeApiController {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
 
 		} else {
-			if ((int) jObject.get("employeeSeq") != 0) { // admin 계정이 아닌 경우
+			if ((int) jObject.get("employeeSeq") != 999) { // admin 계정이 아닌 경우
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
 		}
@@ -109,7 +109,7 @@ public class DepartmentEmployeeApiController {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
 
 		} else {
-			if ((int) jObject.get("employeeSeq") != 0) { // admin 계정이 아닌 경우
+			if ((int) jObject.get("employeeSeq") != 999) { // admin 계정이 아닌 경우
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
 		}
@@ -128,7 +128,7 @@ public class DepartmentEmployeeApiController {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
 
 		} else {
-			if ((int) jObject.get("employeeSeq") != 0) { // admin 계정이 아닌 경우
+			if ((int) jObject.get("employeeSeq") != 999) { // admin 계정이 아닌 경우
 				dto.setCompanySeq((int) jObject.get("companySeq"));
 			}
 		}

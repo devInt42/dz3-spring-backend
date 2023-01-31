@@ -18,4 +18,24 @@
 			auth_seq = #{authSeq}
 		</if>
 	</select>
+
+	<insert id="add" parameterType="java.util.List">
+		INSERT INTO auth_menu(auth_seq, menu_seq) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(#{item.authSeq},#{item.menuSeq})
+		</foreach>
+	</insert>
+
+	<delete id="remove" parameterType="java.util.List">
+		DELETE FROM auth_menu WHERE
+		<foreach collection="list" item="item" open="" close=""
+			separator="OR">
+			(
+			auth_seq = #{item.authSeq}
+			and
+			menu_seq =
+			#{item.menuSeq}
+			)
+		</foreach>
+	</delete>
 </mapper> 
