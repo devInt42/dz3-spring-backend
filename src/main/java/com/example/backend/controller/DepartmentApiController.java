@@ -100,9 +100,8 @@ public class DepartmentApiController {
 
 	@PostMapping("/insert")
 	public void InsertDepartment(@RequestBody DepartmentDto dto, 
-			@RequestParam("departmentParentDepth")int departmentParentDepth,
-			@RequestParam("departmentParentName")String departmentParentName) {
-		if(departmentParentDepth == 0 && departmentParentName == "-") {
+			@RequestParam("departmentParentDepth")int departmentParentDepth) {
+		if(dto.getDepartmentParent() == 0) {
 			dto.setDepartmentDepth(0);
 		}
 		else {
@@ -113,9 +112,8 @@ public class DepartmentApiController {
 
 	@PostMapping("/update/{seq}")
 	public void UpdateDepartment(@RequestBody DepartmentDto dto, @PathVariable("seq") int seq, 
-			@RequestParam("departmentParentDepth")int departmentParentDepth,
-			@RequestParam("departmentParentName")String departmentParentName) {
-		if(departmentParentDepth == 0 && departmentParentName == "-") {
+			@RequestParam("departmentParentDepth")int departmentParentDepth) {
+		if(dto.getDepartmentParent() == 0) {
 			dto.setDepartmentDepth(0);
 		}
 		else {
