@@ -18,4 +18,5 @@ public interface DepartmentService {
 	   void InsertDepartment(DepartmentDto dto);
 	   void UpdateDepartment(DepartmentDto dto);
 	   void DeleteDepartment(int seq);
+	   List<DepartmentDto> FindDepartment(DepartmentDto dto);
 }

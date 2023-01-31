@@ -78,7 +78,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Override
 	public void DeleteDepartment(int seq) {
-		// TODO Auto-generated method stub
 		sqlSession.getMapper(DepartmentMapper.class).DeleteDepartment(seq);
+	}
+
+	@Override
+	public List<DepartmentDto> FindDepartment(DepartmentDto dto) {
+		
+		return sqlSession.getMapper(DepartmentMapper.class).FindDepartment(dto);
 	}
 }

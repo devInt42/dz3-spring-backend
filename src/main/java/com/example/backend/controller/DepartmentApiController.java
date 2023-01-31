@@ -99,32 +99,48 @@ public class DepartmentApiController {
 	}
 
 	@PostMapping("/insert")
-	public void InsertDepartment(@RequestBody DepartmentDto dto, 
-			@RequestParam("departmentParentDepth")int departmentParentDepth) {
-		if(dto.getDepartmentParent() == 0) {
-			dto.setDepartmentDepth(0);
+	public void InsertDepartment(@RequestBody DepartmentDto dto,
+			@RequestParam("departmentParentDepth") int departmentParentDepth) {
+		if (dto.getUseYN() == null || dto.getUseYN() == "") {
+			dto.setUseYN("N");
 		}
-		else {
+		if (dto.getDepartmentParent() == 0) {
+			dto.setDepartmentDepth(0);
+		} else {
 			dto.setDepartmentDepth(departmentParentDepth + 1);
 		}
 		departmentService.InsertDepartment(dto);
 	}
 
 	@PostMapping("/update/{seq}")
-	public void UpdateDepartment(@RequestBody DepartmentDto dto, @PathVariable("seq") int seq, 
-			@RequestParam("departmentParentDepth")int departmentParentDepth) {
-		if(dto.getDepartmentParent() == 0) {
+	public void UpdateDepartment(@RequestBody DepartmentDto dto, @PathVariable("seq") int seq,
+			@RequestParam("departmentParentDepth") int departmentParentDepth) {
+
+		if (dto.getDepartmentParent() == 0) {
 			dto.setDepartmentDepth(0);
-		}
-		else {
+		} else {
 			dto.setDepartmentDepth(departmentParentDepth + 1);
 		}
 		dto.setDepartmentSeq(seq);
 		departmentService.UpdateDepartment(dto);
 	}
-	
+
 	@GetMapping("/delete/{seq}")
-	public void DeleteDepartment (@PathVariable("seq") int seq) {
+	public void DeleteDepartment(@PathVariable("seq") int seq) {
 		departmentService.DeleteDepartment(seq);
+	}
+
+	@GetMapping("/find")
+	public List<DepartmentDto> FindDepartment(@RequestParam(required = false, name = "searchName") String searchName,
+			@RequestParam(required = false, name = "searchCompanySeq") int searchCompanySeq, DepartmentDto dto) {
+		if (searchName != null) {
+			dto.setDepartmentCode(Integer.parseInt(searchName));
+		}
+		if( searchCompanySeq > 0) {
+			dto.setCompanySeq(searchCompanySeq);
+		}
+		dto.setDepartmentName(searchName);
+		System.out.println(dto);
+		return departmentService.FindDepartment(dto);
 	}
 }
