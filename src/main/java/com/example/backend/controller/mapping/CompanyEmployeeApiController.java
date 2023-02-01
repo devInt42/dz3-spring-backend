@@ -51,8 +51,10 @@ public class CompanyEmployeeApiController {
 			throws JSONException {
 
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+		dto.setEmployeeSeq((int) jObject.getInt("employeeSeq"));
+
 		// 헤더로 보낸 토큰값의 회사번호를 dto에 set
-		if ((int) jObject.get("employeeSeq") != 0) {// admin 계정이 아닐경우
+		if ((int) jObject.get("employeeSeq") != 999) {// admin 계정이 아닐경우
 			dto.setCompanySeq((int) jObject.get("companySeq"));
 		}
 		return companyEmployeeService.getCompanyList(dto);

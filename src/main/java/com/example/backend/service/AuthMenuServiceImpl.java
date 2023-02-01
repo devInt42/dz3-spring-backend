@@ -16,33 +16,20 @@ public class AuthMenuServiceImpl implements AuthMenuService {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public AuthMenuDto getAuthMenuBySeq(Map<String, String> map) {
-		return sqlSession.getMapper(AuthMenuMapper.class).getBySeq(map);
+	public List<AuthMenuDto> getAuthMenuList(int authSeq) {
+		return sqlSession.getMapper(AuthMenuMapper.class).getList(authSeq);
 	}
 
 	@Override
-	public List<AuthMenuDto> getAuthMenuList(AuthMenuDto dto) {
-		return sqlSession.getMapper(AuthMenuMapper.class).getList(dto);
+	public void addAuthMenu(List<Object> list) {
+		sqlSession.getMapper(AuthMenuMapper.class).add(list);
+
 	}
 
 	@Override
-	public void removeAuthMenu(Map<String, String> map) {
-		sqlSession.getMapper(AuthMenuMapper.class).remove(map);
-		
-	}
+	public void removeAuthMenu(List<Object> list) {
+		sqlSession.getMapper(AuthMenuMapper.class).remove(list);
 
-	@Override
-	public void setAuthMenu(Map<String, String> map) {
-		sqlSession.getMapper(AuthMenuMapper.class).set(map);		
-		
 	}
-
-	@Override
-	public void addAuthMenu(Map<String, String> map) {
-		sqlSession.getMapper(AuthMenuMapper.class).add(map);		
-		
-	}
-
-	
 
 }

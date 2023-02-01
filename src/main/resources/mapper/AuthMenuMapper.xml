@@ -9,21 +9,33 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="menuSeq" column="menu_seq"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
-
-
 	</resultMap>
 
-	<select id="getList"
-		parameterType="com.example.backend.dto.mapping.AuthMenuDto"
+	<select id="getList" parameterType="INTEGER"
 		resultMap="authMenuMap">
-		select * from auth_menu
-		<where>
-			<if test="authSeq != 0 and authSeq !=''">
-				AND auth_seq = #{authSeq}
-			</if>
-			<if test="menuSeq != 0 and menuSeq !=''">
-				And menu_seq = #{menuSeq}
-			</if>
-		</where>
+		select * from auth_menu where
+		<if test="authSeq != 0 and authSeq !=''">
+			auth_seq = #{authSeq}
+		</if>
 	</select>
+
+	<insert id="add" parameterType="java.util.List">
+		INSERT INTO auth_menu(auth_seq, menu_seq) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(#{item.authSeq},#{item.menuSeq})
+		</foreach>
+	</insert>
+
+	<delete id="remove" parameterType="java.util.List">
+		DELETE FROM auth_menu WHERE
+		<foreach collection="list" item="item" open="" close=""
+			separator="OR">
+			(
+			auth_seq = #{item.authSeq}
+			and
+			menu_seq =
+			#{item.menuSeq}
+			)
+		</foreach>
+	</delete>
 </mapper> 

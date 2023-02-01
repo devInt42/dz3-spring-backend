@@ -3,7 +3,10 @@ package com.example.backend.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -50,12 +53,13 @@ public class MenuApiController {
 		return menuService.getCountMenuListByDepth(dto);
 	}
 
+
 	// 깊이별 메뉴 테이블 카운트
 	@GetMapping("/select")
 	public List<MenuDto> getAllList() {
 		return menuService.getAllMenuList();
 	}
-	
+
 	// 메뉴 리스트 조회
 	@GetMapping("/menulist")
 	public List<MenuDto> getMenuList() {
@@ -78,14 +82,12 @@ public class MenuApiController {
 	// 메뉴 저장
 	@PostMapping
 	public void insertMenu(@RequestBody(required = true) Map<String, String> map) {
-		System.out.println(map);
 		menuService.insertMenu(map);
 	}
 
 	// 메뉴 삭제
 	@DeleteMapping("/menulist/delete/{menuSeq}")
 	public void deleteMenu(@PathVariable(required = true) int menuSeq) {
-		System.out.println("삭제 왔다" + menuSeq);
 		menuService.deleteMenu(menuSeq);
 	}
 
@@ -93,37 +95,32 @@ public class MenuApiController {
 	@PatchMapping("/menulist/update/{menuSeq}")
 	public void updateMenu(@PathVariable(required = true) String menuSeq,
 			@RequestBody(required = true) Map<String, String> map) {
-		System.out.println(map);
 		map.put("menuSeq", menuSeq);
-		System.out.println(map);
 		menuService.updateMenu(map);
 	}
 
 	// 삽입 전 중복조회(메뉴코드)
 	@GetMapping("/menulist/checkcode/{menuCode}")
 	public List<MenuDto> checkCode(@PathVariable(required = true) String menuCode) {
-		System.out.println("중복 코드 잏ㅆ" + menuService.checkCode(menuCode));
 		return menuService.checkCode(menuCode);
 	}
 
 	// 삽입 전 중복조회(메뉴이름)
 	@GetMapping("/menulist/checkname/{menuName}")
 	public List<MenuDto> checkName(@PathVariable(required = true) String menuName) {
-		System.out.println("중복 d=이름 있음" + menuService.checkName(menuName));
 		return menuService.checkName(menuName);
 	}
-	
+
 	// 해당 시퀀스의 URL 조회
 	@GetMapping("/menulist/geturl/{menuSeq}")
 	public String getURL(@PathVariable(required=true) int menuSeq) {
-		System.out.println(menuService.getURL(menuSeq));
 		return menuService.getURL(menuSeq);
 	}
-	
+
 	// 하위메뉴 개수 조회
 	@GetMapping("/menulist/getcount/{menuSeq}")
-	public Integer countMenu(@PathVariable(required=true) int menuSeq) {
+	public Integer countMenu(@PathVariable(required = true) int menuSeq) {
 		return menuService.countMenu(menuSeq);
 	}
-	
+
 }

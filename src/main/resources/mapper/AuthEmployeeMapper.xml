@@ -33,6 +33,18 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeId" column="employee_id"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="menuSeq" column="menu_seq"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="menuCode" column="menu_code"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="menuName" column="menu_name"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="menuParent" column="menu_parent"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="menuDepth" column="menu_depth"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="menuUrl" column="menu_url"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="getAuthListByCompany"
@@ -47,18 +59,24 @@
 		JOIN
 		company c
 		ON
-		a.company_seq =
-		c.company_seq
+		a.company_seq = c.company_seq
 		<where>
+			<if test="employeeSeq == 999">
+				1=1
+			</if>
 			<if test="companySeq != null and companySeq !=''">
 				AND a.company_seq = #{companySeq}
+			</if>
+			<if test="employeeSeq != 999">
+				AND NOT a.auth_seq IN(999)
 			</if>
 			<if test="authName != null and authName !=''">
 				AND(
 				a.auth_name like CONCAT('%',#{authName},'%')
 				OR
 				a.auth_code like
-				CONCAT('%',#{authName},'%'))
+				CONCAT('%',#{authName},'%')
+				)
 			</if>
 		</where>
 		ORDER BY
@@ -84,8 +102,14 @@
 		ON
 		a.company_seq = c.company_seq
 		<where>
+			<if test="employeeSeq == 999">
+				1=1
+			</if>
 			<if test="companySeq != null and companySeq !=''">
 				AND a.company_seq = #{companySeq}
+			</if>
+			<if test="employeeSeq != 999">
+				AND NOT a.auth_seq IN(999)
 			</if>
 			<if test="authName != null and authName !=''">
 				AND(
@@ -139,5 +163,79 @@
 			AND ae.company_seq = #{companySeq}
 		</if>
 	</select>
+
+
+	<select id="getMenuListByAuthEmployee"
+		parameterType="com.example.backend.dto.mapping.AuthEmployeeDto"
+		resultMap="authEmployeeMap">
+		SELECT distinct m.menu_seq, m.menu_code, m.menu_name, m.menu_parent,
+		m.menu_depth, m.menu_url from
+		auth_menu am
+		JOIN
+		auth_employee ae
+		on
+		am.auth_seq = ae.auth_seq
+		JOIN menu m
+		ON
+		am.menu_seq = m.menu_seq
+		<where>
+			<if test="companySeq != null and companySeq !=''">
+				AND ae.company_seq = #{companySeq}
+			</if>
+			<if test="workplaceSeq != null and workplaceSeq !=''">
+				AND ae.workplace_seq = #{workplaceSeq}
+			</if>
+			<if test="departmentSeq != null and departmentSeq !=''">
+				AND ae.department_seq = #{departmentSeq}
+			</if>
+			<if test="employeeSeq != null and employeeSeq !=''">
+				AND ae.employee_seq = #{employeeSeq}
+			</if>
+			<if test="menuParent != null and menuParent !=''">
+				AND m.menu_parent = #{menuParent}
+			</if>
+		</where>
+	</select>
+
+	<select id="origin"
+		parameterType="com.example.backend.dto.mapping.AuthEmployeeDto"
+		resultMap="authEmployeeMap">
+		SELECT
+		auth_seq, employee_seq, company_seq,workplace_seq,
+		department_seq
+		FROM
+		auth_employee
+		where
+		auth_seq = #{authSeq}
+		and
+		company_seq = #{companySeq}
+	</select>
+
+	<insert id="add" parameterType="java.util.List">
+		INSERT INTO auth_employee(auth_seq, employee_seq, company_seq,
+		workplace_seq, department_seq) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(#{item.authSeq},#{item.employeeSeq},#{item.companySeq},#{item.workplaceSeq},#{item.departmentSeq})
+		</foreach>
+	</insert>
+
+	<delete id="remove" parameterType="java.util.List">
+		DELETE FROM auth_employee WHERE
+		<foreach collection="list" item="item" open="" close=""
+			separator="OR">
+			(
+			auth_seq = #{item.authSeq}
+			and
+			employee_seq =
+			#{item.employeeSeq}
+			and
+			company_seq = #{item.companySeq}
+			and
+			workplace_seq = #{item.workplaceSeq}
+			and
+			department_seq =
+			#{item.departmentSeq})
+		</foreach>
+	</delete>
 
 </mapper> 
