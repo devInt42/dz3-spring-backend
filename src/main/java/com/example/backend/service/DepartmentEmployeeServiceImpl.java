@@ -61,4 +61,16 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 	public List<DepartmentEmployeeDto> getAuthInfo(DepartmentEmployeeDto dto) {
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getListByAuth(dto);
 	}
+
+	@Override
+	public List<DepartmentEmployeeDto> getDepartmentGroup(DepartmentEmployeeDto dto) {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getDepartmentGroup(dto);
+	}
+
+	@Override
+	public int getDepartmentCount(DepartmentEmployeeDto dto) {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getDepartmentCount(dto);
+	}
+
+
 }

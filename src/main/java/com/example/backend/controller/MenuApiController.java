@@ -113,7 +113,7 @@ public class MenuApiController {
 
 	// 해당 시퀀스의 URL 조회
 	@GetMapping("/menulist/geturl/{menuSeq}")
-	public String getURL(@PathVariable(required = true) int menuSeq) {
+	public String getURL(@PathVariable(required=true) int menuSeq) {
 		return menuService.getURL(menuSeq);
 	}
 
