@@ -133,7 +133,7 @@ public class DepartmentApiController {
 	@GetMapping("/find")
 	public List<DepartmentDto> FindDepartment(@RequestParam(required = false, name = "searchName") String searchName,
 			@RequestParam(required = false, name = "searchCompanySeq") int searchCompanySeq, DepartmentDto dto) {
-		if (searchName != null) {
+		if (searchName != null && searchName == "") {
 			dto.setDepartmentCode(Integer.parseInt(searchName));
 		}
 		if( searchCompanySeq > 0) {

@@ -105,9 +105,15 @@
 	</delete>
 	
 	<select id = "FindDepartment" parameterType = "com.example.backend.dto.DepartmentDto" resultMap = "departmentMap">
-	select * from department d join workplace w
+	select DISTINCT c.company_name, w.workplace_name, d.department_code, d.department_name, d.department_seq, w.workplace_seq
+	, c.company_seq
+	from department d join workplace w
 	on
-	d.company_seq = #{companySeq} and 
+	d.workplace_seq = w.workplace_seq
+	join company c 
+	on d.company_seq = c.company_seq
+	where d.company_seq = #{companySeq} 
+	and
 	(
 		d.department_code like concat('%', #{departmentCode},'%')
 		or
@@ -116,8 +122,7 @@
 		w.workplace_code like concat('%', #{departmentCode}, '%')
 		or
 		w.workplace_name like concat('%', #{departmentName}, '%')
-	)  join company
-	group by
-	d.department_seq
+	)
+	
 	</select>
 </mapper> 
