@@ -16,9 +16,5 @@ public class DepartmentDto {
 	private String departmentLoc;
 	private int departmentParent;
 	private String useYN;
-<<<<<<< HEAD
-	}
-=======
 	private int departmentDepth;
 }
->>>>>>> 2b54baac469c256f4e4ea16f4548406690a41883
