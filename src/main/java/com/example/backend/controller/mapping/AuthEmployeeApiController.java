@@ -1,15 +1,12 @@
 package com.example.backend.controller.mapping;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,7 +51,6 @@ public class AuthEmployeeApiController {
 		if (!authName.equals(null) && !authName.equals("")) {
 			dto.setAuthName(authName);
 		}
-		System.out.println(dto);
 		return authEmployeeService.getAuthCompanyList(page, dto);
 	}
 
