@@ -89,7 +89,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Override
 	public List<DepartmentDto> FindDepartment(DepartmentDto dto) {
-		
+
 		return sqlSession.getMapper(DepartmentMapper.class).FindDepartment(dto);
 	}
 }

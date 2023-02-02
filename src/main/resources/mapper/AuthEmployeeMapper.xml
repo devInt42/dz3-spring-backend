@@ -160,7 +160,7 @@
 		WHERE
 		auth_seq = #{authSeq}
 		<if test="companySeq != null and companySeq !=''">
-			AND ae.company_seq = #{companySeq}
+			AND de.company_seq = #{companySeq}
 		</if>
 	</select>
 

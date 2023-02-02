@@ -13,7 +13,7 @@ public interface DepartmentEmployeeMapper {
 
 	int getEmployeeCount(DepartmentEmployeeDto dto);
 
-	DepartmentEmployeeDto getInfo(DepartmentEmployeeDto dto);
+	List<DepartmentEmployeeDto> getInfo(DepartmentEmployeeDto dto);
 
 	List<DepartmentEmployeeDto> getCompanyElement(DepartmentEmployeeDto dto);
 

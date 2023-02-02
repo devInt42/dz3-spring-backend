@@ -71,6 +71,7 @@ public class AuthEmployeeApiController {
 			}
 		}
 		dto.setAuthSeq(Integer.parseInt(authSeq));
+		System.out.println(dto);
 		return authEmployeeService.getAuthEmployeeList(dto);
 	}
 

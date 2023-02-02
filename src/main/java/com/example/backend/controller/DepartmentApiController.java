@@ -24,11 +24,10 @@ public class DepartmentApiController {
 	private DepartmentServiceImpl departmentService;
 
 	@GetMapping("/list/{companySeq}")
-	   public List<DepartmentDto> getDepartmentList(@PathVariable(required = true)int companySeq, DepartmentDto dto){
-	     dto.setCompanySeq(companySeq);
-		 return departmentService.getDepartmentList(dto);
-	   }
-
+	public List<DepartmentDto> getDepartmentList(@PathVariable(required = true) int companySeq, DepartmentDto dto) {
+		dto.setCompanySeq(companySeq);
+		return departmentService.getDepartmentList(dto);
+	}
 
 	@GetMapping("/list")
 	public List<DepartmentDto> getDepartmentList(@RequestParam("departmentDepth") String departmentDepth,
@@ -143,7 +142,7 @@ public class DepartmentApiController {
 		if (searchName != null && searchName == "") {
 			dto.setDepartmentCode(Integer.parseInt(searchName));
 		}
-		if( searchCompanySeq > 0) {
+		if (searchCompanySeq > 0) {
 			dto.setCompanySeq(searchCompanySeq);
 		}
 		dto.setDepartmentName(searchName);
