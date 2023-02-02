@@ -8,4 +8,5 @@ public interface EmployeeMapper {
 
 	List<EmployeeDto> getEmpList();
 	List<EmployeeDto> getBySeq(int employeeSeq);
+	List<String> getLanguage();
 }

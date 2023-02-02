@@ -21,5 +21,8 @@ public class EmployeeDto {
 	private Date employeeJoin;
 	private Date employeeLeave;
 	private String useYN;
-
+	private String employeeGender;
+	private String employeeLanguage;
+	private String employeeHcall;
+	private String approvalPwd;
 }

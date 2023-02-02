@@ -35,6 +35,14 @@
 			javaType="java.sql.Date" jdbcType="DATE" />
 		<result property="useYN" column="use_yn"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeGender" column="employee_gender"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeLanguage" column="employee_language"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeHcall" column="employee_hcall"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="approvalPwd" column="approval_pwd"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<select id="getEmpList" resultMap="employeeMap">
@@ -45,5 +53,9 @@
 		resultMap="employeeMap">
 		select * from
 		employee where employee_seq = #{employeeSeq}
+	</select>
+	
+	<select id="getLanguage" resultType="String">
+		select distinct employee_language from employee
 	</select>
 </mapper> 

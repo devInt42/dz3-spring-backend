@@ -28,7 +28,11 @@ public class EmployeeApiController {
    
    @GetMapping("/emplist/{employeeSeq}")
    public List<EmployeeDto> getEmployee(@PathVariable(required = true) int employeeSeq) {
-	   System.out.println(employeeService.getEmployeeBySeq(employeeSeq));
       return employeeService.getEmployeeBySeq(employeeSeq);
+   }
+   
+   @GetMapping("/emplang")
+   public List<String> getLanguage(){
+	   return employeeService.getLanguage();
    }
 }

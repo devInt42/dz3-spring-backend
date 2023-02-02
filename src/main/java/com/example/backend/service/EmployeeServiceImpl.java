@@ -25,4 +25,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public List<EmployeeDto> getEmployeeBySeq(int employeeSeq) {
 		return sqlSession.getMapper(EmployeeMapper.class).getBySeq(employeeSeq);
 	}
+
+	@Override
+	public List<String> getLanguage() {
+		return sqlSession.getMapper(EmployeeMapper.class).getLanguage();
+	}
 }
