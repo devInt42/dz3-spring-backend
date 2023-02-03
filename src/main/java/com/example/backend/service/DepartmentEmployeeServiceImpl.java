@@ -42,7 +42,7 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 	}
 
 	@Override
-	public DepartmentEmployeeDto getEmployeeInfo(DepartmentEmployeeDto dto) {
+	public List<DepartmentEmployeeDto> getEmployeeInfo(DepartmentEmployeeDto dto) {
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getInfo(dto);
 
 	}

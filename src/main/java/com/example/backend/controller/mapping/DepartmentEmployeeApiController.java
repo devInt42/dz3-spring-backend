@@ -55,12 +55,9 @@ public class DepartmentEmployeeApiController {
 
 	// 로그인한 유저 정보
 	@GetMapping("/info")
-	public DepartmentEmployeeDto userInfo(DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
+	public List<DepartmentEmployeeDto> userInfo(DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
-		if ((int) jObject.get("employeeSeq") != 999) {// admin 계정이 아닐경우
-			dto.setCompanySeq((int) jObject.get("companySeq"));
 			dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
-		}
 		return departmentEmployeeService.getEmployeeInfo(dto);
 	}
 
