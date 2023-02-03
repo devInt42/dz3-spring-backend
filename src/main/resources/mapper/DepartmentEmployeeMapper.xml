@@ -86,13 +86,13 @@
 		on
 		de.workplace_seq = w.workplace_seq
 		<where>
-			<if test="companySeq != null and companySeq !=''">
+			<if test="companySeq != null and companySeq !='' and employeeSeq != 999">
 				AND de.company_seq = #{companySeq}
 			</if>
-			<if test="workplaceSeq != null and workplaceSeq !=''">
+			<if test="workplaceSeq != null and workplaceSeq !=''  and employeeSeq != 999">
 				AND de.workplace_seq = #{workplaceSeq}
 			</if>
-			<if test="departmentSeq != null and departmentSeq !=''">
+			<if test="departmentSeq != null and departmentSeq !=''  and employeeSeq != 999">
 				AND de.department_seq = #{departmentSeq}
 			</if>
 			<if test="employeeName != null and employeeName !=''">
@@ -173,7 +173,8 @@
 		SELECT de.company_seq, de.workplace_seq, de.department_seq,
 		de.employee_seq, de.main_company_yn, de.main_department_yn,
 		cod.duty,cod.position , e.employee_name,
-		c.company_name, c.company_code,
+		c.company_name,
+		c.company_code,
 		w.workplace_name, d.department_name, e.employee_picture
 		from
 		department_employee de
@@ -231,8 +232,11 @@
 		LEFT JOIN department d ON
 		de.department_seq =
 		d.department_seq
-		WHERE de.company_seq =
-		#{companySeq}
+		<where>
+			<if test="companySeq != null and companySeq !='' and employeeSeq != 999">
+				de.company_seq = #{companySeq}
+			</if>
+		</where>
 	</select>
 
 	<select id="getWorkplaceList"
