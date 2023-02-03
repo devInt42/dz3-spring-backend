@@ -72,13 +72,18 @@ public class DepartmentEmployeeApiController {
 
 	// 회사 seq를 받아와서 회사를 select
 	@GetMapping("/companyElement")
-	public List<DepartmentEmployeeDto> getCompanyElement(DepartmentEmployeeDto dto, HttpServletRequest request)
-			throws JSONException {
+	public List<DepartmentEmployeeDto> getCompanyElement(
+			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
+			DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
 
-		dto.setCompanySeq((int) jObject.get("companySeq"));
-		dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
-
+		if (!companySeq.equals(null) && !companySeq.equals("")) {
+			dto.setCompanySeq(Integer.parseInt(companySeq));
+		} else { // 회사 seq가 없을 경우 헤더로 보낸 토큰값의 회사번호를 dto에 set함.
+			dto.setCompanySeq((int) jObject.get("companySeq"));
+			dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
+		}
+		System.out.println(dto);
 		return departmentEmployeeService.getCompanyElement(dto);
 
 	}
@@ -124,11 +129,17 @@ public class DepartmentEmployeeApiController {
 	@GetMapping("/search")
 	public List<DepartmentEmployeeDto> getSearchElement(
 			@RequestParam(required = false, name = "employeeName", defaultValue = "") String employeeName,
+			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
+
 			DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
 		dto.setEmployeeName(employeeName);
-		dto.setCompanySeq((int) jObject.get("companySeq"));
-		dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
+
+		if (!companySeq.equals(null) && !companySeq.equals("")) { // 회사 seq가 없을 경우 헤더로 보낸 토큰값의 회사번호를 dto에 set함.
+			dto.setCompanySeq(Integer.parseInt(companySeq));
+		}else {
+			dto.setCompanySeq((int) jObject.get("companySeq"));
+			dto.setEmployeeSeq((int) jObject.get("employeeSeq"));		}
 		return departmentEmployeeService.getEmployeePage(dto);
 	}
 
@@ -138,7 +149,7 @@ public class DepartmentEmployeeApiController {
 			@RequestParam(required = false, name = "employeeSeq", defaultValue = "") String employeeSeq,
 			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
 			DepartmentEmployeeDto dto) throws JSONException {
-		
+
 		dto.setCompanySeq(Integer.parseInt(companySeq));
 		dto.setEmployeeSeq(Integer.parseInt(employeeSeq));
 		return departmentEmployeeService.getSelectEmployeeInfo(dto);
