@@ -27,8 +27,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public List<DepartmentDto> GetCompanyList() {
-		return sqlSession.getMapper(DepartmentMapper.class).GetCompanyList();
+	public List<DepartmentDto> GetCompanyList(int companySeq) {
+		return sqlSession.getMapper(DepartmentMapper.class).GetCompanyList(companySeq);
 	}
 
 	@Override
