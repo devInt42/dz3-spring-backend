@@ -9,7 +9,7 @@ public interface DepartmentService {
 
 	List<DepartmentDto> GetDepartmentList(DepartmentDto dto);
 
-	List<DepartmentDto> GetCompanyList();
+	List<DepartmentDto> GetCompanyList(int companySeq);
 
 	List<DepartmentDto> GetWorkplaceList();
 

@@ -42,9 +42,9 @@ public class DepartmentApiController {
 		return departmentService.GetDepartmentCount(dto);
 	}
 
-	@GetMapping("/list/company")
-	public List<DepartmentDto> getCompanyList() {
-		return departmentService.GetCompanyList();
+	@GetMapping("/list/company/{companySeq}")
+	public List<DepartmentDto> getCompanyList(@PathVariable("companySeq") int companySeq) {
+		return departmentService.GetCompanyList(companySeq);
 	}
 
 	@GetMapping("/list/workplace")
@@ -77,12 +77,12 @@ public class DepartmentApiController {
 
 	@GetMapping("/info/check/")
 	public int DupliCheck(@RequestParam("departmentCode") int departmentCode,
-			@RequestParam("workplaceSeq") int workplaceSeq, DepartmentDto dto) {
+			@RequestParam("companySeq") int companySeq, DepartmentDto dto) {
 		if (departmentCode == 0) {
 			return 1;
 		}
 		dto.setDepartmentCode(departmentCode);
-		dto.setWorkplaceSeq(workplaceSeq);
+		dto.setCompanySeq(companySeq);
 		return departmentService.DupliCheck(dto);
 	}
 
@@ -132,14 +132,13 @@ public class DepartmentApiController {
 
 	@GetMapping("/find")
 	public List<DepartmentDto> FindDepartment(@RequestParam(required = false, name = "searchName") String searchName,
-			@RequestParam(required = false, name = "searchCompanySeq") int searchCompanySeq, DepartmentDto dto) {
-		if (searchName != null && searchName == "") {
-			dto.setDepartmentCode(Integer.parseInt(searchName));
+			@RequestParam(required = false, name = "searchCompanySeq") String searchCompanySeq, DepartmentDto dto) {
+		if( searchCompanySeq != null && Integer.parseInt(searchCompanySeq) > 0) {
+			dto.setCompanySeq(Integer.parseInt(searchCompanySeq));
 		}
-		if( searchCompanySeq > 0) {
-			dto.setCompanySeq(searchCompanySeq);
-		}
+		if(searchName == null) searchName = "";
 		dto.setDepartmentName(searchName);
+		System.out.println(searchName);
 		System.out.println(dto);
 		return departmentService.FindDepartment(dto);
 	}
