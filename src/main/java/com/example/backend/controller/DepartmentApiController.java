@@ -23,12 +23,7 @@ public class DepartmentApiController {
 	@Autowired
 	private DepartmentServiceImpl departmentService;
 
-	@GetMapping("/list/{companySeq}")
-	   public List<DepartmentDto> getDepartmentList(@PathVariable(required = true)int companySeq, DepartmentDto dto){
-	     dto.setCompanySeq(companySeq);
-		 return departmentService.getDepartmentList(dto);
-	   }
-
+	
 
 	@GetMapping("/list")
 	public List<DepartmentDto> getDepartmentList(@RequestParam("departmentDepth") String departmentDepth,
