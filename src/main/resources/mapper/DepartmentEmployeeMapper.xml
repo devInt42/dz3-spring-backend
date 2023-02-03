@@ -173,7 +173,7 @@
 		SELECT de.company_seq, de.workplace_seq, de.department_seq,
 		de.employee_seq, de.main_company_yn, de.main_department_yn,
 		cod.duty,cod.position , e.employee_name,
-		c.company_name,
+		c.company_name, c.company_code,
 		w.workplace_name, d.department_name, e.employee_picture
 		from
 		department_employee de
