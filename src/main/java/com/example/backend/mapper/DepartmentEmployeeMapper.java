@@ -7,6 +7,8 @@ import com.example.backend.dto.mapping.DepartmentEmployeeDto;
 public interface DepartmentEmployeeMapper {
 	List<DepartmentEmployeeDto> getList(DepartmentEmployeeDto dto);
 
+	DepartmentEmployeeDto getEmployeeInfo(DepartmentEmployeeDto dto);
+
 	List<DepartmentEmployeeDto> getListByDepartment(DepartmentEmployeeDto dto);
 
 	int getDepartmentCount(DepartmentEmployeeDto dto);
@@ -24,14 +26,11 @@ public interface DepartmentEmployeeMapper {
 	List<DepartmentEmployeeDto> getEmployeeList(DepartmentEmployeeDto dto);
 
 	List<DepartmentEmployeeDto> getMyInfo(DepartmentEmployeeDto dto);
-	
+
 	List<DepartmentEmployeeDto> getListByAuth(DepartmentEmployeeDto dto);
 
 	List<DepartmentEmployeeDto> getDepartmentGroup(DepartmentEmployeeDto dto);
 
 	List<DepartmentEmployeeDto> getDepartmentName(DepartmentEmployeeDto dto);
-
-	
-
 
 }

@@ -86,13 +86,16 @@
 		on
 		de.workplace_seq = w.workplace_seq
 		<where>
-			<if test="companySeq != null and companySeq !='' and employeeSeq != 999">
+			<if
+				test="companySeq != null and companySeq !='' and employeeSeq != 999">
 				AND de.company_seq = #{companySeq}
 			</if>
-			<if test="workplaceSeq != null and workplaceSeq !=''  and employeeSeq != 999">
+			<if
+				test="workplaceSeq != null and workplaceSeq !=''  and employeeSeq != 999">
 				AND de.workplace_seq = #{workplaceSeq}
 			</if>
-			<if test="departmentSeq != null and departmentSeq !=''  and employeeSeq != 999">
+			<if
+				test="departmentSeq != null and departmentSeq !=''  and employeeSeq != 999">
 				AND de.department_seq = #{departmentSeq}
 			</if>
 			<if test="employeeName != null and employeeName !=''">
@@ -134,6 +137,29 @@
 		WHERE
 		de.department_seq
 		= #{departmentSeq}
+	</select>
+	<select id="getEmployeeInfo"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
+		resultMap="departmentEmployeeMap">
+		select * from department_employee de
+		join employee e
+		on
+		de.employee_seq = e.employee_seq
+		join department d
+		on
+		de.department_seq =
+		d.department_seq
+		join company c
+		on
+		de.company_seq = c.company_seq
+		join
+		workplace w
+		on
+		de.workplace_seq = w.workplace_seq
+		where
+		de.employee_seq = #{employeeSeq}
+		and
+		de.company_seq=#{companySeq}
 	</select>
 
 	<select id="getEmployeeCount"
@@ -233,7 +259,8 @@
 		de.department_seq =
 		d.department_seq
 		<where>
-			<if test="companySeq != null and companySeq !='' and employeeSeq != 999">
+			<if
+				test="companySeq != null and companySeq !='' and employeeSeq != 999">
 				de.company_seq = #{companySeq}
 			</if>
 		</where>

@@ -79,7 +79,6 @@ public class DepartmentEmployeeApiController {
 		dto.setCompanySeq((int) jObject.get("companySeq"));
 		dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
 
-
 		return departmentEmployeeService.getCompanyElement(dto);
 
 	}
@@ -131,6 +130,18 @@ public class DepartmentEmployeeApiController {
 		dto.setCompanySeq((int) jObject.get("companySeq"));
 		dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
 		return departmentEmployeeService.getEmployeePage(dto);
+	}
+
+	// 회사 seq를 통해 search값에 해당되는 직원만 select
+	@GetMapping("/detail")
+	public DepartmentEmployeeDto getSelectEmployeeInfo(
+			@RequestParam(required = false, name = "employeeSeq", defaultValue = "") String employeeSeq,
+			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
+			DepartmentEmployeeDto dto) throws JSONException {
+		
+		dto.setCompanySeq(Integer.parseInt(companySeq));
+		dto.setEmployeeSeq(Integer.parseInt(employeeSeq));
+		return departmentEmployeeService.getSelectEmployeeInfo(dto);
 	}
 
 	// 회사 seq, 직원 seq를 통해 select
