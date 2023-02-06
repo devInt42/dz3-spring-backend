@@ -92,4 +92,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 		return sqlSession.getMapper(DepartmentMapper.class).FindDepartment(dto);
 	}
+
+	@Override
+	public List<DepartmentDto> GetCompany(int companySeq) {
+		
+		return sqlSession.getMapper(DepartmentMapper.class).GetCompany(companySeq);
+	}
 }

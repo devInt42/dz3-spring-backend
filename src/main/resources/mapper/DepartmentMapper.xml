@@ -150,6 +150,11 @@
 		or
 		w.workplace_name like concat('%', #{departmentName}, '%')
 		)
-
+	</select>
+	
+	<select id = "GetCompany" parameterType = "int" resultMap = "departmentMap">
+		select company_seq,
+		company_code, company_name from company 
+		where company_seq = #{companySeq}
 	</select>
 </mapper> 
