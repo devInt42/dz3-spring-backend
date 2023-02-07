@@ -31,20 +31,20 @@ public class CompanyEmployeeApiController {
 	@PostMapping("/check")
 	public CompanyEmployeeDto checkEmployee(@RequestBody(required = true) Map<String, String> map) {
 		CompanyEmployeeDto dto = new CompanyEmployeeDto();
-		dto.setCompanyCode(Integer.parseInt(map.get("companyCode")));
+		dto.setCompanyCode(map.get("companyCode"));
 		dto.setEmployeeId(map.get("employeeId"));
 		dto.setEmployeePwd(map.get("employeePwd"));
 
 		if (map.get("employeeId").equals(companyEmployeeService.checkLogin(dto).getEmployeeId())
-				&& map.get("employeePwd").equals(companyEmployeeService.checkLogin(dto).getEmployeePwd()) && Integer
-						.parseInt(map.get("companyCode")) == companyEmployeeService.checkLogin(dto).getCompanyCode()) {
-			
+				&& map.get("employeePwd").equals(companyEmployeeService.checkLogin(dto).getEmployeePwd())
+				&& (map.get("companyCode")) == companyEmployeeService.checkLogin(dto).getCompanyCode()) {
+
 			return companyEmployeeService.responseLogin(dto);
 		} else {
 			return null;
 		}
 	}
-	
+
 	// 사원 소속 회사명 조회
 	@GetMapping("/select")
 	public List<CompanyEmployeeDto> getCompanyListByEmployee(CompanyEmployeeDto dto, HttpServletRequest request)
