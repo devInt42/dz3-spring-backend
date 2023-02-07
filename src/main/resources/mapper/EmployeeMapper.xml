@@ -8,7 +8,7 @@
 		<result property="employeeSeq" column="employee_seq"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="employeeCode" column="employee_code"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeId" column="employee_id"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeName" column="employee_name"
@@ -35,6 +35,14 @@
 			javaType="java.sql.Date" jdbcType="DATE" />
 		<result property="useYN" column="use_yn"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeGender" column="employee_gender"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeLanguage" column="employee_language"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeHcall" column="employee_hcall"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="approvalPwd" column="approval_pwd"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<select id="getEmpList" resultMap="employeeMap">
@@ -46,4 +54,34 @@
 		select * from
 		employee where employee_seq = #{employeeSeq}
 	</select>
+	
+	<select id="getLanguage" resultType="String">
+		select distinct employee_language from employee
+	</select>
+	
+	<insert id="insertEmp">
+		insert into employee 
+		(employee_code, employee_id, employee_name, employee_birth, employee_call, employee_pwd,
+		employee_ph, employee_pmail, employee_cmail, employee_addr, employee_picture, employee_join, employee_leave,
+		use_yn, employee_gender, employee_language, employee_hcall, approval_pwd)
+		VALUES
+		(#{employeeCode}, #{employeeId}, #{employeeName}, #{employeeBirth}, #{employeeCall}, #{employeePwd},
+		#{employeePh}, #{employeePmail}, #{employeeCmail}, #{employeeAddr}, #{employeePicture}, #{employeeJoin},
+		#{employeeLeave}, #{useYN}, #{employeeGender}, #{employeeLanguage}, #{employeeHcall}, #{approvalPwd})
+	</insert>
+	
+	<update id="updateEmp">
+		update employee set 
+		employee_code = #{employeeCode}, employee_id = #{employeeId}, employee_name = #{employeeName},
+		employee_birth = #{employeeBirth}, employee_call = #{employeeCall}, employee_pwd = #{employeePwd}, employee_ph = #{employeePh},
+		employee_pmail = #{employeePmail}, employee_cmail = #{employeeCmail}, employee_addr = #{employeeAddr}, employee_picture = #{employeePicture},
+		employee_join = #{employeeJoin}, employee_leave = #{employeeLeave}, use_yn = #{useYN}, employee_gender = #{employeeGender},
+		employee_language = #{employeeLanguage}, employee_hcall = #{employeeHcall}, approval_pwd = #{approvalPwd}
+		where employee_seq = #{employeeSeq}
+	</update>
+	
+	<delete id="deleteEmp" parameterType="Integer">
+		delete from employee
+		where employee_seq = #{employeeSeq}
+	</delete>
 </mapper> 
