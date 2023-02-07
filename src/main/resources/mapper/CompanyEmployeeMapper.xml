@@ -15,7 +15,7 @@
 		<result property="companySeq" column="company_seq"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="companyCode" column="company_code"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeId" column="employee_id"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeePwd" column="employee_pwd"

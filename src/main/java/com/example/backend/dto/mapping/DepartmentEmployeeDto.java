@@ -11,7 +11,7 @@ public class DepartmentEmployeeDto {
 	private int departmentSeq;
 	private int companySeq;
 	private int subDepartmentSeq;
-	private int companyCode;
+	private String companyCode;
 	private String title;
 	private String employeeName;
 	private String employeeId;

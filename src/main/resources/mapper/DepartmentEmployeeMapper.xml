@@ -29,7 +29,7 @@
 		<result property="employeeCall" column="employee_call"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="companyCode" column="company_code"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="workplaceName" column="workplace_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="companyName" column="company_name"

@@ -17,5 +17,5 @@ public class CompanyEmployeeDto {
 	private String employeePwd;
 	private String companyName;
 
-	private int companyCode;
+	private String companyCode;
 }
