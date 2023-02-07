@@ -136,9 +136,10 @@ public class DepartmentEmployeeApiController {
 
 		if (!companySeq.equals(null) && !companySeq.equals("")) { // 회사 seq가 없을 경우 헤더로 보낸 토큰값의 회사번호를 dto에 set함.
 			dto.setCompanySeq(Integer.parseInt(companySeq));
-		}else {
+		} else {
 			dto.setCompanySeq((int) jObject.get("companySeq"));
-			dto.setEmployeeSeq((int) jObject.get("employeeSeq"));		}
+			dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
+		}
 		return departmentEmployeeService.getEmployeePage(dto);
 	}
 
@@ -226,5 +227,31 @@ public class DepartmentEmployeeApiController {
 			DepartmentEmployeeDto dto) {
 		dto.setDepartmentSeq(Integer.parseInt(departmentSeq));
 		return departmentEmployeeService.getEmployeePagebyDepartment(dto);
+	}
+
+	// 사원이 속한 부서 트리구조 역으로 검색
+	@GetMapping("/emp-dept")
+	public List<DepartmentEmployeeDto> getEmployeeDepartmentTree(
+			@RequestParam(required = false, name = "departmentSeq", defaultValue = "") String departmentSeq,
+			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
+			DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
+		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+		System.out.println(departmentSeq);
+		System.out.println(companySeq);
+
+		// 부서값, 회사값이 넘어오지 않을경우 로그인한 정보로 dto설정
+		if (!departmentSeq.equals(null) && !departmentSeq.equals("0")) {
+			dto.setDepartmentSeq(Integer.parseInt(departmentSeq));
+		} else {
+			dto.setDepartmentSeq((int) jObject.get("departmentSeq"));
+			dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
+
+		}
+		if (!companySeq.equals(null) && !companySeq.equals("0")) {
+			dto.setCompanySeq(Integer.parseInt(companySeq));
+		} else {
+			dto.setCompanySeq((int) jObject.get("companySeq"));
+		}System.out.println(dto);
+		return departmentEmployeeService.getEmployeeDepartmentTree(dto);
 	}
 }

@@ -157,7 +157,8 @@
 		on
 		de.workplace_seq = w.workplace_seq
 		where
-		de.employee_seq = #{employeeSeq}
+		de.employee_seq =
+		#{employeeSeq}
 		and
 		de.company_seq=#{companySeq}
 	</select>
@@ -384,4 +385,31 @@
 		#{workplaceSeq}
 	</select>
 
+	<select id="getTree"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
+		resultMap="departmentEmployeeMap">
+		SELECT distinct de.department_seq, d.department_name,
+		d.department_depth,
+		d.department_parent FROM department_employee de
+		JOIN department d
+		ON de.department_seq = d.department_seq
+		JOIN employee
+		e
+		ON de.employee_seq = e.employee_seq
+		where
+		de.company_seq =
+		#{companySeq}
+		and
+		de.department_seq = #{departmentSeq}
+		<if test="employeeSeq != null and employeeSeq !=''">
+			and de.employee_seq = #{employeeSeq}
+		</if>
+		UNION ALL
+		SELECT d2.department_seq, d2.department_name,
+		d2.department_depth, d2.department_parent from department d2
+		WHERE d2.department_seq = (
+		SELECT department_parent FROM department d3 WHERE department_seq= #{departmentSeq}
+		)
+		ORDER BY department_depth asc
+	</select>
 </mapper>

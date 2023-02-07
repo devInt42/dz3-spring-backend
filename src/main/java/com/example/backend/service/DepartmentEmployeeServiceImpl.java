@@ -77,5 +77,10 @@ public DepartmentEmployeeDto getSelectEmployeeInfo(DepartmentEmployeeDto dto) {
     return sqlSession.getMapper(DepartmentEmployeeMapper.class).getEmployeeInfo(dto);
 }
 
+@Override
+public List<DepartmentEmployeeDto> getEmployeeDepartmentTree(DepartmentEmployeeDto dto) {
+    return sqlSession.getMapper(DepartmentEmployeeMapper.class).getTree(dto);
+}
+
 
 }
