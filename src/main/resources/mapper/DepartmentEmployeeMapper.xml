@@ -16,8 +16,6 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="subDepartmentSeq" column="sub_department_seq"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
-		<result property="title" column="title"
-			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeName" column="employee_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeId" column="employee_id"
@@ -61,7 +59,7 @@
 		de.employee_seq,
 		de.workplace_seq,de.department_seq,
 		de.company_seq,
-		de.sub_department_seq, de.title, e.employee_name,
+		de.sub_department_seq, e.employee_name,
 		e.employee_id,
 		e.employee_ph, e.employee_picture, e.employee_call,
 		c.company_name,
@@ -112,15 +110,17 @@
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
 		SELECT
-		de.company_seq,de.workplace_seq,de.department_seq,de.employee_seq,title,w.workplace_name,d.department_name,
-		c.company_name,e.employee_name,e.employee_pmail, e.employee_cmail,
+		de.company_seq,de.workplace_seq,de.department_seq,de.employee_seq,w.workplace_name,d.department_name,
+		c.company_name,e.employee_name,e.employee_pmail,
+		e.employee_cmail,cod.duty,cod.position ,
 		e.employee_id
 		FROM
 		department_employee de
 		JOIN
 		department d
 		ON
-		de.department_seq = d.department_seq
+		de.department_seq =
+		d.department_seq
 		JOIN
 		employee e
 		ON
@@ -134,6 +134,27 @@
 		workplace w
 		ON
 		de.workplace_seq = w.workplace_seq
+		JOIN
+		(
+		SELECT dres.detail_code as
+		duty_code, dres.detail_code_name AS duty,
+		pres.detail_code AS
+		position_code,pres.detail_code_name AS position
+		FROM
+		(SELECT dcode.code,
+		dcode.detail_code, dcode.detail_code_name
+		FROM code dcode
+		WHERE
+		code='DUTY') dres,
+		(SELECT pcode.code, pcode.detail_code,
+		pcode.detail_code_name
+		FROM code pcode
+		WHERE code='POSITION') pres
+		) cod
+		ON
+		de.position_code = cod.position_code
+		AND
+		de.duty_code = cod.duty_code
 		WHERE
 		de.department_seq
 		= #{departmentSeq}
@@ -323,8 +344,8 @@
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
 		SELECT distinct
-		de.company_seq,de.workplace_seq,de.department_seq,de.employee_seq,title,w.workplace_name,d.department_name,
-		c.company_name,e.employee_name,e.employee_pmail, e.employee_cmail,
+		de.company_seq,de.workplace_seq,de.department_seq,de.employee_seq,w.workplace_name,d.department_name,
+		c.company_name,e.employee_name,e.employee_pmail, e.employee_cmail, cod.duty,cod.position ,
 		e.employee_id
 		FROM
 		department_employee de
@@ -349,6 +370,27 @@
 		auth_employee ae
 		ON
 		de.employee_seq=ae.employee_seq
+		JOIN
+		(
+		SELECT dres.detail_code as
+		duty_code, dres.detail_code_name AS duty,
+		pres.detail_code AS
+		position_code,pres.detail_code_name AS position
+		FROM
+		(SELECT dcode.code,
+		dcode.detail_code, dcode.detail_code_name
+		FROM code dcode
+		WHERE
+		code='DUTY') dres,
+		(SELECT pcode.code, pcode.detail_code,
+		pcode.detail_code_name
+		FROM code pcode
+		WHERE code='POSITION') pres
+		) cod
+		ON
+		de.position_code = cod.position_code
+		AND
+		de.duty_code = cod.duty_code
 		WHERE
 		de.company_seq=#{companySeq}
 		AND
@@ -407,8 +449,10 @@
 		UNION ALL
 		SELECT d2.department_seq, d2.department_name,
 		d2.department_depth, d2.department_parent from department d2
-		WHERE d2.department_seq = (
-		SELECT department_parent FROM department d3 WHERE department_seq= #{departmentSeq}
+		WHERE
+		d2.department_seq = (
+		SELECT department_parent FROM department d3 WHERE
+		department_seq= #{departmentSeq}
 		)
 		ORDER BY department_depth asc
 	</select>
