@@ -31,14 +31,14 @@ public class CompanyEmployeeApiController {
 	@PostMapping("/check")
 	public CompanyEmployeeDto checkEmployee(@RequestBody(required = true) Map<String, String> map) {
 		CompanyEmployeeDto dto = new CompanyEmployeeDto();
+		System.out.println(map);
 		dto.setCompanyCode(map.get("companyCode"));
 		dto.setEmployeeId(map.get("employeeId"));
 		dto.setEmployeePwd(map.get("employeePwd"));
 
 		if (map.get("employeeId").equals(companyEmployeeService.checkLogin(dto).getEmployeeId())
 				&& map.get("employeePwd").equals(companyEmployeeService.checkLogin(dto).getEmployeePwd())
-				&& (map.get("companyCode")) == companyEmployeeService.checkLogin(dto).getCompanyCode()) {
-
+				&& map.get("companyCode").equals(companyEmployeeService.checkLogin(dto).getCompanyCode())) {
 			return companyEmployeeService.responseLogin(dto);
 		} else {
 			return null;
