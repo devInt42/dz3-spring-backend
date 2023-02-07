@@ -34,4 +34,6 @@ public interface DepartmentMapper {
 	void DeleteDepartment(int seq);
 
 	List<DepartmentDto> FindDepartment(DepartmentDto dto);
+	
+	List<DepartmentDto> GetCompany(int companySeq);
 }
