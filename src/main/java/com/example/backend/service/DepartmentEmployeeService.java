@@ -30,4 +30,6 @@ public interface DepartmentEmployeeService {
 	DepartmentEmployeeDto getSelectEmployeeInfo(DepartmentEmployeeDto dto);
 	
 	DepartmentEmployeeDto getBelongNames(int employeeSeq);
+	
+	List<DepartmentEmployeeDto> getDepartmentSelectList(int companySeq);
 }

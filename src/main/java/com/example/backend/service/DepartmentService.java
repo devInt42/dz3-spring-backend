@@ -24,7 +24,7 @@ public interface DepartmentService {
 	List<DepartmentDto> GetWorkplaceData(int workplaceSeq);
 
 	List<DepartmentDto> GetDepartmentParent(int workplaceSeq);
-
+	
 	int DupliCheck(DepartmentDto dto);
 
 	int NameDupliCheck(DepartmentDto dto);

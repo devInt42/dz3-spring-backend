@@ -87,7 +87,6 @@ public class DepartmentApiController {
 	public List<DepartmentDto> GetDepartmentParent(@PathVariable("workplaceSeq") int workplaceSeq) {
 		return departmentService.GetDepartmentParent(workplaceSeq);
 	}
-
 	@GetMapping("/info/check/")
 	public int DupliCheck(@RequestParam("departmentCode") int departmentCode,
 			@RequestParam("companySeq") int companySeq, DepartmentDto dto) {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.backend.dto.DepartmentDto;
 import com.example.backend.dto.mapping.DepartmentEmployeeDto;
 import com.example.backend.service.DepartmentEmployeeServiceImpl;
 
@@ -234,5 +235,10 @@ public class DepartmentEmployeeApiController {
 	public DepartmentEmployeeDto getBelongNames(@RequestParam("employeeSeq") int employeeSeq) {
 		
 		return departmentEmployeeService.getBelongNames(employeeSeq);
+	}
+	//부서 리스트 뽑기
+	@GetMapping("/select/list/{companySeq}")
+	public List<DepartmentEmployeeDto> getDepartmentSelectList(@PathVariable("companySeq") int companySeq) {
+		return departmentEmployeeService.getDepartmentSelectList(companySeq);
 	}
 }
