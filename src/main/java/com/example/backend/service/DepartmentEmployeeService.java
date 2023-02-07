@@ -28,5 +28,6 @@ public interface DepartmentEmployeeService {
 	int getDepartmentCount(DepartmentEmployeeDto dto);
 
 	DepartmentEmployeeDto getSelectEmployeeInfo(DepartmentEmployeeDto dto);
-
+	
+	DepartmentEmployeeDto getBelongNames(int employeeSeq);
 }

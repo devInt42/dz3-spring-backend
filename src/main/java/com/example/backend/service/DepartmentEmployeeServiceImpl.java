@@ -77,5 +77,11 @@ public DepartmentEmployeeDto getSelectEmployeeInfo(DepartmentEmployeeDto dto) {
     return sqlSession.getMapper(DepartmentEmployeeMapper.class).getEmployeeInfo(dto);
 }
 
+@Override
+public DepartmentEmployeeDto getBelongNames(int employeeSeq) {
+
+	return  sqlSession.getMapper(DepartmentEmployeeMapper.class).getBelongNames(employeeSeq);
+}
+
 
 }
