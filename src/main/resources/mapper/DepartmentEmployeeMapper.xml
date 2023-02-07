@@ -52,12 +52,16 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="position" column="position"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
-		<result property="mainCompanyYN" column = "main_company_yn"
-			javaType="java.lang.String" jdbcType="VARCHAR"/>
-		<result property="mainDepartmentYN" column = "main_department_yn"
-			javaType="java.lang.String" jdbcType="VARCHAR"/>
-		<result property ="departmentLoc" column = "department_loc"
-			javaType="java.lang.String" jdbcType="VARCHAR"/>
+		<result property="mainCompanyYN" column="main_company_yn"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="mainDepartmentYN" column="main_department_yn"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="departmentLoc" column="department_loc"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="departmentCall" column="department_call"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="departmentFax" column="department_fax"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="getList"
@@ -393,18 +397,19 @@
 
 	<select id="getBelongNames" parameterType="int"
 		resultMap="departmentEmployeeMap">
-		SELECT 
-		c.company_name, w.workplace_name, d.department_name, ce.main_company_yn, ce.main_department_yn, d.department_loc
-		FROM department_employee ce 
+		SELECT
+		c.company_name, w.workplace_name, d.department_name, ce.main_company_yn,
+		ce.main_department_yn, d.department_loc
+		FROM department_employee ce
 		RIGHT JOIN
 		company c ON c.company_seq =
 		ce.company_seq
 		RIGHT JOIN
-		 workplace w ON w.workplace_seq = 
-		 ce.workplace_seq 
-		 RIGHT JOIN
-		department d ON 
-		d.department_seq = 
+		workplace w ON w.workplace_seq =
+		ce.workplace_seq
+		RIGHT JOIN
+		department d ON
+		d.department_seq =
 		ce.department_seq
 		WHERE ce.employee_seq = #{employeeSeq}
 	</select>

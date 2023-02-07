@@ -17,4 +17,6 @@ public class DepartmentDto {
 	private int departmentParent;
 	private String useYN;
 	private int departmentDepth;
+	private String departmentCall;
+	private String departmentFax;
 }

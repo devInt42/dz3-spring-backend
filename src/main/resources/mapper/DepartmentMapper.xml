@@ -33,6 +33,10 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="departmentDepth" column="department_depth"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="departmentCall" column = "department_call"
+			javaType="java.lang.String" jdbcType ="VARCHAR"/>
+		<result property="departmentFax" column = "department_fax"
+			javaType="java.lang.String" jdbcType = "VARCHAR"/>
 	</resultMap>
 	<select id="GetDepartmentList"
 		parameterType="com.example.backend.dto.DepartmentDto"
@@ -111,14 +115,14 @@
 	<insert id="InsertDepartment"
 		parameterType="com.example.backend.dto.DepartmentDto">
 		INSERT INTO department values
-		(#{departmentSeq}, #{companySeq},#{workplaceSeq},#{departmentCode}, #{departmentName},
+		(#{departmentSeq}, #{companySeq},#{workplaceSeq},#{departmentCode}, #{departmentName}, #{departmentCall}, #{departmentFax},
 		#{departmentLoc}, #{departmentParent},#{useYN}, #{departmentDepth})
 	</insert>
 
 	<update id="UpdateDepartment"
 		parameterType="com.example.backend.dto.DepartmentDto">
 		UPDATE department SET department_code = #{departmentCode},
-		department_name=#{departmentName}, department_loc = #{departmentLoc},
+		department_name=#{departmentName},department_call = #{departmentCall}, department_fax = #{departmentFax}, department_loc = #{departmentLoc},
 		department_parent = #{departmentParent}
 		, use_yn = #{useYN}, department_depth = #{departmentDepth} where
 		department_seq = #{departmentSeq}

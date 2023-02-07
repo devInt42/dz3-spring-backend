@@ -33,6 +33,8 @@ public class DepartmentEmployeeDto {
 	private String mainCompanyYN;
 	private String mainDepartmentYN;
 	private String departmentLoc;
+	private String departmentCall;
+	private String departmentFax;
 	private int departmentDepth;
 	private int departmentParent;
 }
