@@ -14,8 +14,6 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="companySeq" column="company_seq"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
-		<result property="subDepartmentSeq" column="sub_department_seq"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="employeeName" column="employee_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeId" column="employee_id"
@@ -59,7 +57,7 @@
 		de.employee_seq,
 		de.workplace_seq,de.department_seq,
 		de.company_seq,
-		de.sub_department_seq, e.employee_name,
+		 e.employee_name,
 		e.employee_id,
 		e.employee_ph, e.employee_picture, e.employee_call,
 		c.company_name,
