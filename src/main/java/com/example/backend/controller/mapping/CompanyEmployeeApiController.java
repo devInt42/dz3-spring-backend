@@ -31,7 +31,6 @@ public class CompanyEmployeeApiController {
 	@PostMapping("/check")
 	public CompanyEmployeeDto checkEmployee(@RequestBody(required = true) Map<String, String> map) {
 		CompanyEmployeeDto dto = new CompanyEmployeeDto();
-		System.out.println(map);
 		dto.setCompanyCode(map.get("companyCode"));
 		dto.setEmployeeId(map.get("employeeId"));
 		dto.setEmployeePwd(map.get("employeePwd"));

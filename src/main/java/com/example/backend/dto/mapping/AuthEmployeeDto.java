@@ -29,7 +29,8 @@ public class AuthEmployeeDto {
 	private int menuDepth;
 	private String menuUrl;
 	
-	
+	private String duty;
+	private String position;
 	private int page;
 	private int startPgNum;
 	private int endPgNum;

@@ -29,8 +29,6 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="workplaceName" column="workplace_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
-		<result property="title" column="title"
-			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeId" column="employee_id"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="menuSeq" column="menu_seq"
@@ -44,6 +42,10 @@
 		<result property="menuDepth" column="menu_depth"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="menuUrl" column="menu_url"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="duty" column="duty"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="position" column="position"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
@@ -130,9 +132,9 @@
 		ae.auth_seq, de.company_seq, de.workplace_seq,
 		d.department_seq,
 		de.employee_seq,
-		de.sub_department_seq, de.title,
 		d.department_name,e.employee_name,
-		c.company_name, w.workplace_name,
+		c.company_name,
+		w.workplace_name, cod.duty, cod.position,
 		e.employee_id
 		FROM
 		department_employee de
@@ -148,7 +150,8 @@
 		JOIN
 		employee e
 		ON
-		de.employee_seq = e.employee_seq
+		de.employee_seq =
+		e.employee_seq
 		JOIN
 		company c
 		ON
@@ -157,8 +160,30 @@
 		workplace w
 		ON
 		de.workplace_seq = w.workplace_seq
+		JOIN
+		(
+		SELECT dres.detail_code as
+		duty_code, dres.detail_code_name AS duty,
+		pres.detail_code AS
+		position_code,pres.detail_code_name AS position
+		FROM
+		(SELECT dcode.code,
+		dcode.detail_code, dcode.detail_code_name
+		FROM code dcode
 		WHERE
-		auth_seq = #{authSeq}
+		code='DUTY') dres,
+		(SELECT pcode.code, pcode.detail_code,
+		pcode.detail_code_name
+		FROM code pcode
+		WHERE code='POSITION') pres
+		) cod
+		ON
+		de.position_code = cod.position_code
+		AND
+		de.duty_code = cod.duty_code	
+		WHERE
+		auth_seq =
+		#{authSeq}
 		<if test="companySeq != null and companySeq !=''">
 			AND de.company_seq = #{companySeq}
 		</if>

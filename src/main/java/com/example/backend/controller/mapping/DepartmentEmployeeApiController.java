@@ -236,9 +236,7 @@ public class DepartmentEmployeeApiController {
 			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
 			DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
-		System.out.println(departmentSeq);
-		System.out.println(companySeq);
-
+		
 		// 부서값, 회사값이 넘어오지 않을경우 로그인한 정보로 dto설정
 		if (!departmentSeq.equals(null) && !departmentSeq.equals("0")) {
 			dto.setDepartmentSeq(Integer.parseInt(departmentSeq));
@@ -251,7 +249,7 @@ public class DepartmentEmployeeApiController {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
 		} else {
 			dto.setCompanySeq((int) jObject.get("companySeq"));
-		}System.out.println(dto);
+		}
 		return departmentEmployeeService.getEmployeeDepartmentTree(dto);
 	}
 }
