@@ -83,7 +83,6 @@ public class DepartmentEmployeeApiController {
 			dto.setCompanySeq((int) jObject.get("companySeq"));
 			dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
 		}
-		System.out.println(dto);
 		return departmentEmployeeService.getCompanyElement(dto);
 
 	}

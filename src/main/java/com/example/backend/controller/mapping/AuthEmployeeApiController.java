@@ -108,7 +108,6 @@ public class AuthEmployeeApiController {
 		dto.setWorkplaceSeq((int) jObject.get("workplaceSeq"));
 		dto.setDepartmentSeq((int) jObject.get("departmentSeq"));
 		dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
-
 		return authEmployeeService.getMenuListByAuthEmployee(dto);
 	}
 
