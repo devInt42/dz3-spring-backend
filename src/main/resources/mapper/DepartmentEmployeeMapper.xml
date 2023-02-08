@@ -443,7 +443,7 @@
 		workplace_seq =
 		#{workplaceSeq}
 	</select>
-	
+
 	<!-- 회사 seq에 해당하는 사원 조회 -->
 	<select id="getCompanyEmp"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
@@ -451,7 +451,8 @@
 		select e.employee_seq, e.employee_name, e.employee_birth
 		from department_employee de
 		join employee e
-		on de.employee_seq = e.employee_seq
+		on de.employee_seq =
+		e.employee_seq
 		where de.company_seq = #{companySeq}
 	</select>
 
@@ -484,44 +485,75 @@
 		)
 		ORDER BY department_depth asc
 	</select>
-	<select id="getBelongNames" parameterType="int"
+	<select id="getBelongNames"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
-		SELECT
-		c.company_name, w.workplace_name, d.department_name,
-		ce.main_company_yn,
-		ce.main_department_yn, d.department_loc,
-		ce.workplace_seq, ce.department_seq, ce.company_seq
-		,
-		d.department_call, d.department_fax
-		FROM department_employee ce
-		RIGHT
+		SELECT c.company_name, de.company_seq, d.department_name,
+		de.department_seq,
+		d.department_call, d.department_fax,
+		d.department_loc,
+		e.employee_seq, e.employee_code, e.employee_join,
+		e.employee_leave,
+		de.main_company_yn, de.main_department_yn,
+		cod.duty,
+		cod.position, d.department_zipcode
+		FROM department_employee de
 		JOIN
-		company c ON c.company_seq =
-		ce.company_seq
-		RIGHT JOIN
-		workplace w ON
-		w.workplace_seq =
-		ce.workplace_seq
-		RIGHT JOIN
-		department d ON
-		d.department_seq =
-		ce.department_seq
-		WHERE ce.employee_seq =
+		company c
+		ON de.company_seq = c.company_seq
+		JOIN workplace w
+		ON
+		de.workplace_seq = w.workplace_seq
+		JOIN department d
+		ON
+		de.department_seq = d.department_seq
+		JOIN employee e
+		ON de.employee_seq
+		= e.employee_seq
+		JOIN (
+		SELECT dres.detail_code as
+		duty_code,
+		dres.detail_code_name AS duty,
+		pres.detail_code AS
+		position_code,pres.detail_code_name AS position
+		FROM
+		(SELECT dcode.code,
+		dcode.detail_code, dcode.detail_code_name
+		FROM
+		code dcode
+		WHERE
+		code='DUTY') dres,
+		(SELECT pcode.code,
+		pcode.detail_code,
+		pcode.detail_code_name
+		FROM code pcode
+		WHERE
+		code='POSITION') pres
+		) cod
+		ON
+		de.position_code = cod.position_code
+		AND
+		de.duty_code = cod.duty_code
+		WHERE
+		de.employee_seq =
 		#{employeeSeq}
 	</select>
 
 	<select id="getDepartmentSelectList" parameterType="int"
 		resultMap="departmentEmployeeMap">
 		SELECT
-		DISTINCT w.workplace_name, d.department_name, w.workplace_seq,
+		DISTINCT w.workplace_name, d.department_name,
+		w.workplace_seq,
 		d.department_seq
 		FROM department_employee ce
 		RIGHT JOIN
 		workplace w ON w.workplace_seq =
 		ce.workplace_seq
 		right JOIN
-		department d ON d.workplace_seq = ce.workplace_seq
+		department d
+		ON d.workplace_seq = ce.workplace_seq
 		where
-		ce.company_seq = #{companySeq}
+		ce.company_seq =
+		#{companySeq}
 	</select>
 </mapper>

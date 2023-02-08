@@ -82,9 +82,9 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getTree(dto);
 	}
 
-	public DepartmentEmployeeDto getBelongNames(int employeeSeq) {
+	public List<DepartmentEmployeeDto> getBelongNames(DepartmentEmployeeDto dto) {
 
-		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getBelongNames(employeeSeq);
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getBelongNames(dto);
 	}
 
 	@Override
