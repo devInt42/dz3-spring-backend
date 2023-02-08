@@ -257,9 +257,9 @@ public class DepartmentEmployeeApiController {
 
 	// 해당 직원의 회사, 사업장, 부서 이름 select
 	@GetMapping("/belong")
-	public DepartmentEmployeeDto getBelongNames(@RequestParam("employeeSeq") int employeeSeq) {
-
-		return departmentEmployeeService.getBelongNames(employeeSeq);
+	public List<DepartmentEmployeeDto> getBelongNames(@RequestParam("employeeSeq") int employeeSeq, DepartmentEmployeeDto dto) {
+		dto.setEmployeeSeq(employeeSeq);
+		return departmentEmployeeService.getBelongNames(dto);
 	}
 
 	// 부서 리스트 뽑기
@@ -267,10 +267,11 @@ public class DepartmentEmployeeApiController {
 	public List<DepartmentEmployeeDto> getDepartmentSelectList(@PathVariable("companySeq") int companySeq) {
 		return departmentEmployeeService.getDepartmentSelectList(companySeq);
 	}
+
 	// 회사 seq로 해당 사원 조회
 	@GetMapping("/companyemp")
 	public List<DepartmentEmployeeDto> getCompanyEmp(@RequestParam("selectCompany") String companySeq,
-			DepartmentEmployeeDto dto){
+			DepartmentEmployeeDto dto) {
 		dto.setCompanySeq(Integer.parseInt(companySeq));
 		System.out.println(departmentEmployeeService.getCompanyEmp(dto));
 		return departmentEmployeeService.getCompanyEmp(dto);
