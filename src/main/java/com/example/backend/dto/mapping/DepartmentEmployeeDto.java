@@ -30,7 +30,11 @@ public class DepartmentEmployeeDto {
 	private int Page;
 	private int startPgNum;
 	private int endPgNum;
-	
+	private String mainCompanyYN;
+	private String mainDepartmentYN;
+	private String departmentLoc;
+	private String departmentCall;
+	private String departmentFax;
 	private int departmentDepth;
 	private int departmentParent;
 }

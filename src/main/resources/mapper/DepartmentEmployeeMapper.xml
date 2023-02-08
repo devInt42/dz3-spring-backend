@@ -48,6 +48,16 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="position" column="position"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="mainCompanyYN" column="main_company_yn"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="mainDepartmentYN" column="main_department_yn"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="departmentLoc" column="department_loc"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="departmentCall" column="department_call"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="departmentFax" column="department_fax"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="getList"
@@ -59,9 +69,11 @@
 		de.company_seq,
 		e.employee_name,
 		e.employee_id,
-		e.employee_ph, e.employee_picture, e.employee_call,
+		e.employee_ph,
+		e.employee_picture, e.employee_call,
 		c.company_name,
-		w.workplace_name, e.employee_birth, d.department_name
+		w.workplace_name,
+		e.employee_birth, d.department_name
 		FROM
 		department_employee de
 		join
@@ -76,7 +88,8 @@
 		join
 		company c
 		on
-		de.company_seq = c.company_seq
+		de.company_seq =
+		c.company_seq
 		join
 		workplace w
 		on
@@ -459,5 +472,45 @@
 		department_seq= #{departmentSeq}
 		)
 		ORDER BY department_depth asc
+	</select>
+	<select id="getBelongNames" parameterType="int"
+		resultMap="departmentEmployeeMap">
+		SELECT
+		c.company_name, w.workplace_name, d.department_name,
+		ce.main_company_yn,
+		ce.main_department_yn, d.department_loc,
+		ce.workplace_seq, ce.department_seq, ce.company_seq
+		,
+		d.department_call, d.department_fax
+		FROM department_employee ce
+		RIGHT
+		JOIN
+		company c ON c.company_seq =
+		ce.company_seq
+		RIGHT JOIN
+		workplace w ON
+		w.workplace_seq =
+		ce.workplace_seq
+		RIGHT JOIN
+		department d ON
+		d.department_seq =
+		ce.department_seq
+		WHERE ce.employee_seq =
+		#{employeeSeq}
+	</select>
+
+	<select id="getDepartmentSelectList" parameterType="int"
+		resultMap="departmentEmployeeMap">
+		SELECT
+		DISTINCT w.workplace_name, d.department_name, w.workplace_seq,
+		d.department_seq
+		FROM department_employee ce
+		RIGHT JOIN
+		workplace w ON w.workplace_seq =
+		ce.workplace_seq
+		right JOIN
+		department d ON d.workplace_seq = ce.workplace_seq
+		where
+		ce.company_seq = #{companySeq}
 	</select>
 </mapper>

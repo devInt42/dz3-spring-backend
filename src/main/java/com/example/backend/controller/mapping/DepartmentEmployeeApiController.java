@@ -9,10 +9,12 @@ import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.backend.dto.DepartmentDto;
 import com.example.backend.dto.mapping.DepartmentEmployeeDto;
 import com.example.backend.service.DepartmentEmployeeServiceImpl;
 
@@ -236,7 +238,7 @@ public class DepartmentEmployeeApiController {
 			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
 			DepartmentEmployeeDto dto, HttpServletRequest request) throws JSONException {
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
-		
+
 		// 부서값, 회사값이 넘어오지 않을경우 로그인한 정보로 dto설정
 		if (!departmentSeq.equals(null) && !departmentSeq.equals("0")) {
 			dto.setDepartmentSeq(Integer.parseInt(departmentSeq));
@@ -251,5 +253,18 @@ public class DepartmentEmployeeApiController {
 			dto.setCompanySeq((int) jObject.get("companySeq"));
 		}
 		return departmentEmployeeService.getEmployeeDepartmentTree(dto);
+	}
+
+	// 해당 직원의 회사, 사업장, 부서 이름 select
+	@GetMapping("/belong")
+	public DepartmentEmployeeDto getBelongNames(@RequestParam("employeeSeq") int employeeSeq) {
+
+		return departmentEmployeeService.getBelongNames(employeeSeq);
+	}
+
+	// 부서 리스트 뽑기
+	@GetMapping("/select/list/{companySeq}")
+	public List<DepartmentEmployeeDto> getDepartmentSelectList(@PathVariable("companySeq") int companySeq) {
+		return departmentEmployeeService.getDepartmentSelectList(companySeq);
 	}
 }
