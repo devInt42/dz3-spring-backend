@@ -37,6 +37,8 @@
 			javaType="java.lang.String" jdbcType ="VARCHAR"/>
 		<result property="departmentFax" column = "department_fax"
 			javaType="java.lang.String" jdbcType = "VARCHAR"/>
+		<result property ="departmentZipCode" column = "department_zipcode"
+			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
 	</resultMap>
 	<select id="GetDepartmentList"
 		parameterType="com.example.backend.dto.DepartmentDto"
