@@ -38,4 +38,6 @@ public class DepartmentEmployeeDto {
 	private int departmentDepth;
 	private int departmentParent;
 	private int departmentZipCode;
+	private String dutyCode;
+	private String positionCode;
 }
