@@ -9,7 +9,9 @@ public interface DepartmentService {
 
 	List<DepartmentDto> GetDepartmentList(DepartmentDto dto);
 
-	List<DepartmentDto> GetCompanyList();
+	List<DepartmentDto> GetCompany(int companySeq);
+	
+	List<DepartmentDto> GetCompanyList(int companySeq);
 
 	List<DepartmentDto> GetWorkplaceList();
 
@@ -22,7 +24,7 @@ public interface DepartmentService {
 	List<DepartmentDto> GetWorkplaceData(int workplaceSeq);
 
 	List<DepartmentDto> GetDepartmentParent(int workplaceSeq);
-
+	
 	int DupliCheck(DepartmentDto dto);
 
 	int NameDupliCheck(DepartmentDto dto);

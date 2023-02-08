@@ -25,7 +25,6 @@ public class CompanyDto {
 	private String useYN;
 	private String pcBuisness;
 
-	
 	public CompanyDto(int companyCode, String companyName, String useYN) {
 		this.companyCode = companyCode;
 		this.companyName = companyName;

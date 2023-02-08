@@ -15,9 +15,8 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="departmentName" column="department_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
-		<result property="departmentParent"
-			column="department_parent" javaType="java.lang.Integer"
-			jdbcType="INTEGER" />
+		<result property="departmentParent" column="department_parent"
+			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="departmentLoc" column="department_loc"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="useYN" column="use_yn"
@@ -34,6 +33,10 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="departmentDepth" column="department_depth"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="departmentCall" column = "department_call"
+			javaType="java.lang.String" jdbcType ="VARCHAR"/>
+		<result property="departmentFax" column = "department_fax"
+			javaType="java.lang.String" jdbcType = "VARCHAR"/>
 	</resultMap>
 	<select id="GetDepartmentList"
 		parameterType="com.example.backend.dto.DepartmentDto"
@@ -43,9 +46,18 @@
 		department_parent = #{departmentParent}
 	</select>
 
-	<select id="GetCompanyList" resultMap="departmentMap">
+	<select id="GetCompanyList" parameterType="int"
+		resultMap="departmentMap">
 		SELECT company_seq,
 		company_code, company_name from company
+		<if test="companySeq == 0">
+			LIMIT 1
+		</if>
+		<where>
+		<if test="companySeq != 0">
+				company_seq = #{companySeq}
+		</if>
+		</where>
 	</select>
 	<select id="GetWorkplaceList" resultMap="departmentMap">
 		SELECT
@@ -60,71 +72,93 @@
 		#{departmentDepth} and
 		department_parent = #{departmentParent} group by department_seq) res
 	</select>
-	
-	<select id = "GetDepartment" parameterType = "int" resultMap = "departmentMap">
-	 select * from department where department_seq = #{departmentSeq}
+
+	<select id="GetDepartment" parameterType="int"
+		resultMap="departmentMap">
+		select * from department where department_seq = #{departmentSeq}
 	</select>
-	
+
 	<select id="GetCompanyWorkplaceName"
 		parameterType="com.example.backend.dto.DepartmentDto"
 		resultMap="departmentMap">
 		SELECT c.company_name, w.workplace_name
-		FROM 
-		company c 
-		join workplace w 
+		FROM
+		company c
+		join workplace w
 		on c.company_seq = #{companySeq} AND w.workplace_seq = #{workplaceSeq}
 	</select>
-	
-	<select id = "GetWorkplaceData" parameterType = "int" resultMap = "departmentMap">
-		SELECT * FROM workplace where workplace_seq = #{workplaceSeq}
+
+	<select id="GetWorkplaceData" parameterType="int"
+		resultMap="departmentMap">
+		SELECT * FROM workplace where workplace_seq =
+		#{workplaceSeq}
 	</select>
-	
-	<select id = "GetDepartmentParent" parameterType = "int" resultMap = "departmentMap">
-		SELECT * FROM department where workplace_seq = #{workplaceSeq}
+
+	<select id="GetDepartmentParent" parameterType="int"
+		resultMap="departmentMap">
+		SELECT * FROM department where workplace_seq =
+		#{workplaceSeq}
 	</select>
-	
-	<select id = "DupliCheck" parameterType = "com.example.backend.dto.DepartmentDto" resultType = "int">
-		SELECT COUNT(*) FROM department WHERE department_code = #{departmentCode} and workplace_seq = #{workplaceSeq}
+
+	<select id="DupliCheck"
+		parameterType="com.example.backend.dto.DepartmentDto" resultType="int">
+		SELECT COUNT(*) FROM department WHERE department_code =
+		#{departmentCode} and company_seq = #{companySeq}
 	</select>
-	
-	<select id = "NameDupliCheck" parameterType = "com.example.backend.dto.DepartmentDto" resultType ="int">
-		SELECT COUNT(*) FROM department where workplace_seq = #{workplaceSeq} and department_name = #{departmentName}
+
+	<select id="NameDupliCheck"
+		parameterType="com.example.backend.dto.DepartmentDto" resultType="int">
+		SELECT COUNT(*) FROM department where workplace_seq = #{workplaceSeq}
+		and department_name = #{departmentName}
 	</select>
-	
-	<insert id = "InsertDepartment" parameterType = "com.example.backend.dto.DepartmentDto">
-	  INSERT INTO department values
-	  (#{departmentSeq},  #{companySeq},#{workplaceSeq},#{departmentCode}, #{departmentName},
-	  #{departmentLoc}, #{departmentParent},#{useYN}, #{departmentDepth})
+
+	<insert id="InsertDepartment"
+		parameterType="com.example.backend.dto.DepartmentDto">
+		INSERT INTO department values
+		(#{departmentSeq}, #{companySeq},#{workplaceSeq},#{departmentCode}, #{departmentName}, #{departmentCall}, #{departmentFax},
+		#{departmentLoc}, #{departmentParent},#{useYN}, #{departmentDepth})
 	</insert>
-	
-	<update id = "UpdateDepartment" parameterType = "com.example.backend.dto.DepartmentDto">
-	UPDATE department SET department_code = #{departmentCode}, department_name=#{departmentName}, department_loc = #{departmentLoc}, department_parent = #{departmentParent}
-	, use_yn = #{useYN}, department_depth = #{departmentDepth} where department_seq = #{departmentSeq}
+
+	<update id="UpdateDepartment"
+		parameterType="com.example.backend.dto.DepartmentDto">
+		UPDATE department SET department_code = #{departmentCode},
+		department_name=#{departmentName},department_call = #{departmentCall}, department_fax = #{departmentFax}, department_loc = #{departmentLoc},
+		department_parent = #{departmentParent}
+		, use_yn = #{useYN}, department_depth = #{departmentDepth} where
+		department_seq = #{departmentSeq}
 	</update>
-	
-	<delete id = "DeleteDepartment" parameterType = "com.example.backend.dto.DepartmentDto">
-	DELETE FROM department WHERE department_seq  = #{departmentSeq} OR department_parent = #{departmentSeq}
+
+	<delete id="DeleteDepartment"
+		parameterType="com.example.backend.dto.DepartmentDto">
+		DELETE FROM department WHERE department_seq = #{departmentSeq} OR
+		department_parent = #{departmentSeq}
 	</delete>
-	
-	<select id = "FindDepartment" parameterType = "com.example.backend.dto.DepartmentDto" resultMap = "departmentMap">
-	select DISTINCT c.company_name, w.workplace_name, d.department_code, d.department_name, d.department_seq, w.workplace_seq
-	, c.company_seq
-	from department d join workplace w
-	on
-	d.workplace_seq = w.workplace_seq
-	join company c 
-	on d.company_seq = c.company_seq
-	where d.company_seq = #{companySeq} 
-	and
-	(
-		d.department_code like concat('%', #{departmentCode},'%')
+
+	<select id="FindDepartment"
+		parameterType="com.example.backend.dto.DepartmentDto"
+		resultMap="departmentMap">
+		select DISTINCT c.company_name, w.workplace_name, d.department_code,
+		d.department_name, d.department_seq, w.workplace_seq
+		, c.company_seq
+		from department d join workplace w
+		on
+		d.workplace_seq = w.workplace_seq
+		join company c
+		on d.company_seq = c.company_seq
+		where d.company_seq = #{companySeq}
+		and
+		(
+		d.department_code like concat('%', #{departmentName},'%')
 		or
 		d.department_name like concat('%', #{departmentName}, '%')
 		or
-		w.workplace_code like concat('%', #{departmentCode}, '%')
-		or
 		w.workplace_name like concat('%', #{departmentName}, '%')
-	)
+		)
+	</select>
 	
+	<select id = "GetCompany" parameterType = "int" resultMap = "departmentMap">
+		select company_seq,
+		company_code, company_name from company 
+		where company_seq = #{companySeq}
 	</select>
 </mapper> 

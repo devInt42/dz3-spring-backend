@@ -14,10 +14,6 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="companySeq" column="company_seq"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
-		<result property="subDepartmentSeq" column="sub_department_seq"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
-		<result property="title" column="title"
-			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeName" column="employee_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeId" column="employee_id"
@@ -29,7 +25,7 @@
 		<result property="employeeCall" column="employee_call"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="companyCode" column="company_code"
-			javaType="java.lang.Integer" jdbcType="INTEGER" />
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="workplaceName" column="workplace_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="companyName" column="company_name"
@@ -48,6 +44,20 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="departmentDepth" column="department_depth"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
+		<result property="duty" column="duty"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="position" column="position"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="mainCompanyYN" column="main_company_yn"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="mainDepartmentYN" column="main_department_yn"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="departmentLoc" column="department_loc"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="departmentCall" column="department_call"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="departmentFax" column="department_fax"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="getList"
@@ -57,11 +67,13 @@
 		de.employee_seq,
 		de.workplace_seq,de.department_seq,
 		de.company_seq,
-		de.sub_department_seq, de.title, e.employee_name,
+		e.employee_name,
 		e.employee_id,
-		e.employee_ph, e.employee_picture, e.employee_call,
+		e.employee_ph,
+		e.employee_picture, e.employee_call,
 		c.company_name,
-		w.workplace_name, e.employee_birth, d.department_name
+		w.workplace_name,
+		e.employee_birth, d.department_name
 		FROM
 		department_employee de
 		join
@@ -76,19 +88,23 @@
 		join
 		company c
 		on
-		de.company_seq = c.company_seq
+		de.company_seq =
+		c.company_seq
 		join
 		workplace w
 		on
 		de.workplace_seq = w.workplace_seq
 		<where>
-			<if test="companySeq != null and companySeq !=''">
+			<if
+				test="companySeq != null and companySeq !='' and employeeSeq != 999">
 				AND de.company_seq = #{companySeq}
 			</if>
-			<if test="workplaceSeq != null and workplaceSeq !=''">
+			<if
+				test="workplaceSeq != null and workplaceSeq !=''  and employeeSeq != 999">
 				AND de.workplace_seq = #{workplaceSeq}
 			</if>
-			<if test="departmentSeq != null and departmentSeq !=''">
+			<if
+				test="departmentSeq != null and departmentSeq !=''  and employeeSeq != 999">
 				AND de.department_seq = #{departmentSeq}
 			</if>
 			<if test="employeeName != null and employeeName !=''">
@@ -105,15 +121,17 @@
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
 		SELECT
-		de.company_seq,de.workplace_seq,de.department_seq,de.employee_seq,title,w.workplace_name,d.department_name,
-		c.company_name,e.employee_name,e.employee_pmail, e.employee_cmail,
+		de.company_seq,de.workplace_seq,de.department_seq,de.employee_seq,w.workplace_name,d.department_name,
+		c.company_name,e.employee_name,e.employee_pmail,
+		e.employee_cmail,cod.duty,cod.position ,
 		e.employee_id
 		FROM
 		department_employee de
 		JOIN
 		department d
 		ON
-		de.department_seq = d.department_seq
+		de.department_seq =
+		d.department_seq
 		JOIN
 		employee e
 		ON
@@ -127,9 +145,54 @@
 		workplace w
 		ON
 		de.workplace_seq = w.workplace_seq
+		JOIN
+		(
+		SELECT dres.detail_code as
+		duty_code, dres.detail_code_name AS duty,
+		pres.detail_code AS
+		position_code,pres.detail_code_name AS position
+		FROM
+		(SELECT dcode.code,
+		dcode.detail_code, dcode.detail_code_name
+		FROM code dcode
+		WHERE
+		code='DUTY') dres,
+		(SELECT pcode.code, pcode.detail_code,
+		pcode.detail_code_name
+		FROM code pcode
+		WHERE code='POSITION') pres
+		) cod
+		ON
+		de.position_code = cod.position_code
+		AND
+		de.duty_code = cod.duty_code
 		WHERE
 		de.department_seq
 		= #{departmentSeq}
+	</select>
+	<select id="getEmployeeInfo"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
+		resultMap="departmentEmployeeMap">
+		select * from department_employee de
+		join employee e
+		on
+		de.employee_seq = e.employee_seq
+		join department d
+		on
+		de.department_seq =
+		d.department_seq
+		join company c
+		on
+		de.company_seq = c.company_seq
+		join
+		workplace w
+		on
+		de.workplace_seq = w.workplace_seq
+		where
+		de.employee_seq =
+		#{employeeSeq}
+		and
+		de.company_seq=#{companySeq}
 	</select>
 
 	<select id="getEmployeeCount"
@@ -166,35 +229,52 @@
 	<select id="getInfo"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
-		SELECT
-		e.employee_name, e.employee_picture, c.company_name,
-		w.workplace_name,
-		d.department_name, de.title,
-		de.employee_seq,
-		de.company_seq, de.workplace_seq, de.department_seq
-		FROM
+		SELECT de.company_seq, de.workplace_seq, de.department_seq,
+		de.employee_seq, de.main_company_yn, de.main_department_yn,
+		cod.duty,cod.position , e.employee_name,
+		c.company_name,
+		c.company_code,
+		w.workplace_name, d.department_name, e.employee_picture
+		from
 		department_employee de
-		JOIN
-		employee e
+		JOIN employee e
 		ON
-		de.employee_seq = e.employee_seq
-		JOIN
-		company c
+		de.employee_seq =
+		e.employee_seq
+		JOIN company c
 		ON
 		de.company_seq = c.company_seq
 		JOIN
 		workplace w
 		ON
 		de.workplace_seq = w.workplace_seq
-		JOIN
-		department d
+		JOIN department d
 		ON
-		de.department_seq
-		= d.department_seq
+		de.department_seq = d.department_seq
+		JOIN
+		(
+		SELECT dres.detail_code as
+		duty_code, dres.detail_code_name AS duty,
+		pres.detail_code AS
+		position_code,pres.detail_code_name AS position
+		FROM
+		(SELECT dcode.code,
+		dcode.detail_code, dcode.detail_code_name
+		FROM code dcode
 		WHERE
-		de.employee_seq = #{employeeSeq}
-		and
-		de.company_seq= #{companySeq}
+		code='DUTY') dres,
+		(SELECT pcode.code, pcode.detail_code,
+		pcode.detail_code_name
+		FROM code pcode
+		WHERE code='POSITION') pres
+		) cod
+		ON
+		de.position_code = cod.position_code
+		AND
+		de.duty_code = cod.duty_code
+		WHERE de.employee_seq = #{employeeSeq}
+		ORDER BY de.main_company_yn
+		DESC, de.main_department_yn desc
 	</select>
 
 	<select id="getCompanyElement"
@@ -211,8 +291,12 @@
 		LEFT JOIN department d ON
 		de.department_seq =
 		d.department_seq
-		WHERE de.company_seq =
-		#{companySeq}
+		<where>
+			<if
+				test="companySeq != null and companySeq !='' and employeeSeq != 999">
+				de.company_seq = #{companySeq}
+			</if>
+		</where>
 	</select>
 
 	<select id="getWorkplaceList"
@@ -271,8 +355,9 @@
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
 		SELECT distinct
-		de.company_seq,de.workplace_seq,de.department_seq,de.employee_seq,title,w.workplace_name,d.department_name,
+		de.company_seq,de.workplace_seq,de.department_seq,de.employee_seq,w.workplace_name,d.department_name,
 		c.company_name,e.employee_name,e.employee_pmail, e.employee_cmail,
+		cod.duty,cod.position ,
 		e.employee_id
 		FROM
 		department_employee de
@@ -288,7 +373,8 @@
 		JOIN
 		company c
 		ON
-		de.company_seq = c.company_seq
+		de.company_seq =
+		c.company_seq
 		JOIN
 		workplace w
 		ON
@@ -297,6 +383,31 @@
 		auth_employee ae
 		ON
 		de.employee_seq=ae.employee_seq
+		JOIN
+		(
+		SELECT
+		dres.detail_code as
+		duty_code, dres.detail_code_name AS duty,
+		pres.detail_code AS
+		position_code,pres.detail_code_name AS position
+		FROM
+		(SELECT dcode.code,
+		dcode.detail_code, dcode.detail_code_name
+		FROM
+		code dcode
+		WHERE
+		code='DUTY') dres,
+		(SELECT pcode.code,
+		pcode.detail_code,
+		pcode.detail_code_name
+		FROM code pcode
+		WHERE
+		code='POSITION') pres
+		) cod
+		ON
+		de.position_code = cod.position_code
+		AND
+		de.duty_code = cod.duty_code
 		WHERE
 		de.company_seq=#{companySeq}
 		AND
@@ -332,5 +443,85 @@
 		workplace_seq =
 		#{workplaceSeq}
 	</select>
+	
+	<!-- 회사 seq에 해당하는 사원 조회 -->
+	<select id="getCompanyEmp"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
+		resultMap="departmentEmployeeMap">
+		select e.employee_seq, e.employee_name, e.employee_birth
+		from department_employee de
+		join employee e
+		on de.employee_seq = e.employee_seq
+		where de.company_seq = #{companySeq}
+	</select>
 
+	<select id="getTree"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
+		resultMap="departmentEmployeeMap">
+		SELECT distinct de.department_seq, d.department_name,
+		d.department_depth,
+		d.department_parent FROM department_employee de
+		JOIN department d
+		ON de.department_seq = d.department_seq
+		JOIN employee
+		e
+		ON de.employee_seq = e.employee_seq
+		where
+		de.company_seq =
+		#{companySeq}
+		and
+		de.department_seq = #{departmentSeq}
+		<if test="employeeSeq != null and employeeSeq !=''">
+			and de.employee_seq = #{employeeSeq}
+		</if>
+		UNION ALL
+		SELECT d2.department_seq, d2.department_name,
+		d2.department_depth, d2.department_parent from department d2
+		WHERE
+		d2.department_seq = (
+		SELECT department_parent FROM department d3 WHERE
+		department_seq= #{departmentSeq}
+		)
+		ORDER BY department_depth asc
+	</select>
+	<select id="getBelongNames" parameterType="int"
+		resultMap="departmentEmployeeMap">
+		SELECT
+		c.company_name, w.workplace_name, d.department_name,
+		ce.main_company_yn,
+		ce.main_department_yn, d.department_loc,
+		ce.workplace_seq, ce.department_seq, ce.company_seq
+		,
+		d.department_call, d.department_fax
+		FROM department_employee ce
+		RIGHT
+		JOIN
+		company c ON c.company_seq =
+		ce.company_seq
+		RIGHT JOIN
+		workplace w ON
+		w.workplace_seq =
+		ce.workplace_seq
+		RIGHT JOIN
+		department d ON
+		d.department_seq =
+		ce.department_seq
+		WHERE ce.employee_seq =
+		#{employeeSeq}
+	</select>
+
+	<select id="getDepartmentSelectList" parameterType="int"
+		resultMap="departmentEmployeeMap">
+		SELECT
+		DISTINCT w.workplace_name, d.department_name, w.workplace_seq,
+		d.department_seq
+		FROM department_employee ce
+		RIGHT JOIN
+		workplace w ON w.workplace_seq =
+		ce.workplace_seq
+		right JOIN
+		department d ON d.workplace_seq = ce.workplace_seq
+		where
+		ce.company_seq = #{companySeq}
+	</select>
 </mapper>

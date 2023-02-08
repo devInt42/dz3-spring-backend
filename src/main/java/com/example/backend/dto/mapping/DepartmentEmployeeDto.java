@@ -10,9 +10,7 @@ public class DepartmentEmployeeDto {
 	private int workplaceSeq;
 	private int departmentSeq;
 	private int companySeq;
-	private int subDepartmentSeq;
-	private int companyCode;
-	private String title;
+	private String companyCode;
 	private String employeeName;
 	private String employeeId;
 	private String employeePh;
@@ -25,11 +23,18 @@ public class DepartmentEmployeeDto {
 	private String departmentName;
 	private Date employeeBirth;
 	private int authSeq;
-	
+	private String duty;
+	private String position;
+	private String mainComapny;
+	private String mainDepartment;
 	private int Page;
 	private int startPgNum;
 	private int endPgNum;
-	
+	private String mainCompanyYN;
+	private String mainDepartmentYN;
+	private String departmentLoc;
+	private String departmentCall;
+	private String departmentFax;
 	private int departmentDepth;
 	private int departmentParent;
 }

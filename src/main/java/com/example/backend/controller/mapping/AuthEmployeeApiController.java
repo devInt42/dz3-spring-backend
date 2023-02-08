@@ -100,7 +100,7 @@ public class AuthEmployeeApiController {
 	// 로그인한 사용자별 권한과 메뉴값 가져오기
 	@GetMapping("/employee")
 	public List<AuthEmployeeDto> getMenuListByAuthEmployee(
-			@RequestParam(required = false, name = "menuParent", defaultValue = "") String menuParent,
+			@RequestParam(required = false, name = "menuParent", defaultValue = "0") String menuParent,
 			AuthEmployeeDto dto, HttpServletRequest request) throws JSONException {
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
 		dto.setMenuParent(Integer.parseInt(menuParent));
@@ -108,7 +108,6 @@ public class AuthEmployeeApiController {
 		dto.setWorkplaceSeq((int) jObject.get("workplaceSeq"));
 		dto.setDepartmentSeq((int) jObject.get("departmentSeq"));
 		dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
-
 		return authEmployeeService.getMenuListByAuthEmployee(dto);
 	}
 

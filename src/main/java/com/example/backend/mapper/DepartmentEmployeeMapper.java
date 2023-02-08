@@ -7,13 +7,15 @@ import com.example.backend.dto.mapping.DepartmentEmployeeDto;
 public interface DepartmentEmployeeMapper {
 	List<DepartmentEmployeeDto> getList(DepartmentEmployeeDto dto);
 
+	DepartmentEmployeeDto getEmployeeInfo(DepartmentEmployeeDto dto);
+
 	List<DepartmentEmployeeDto> getListByDepartment(DepartmentEmployeeDto dto);
 
 	int getDepartmentCount(DepartmentEmployeeDto dto);
 
 	int getEmployeeCount(DepartmentEmployeeDto dto);
 
-	DepartmentEmployeeDto getInfo(DepartmentEmployeeDto dto);
+	List<DepartmentEmployeeDto> getInfo(DepartmentEmployeeDto dto);
 
 	List<DepartmentEmployeeDto> getCompanyElement(DepartmentEmployeeDto dto);
 
@@ -24,14 +26,17 @@ public interface DepartmentEmployeeMapper {
 	List<DepartmentEmployeeDto> getEmployeeList(DepartmentEmployeeDto dto);
 
 	List<DepartmentEmployeeDto> getMyInfo(DepartmentEmployeeDto dto);
-	
+
 	List<DepartmentEmployeeDto> getListByAuth(DepartmentEmployeeDto dto);
 
 	List<DepartmentEmployeeDto> getDepartmentGroup(DepartmentEmployeeDto dto);
 
 	List<DepartmentEmployeeDto> getDepartmentName(DepartmentEmployeeDto dto);
 
+	List<DepartmentEmployeeDto> getTree(DepartmentEmployeeDto dto);
+
+	DepartmentEmployeeDto getBelongNames(int employeeSeq);
 	
-
-
+	List<DepartmentEmployeeDto> getDepartmentSelectList(int companySeq);
+	List<DepartmentEmployeeDto> getCompanyEmp(DepartmentEmployeeDto dto);
 }

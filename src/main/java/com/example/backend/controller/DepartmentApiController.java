@@ -2,7 +2,11 @@ package com.example.backend.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,14 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class DepartmentApiController {
 	@Autowired
 	private DepartmentServiceImpl departmentService;
-
-	@GetMapping("/list/{companySeq}")
-	   public List<DepartmentDto> getDepartmentList(@PathVariable(required = true)int companySeq, DepartmentDto dto){
-	     dto.setCompanySeq(companySeq);
-		 return departmentService.getDepartmentList(dto);
-	   }
-
-
+	
 	@GetMapping("/list")
 	public List<DepartmentDto> getDepartmentList(@RequestParam("departmentDepth") String departmentDepth,
 			@RequestParam("departmentParent") String departmentParent, DepartmentDto dto) {
@@ -48,10 +45,19 @@ public class DepartmentApiController {
 		}
 		return departmentService.GetDepartmentCount(dto);
 	}
-
+	
+	@GetMapping("/list/company/{companySeq}")
+	public List<DepartmentDto> getCompany(@PathVariable("companySeq")int companySeq) {
+		return departmentService.GetCompany(companySeq);
+	}
 	@GetMapping("/list/company")
-	public List<DepartmentDto> getCompanyList() {
-		return departmentService.GetCompanyList();
+	public List<DepartmentDto> getCompanyList(HttpServletRequest request) throws JSONException {
+		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+		int companySeq = 0;
+		if(jObject.getInt("employeeSeq") != 999) {
+			companySeq = jObject.getInt("companySeq");
+		}
+		return departmentService.GetCompanyList(companySeq);
 	}
 
 	@GetMapping("/list/workplace")
@@ -81,15 +87,14 @@ public class DepartmentApiController {
 	public List<DepartmentDto> GetDepartmentParent(@PathVariable("workplaceSeq") int workplaceSeq) {
 		return departmentService.GetDepartmentParent(workplaceSeq);
 	}
-
 	@GetMapping("/info/check/")
 	public int DupliCheck(@RequestParam("departmentCode") int departmentCode,
-			@RequestParam("workplaceSeq") int workplaceSeq, DepartmentDto dto) {
+			@RequestParam("companySeq") int companySeq, DepartmentDto dto) {
 		if (departmentCode == 0) {
 			return 1;
 		}
 		dto.setDepartmentCode(departmentCode);
-		dto.setWorkplaceSeq(workplaceSeq);
+		dto.setCompanySeq(companySeq);
 		return departmentService.DupliCheck(dto);
 	}
 
@@ -139,14 +144,14 @@ public class DepartmentApiController {
 
 	@GetMapping("/find")
 	public List<DepartmentDto> FindDepartment(@RequestParam(required = false, name = "searchName") String searchName,
-			@RequestParam(required = false, name = "searchCompanySeq") int searchCompanySeq, DepartmentDto dto) {
-		if (searchName != null && searchName == "") {
-			dto.setDepartmentCode(Integer.parseInt(searchName));
+			@RequestParam(required = false, name = "searchCompanySeq") String searchCompanySeq, DepartmentDto dto) {
+		if (searchCompanySeq != null && Integer.parseInt(searchCompanySeq) > 0) {
+			dto.setCompanySeq(Integer.parseInt(searchCompanySeq));
 		}
-		if( searchCompanySeq > 0) {
-			dto.setCompanySeq(searchCompanySeq);
-		}
+		if (searchName == null)
+			searchName = "";
 		dto.setDepartmentName(searchName);
+		System.out.println(searchName);
 		System.out.println(dto);
 		return departmentService.FindDepartment(dto);
 	}

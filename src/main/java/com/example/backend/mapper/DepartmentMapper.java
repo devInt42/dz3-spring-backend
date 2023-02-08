@@ -9,7 +9,7 @@ public interface DepartmentMapper {
 
 	List<DepartmentDto> GetDepartmentList(DepartmentDto dto);
 
-	List<DepartmentDto> GetCompanyList();
+	List<DepartmentDto> GetCompanyList(int companySeq);
 
 	List<DepartmentDto> GetWorkplaceList();
 
@@ -22,7 +22,7 @@ public interface DepartmentMapper {
 	List<DepartmentDto> GetWorkplaceData(int workplaceSeq);
 
 	List<DepartmentDto> GetDepartmentParent(int workplaceSeq);
-
+	
 	int DupliCheck(DepartmentDto dto);
 
 	int NameDupliCheck(DepartmentDto dto);
@@ -34,4 +34,6 @@ public interface DepartmentMapper {
 	void DeleteDepartment(int seq);
 
 	List<DepartmentDto> FindDepartment(DepartmentDto dto);
+	
+	List<DepartmentDto> GetCompany(int companySeq);
 }

@@ -42,7 +42,7 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 	}
 
 	@Override
-	public DepartmentEmployeeDto getEmployeeInfo(DepartmentEmployeeDto dto) {
+	public List<DepartmentEmployeeDto> getEmployeeInfo(DepartmentEmployeeDto dto) {
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getInfo(dto);
 
 	}
@@ -72,5 +72,29 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getDepartmentCount(dto);
 	}
 
+	@Override
+	public DepartmentEmployeeDto getSelectEmployeeInfo(DepartmentEmployeeDto dto) {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getEmployeeInfo(dto);
+	}
+
+	@Override
+	public List<DepartmentEmployeeDto> getEmployeeDepartmentTree(DepartmentEmployeeDto dto) {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getTree(dto);
+	}
+
+	public DepartmentEmployeeDto getBelongNames(int employeeSeq) {
+
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getBelongNames(employeeSeq);
+	}
+
+	@Override
+	public List<DepartmentEmployeeDto> getDepartmentSelectList(int companySeq) {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getDepartmentSelectList(companySeq);
+	}
+
+	@Override
+	public List<DepartmentEmployeeDto> getCompanyEmp(DepartmentEmployeeDto dto) {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getCompanyEmp(dto);
+	}
 
 }

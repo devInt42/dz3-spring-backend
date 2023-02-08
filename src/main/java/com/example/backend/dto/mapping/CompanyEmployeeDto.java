@@ -15,7 +15,9 @@ public class CompanyEmployeeDto {
 	
 	private String employeeId;
 	private String employeePwd;
+	private String employeeName;
+	private String employeeBirth;
 	private String companyName;
 
-	private int companyCode;
+	private String companyCode;
 }
