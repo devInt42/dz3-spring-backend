@@ -46,4 +46,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public void deleteEmp(int employeeSeq) {
 		sqlSession.getMapper(EmployeeMapper.class).deleteEmp(employeeSeq);
 	}
+
+	@Override
+	public List<EmployeeDto> checkId(String employeeId) {
+		return sqlSession.getMapper(EmployeeMapper.class).checkId(employeeId);
+	}
 }

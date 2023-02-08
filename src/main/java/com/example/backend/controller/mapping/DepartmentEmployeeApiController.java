@@ -267,4 +267,12 @@ public class DepartmentEmployeeApiController {
 	public List<DepartmentEmployeeDto> getDepartmentSelectList(@PathVariable("companySeq") int companySeq) {
 		return departmentEmployeeService.getDepartmentSelectList(companySeq);
 	}
+	// 회사 seq로 해당 사원 조회
+	@GetMapping("/companyemp")
+	public List<DepartmentEmployeeDto> getCompanyEmp(@RequestParam("selectCompany") String companySeq,
+			DepartmentEmployeeDto dto){
+		dto.setCompanySeq(Integer.parseInt(companySeq));
+		System.out.println(departmentEmployeeService.getCompanyEmp(dto));
+		return departmentEmployeeService.getCompanyEmp(dto);
+	}
 }

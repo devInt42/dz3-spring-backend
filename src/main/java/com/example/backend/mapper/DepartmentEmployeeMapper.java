@@ -38,4 +38,5 @@ public interface DepartmentEmployeeMapper {
 	DepartmentEmployeeDto getBelongNames(int employeeSeq);
 	
 	List<DepartmentEmployeeDto> getDepartmentSelectList(int companySeq);
+	List<DepartmentEmployeeDto> getCompanyEmp(DepartmentEmployeeDto dto);
 }
