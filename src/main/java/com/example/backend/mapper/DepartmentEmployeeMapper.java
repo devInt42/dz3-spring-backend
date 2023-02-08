@@ -33,4 +33,5 @@ public interface DepartmentEmployeeMapper {
 
 	List<DepartmentEmployeeDto> getDepartmentName(DepartmentEmployeeDto dto);
 
+	List<DepartmentEmployeeDto> getCompanyEmp(DepartmentEmployeeDto dto);
 }

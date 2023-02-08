@@ -383,5 +383,16 @@
 		workplace_seq =
 		#{workplaceSeq}
 	</select>
+	
+	<!-- 회사 seq에 해당하는 사원 조회 -->
+	<select id="getCompanyEmp"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
+		resultMap="departmentEmployeeMap">
+		select e.employee_seq, e.employee_name, e.employee_birth
+		from department_employee de
+		join employee e
+		on de.employee_seq = e.employee_seq
+		where de.company_seq = #{companySeq}
+	</select>
 
 </mapper>

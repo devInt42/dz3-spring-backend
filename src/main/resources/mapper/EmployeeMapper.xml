@@ -84,4 +84,8 @@
 		delete from employee
 		where employee_seq = #{employeeSeq}
 	</delete>
-</mapper> 
+	
+	<select id="checkId" parameterType="String" resultMap="employeeMap">
+		select * from employee where employee_id = #{employeeId}
+	</select>
+</mapper>  

@@ -29,4 +29,6 @@ public interface DepartmentEmployeeService {
 
 	DepartmentEmployeeDto getSelectEmployeeInfo(DepartmentEmployeeDto dto);
 
+	List<DepartmentEmployeeDto> getCompanyEmp(DepartmentEmployeeDto dto);
+	
 }

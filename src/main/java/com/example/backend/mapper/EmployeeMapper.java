@@ -10,6 +10,7 @@ public interface EmployeeMapper {
 	List<EmployeeDto> getEmpList();
 	List<EmployeeDto> getBySeq(int employeeSeq);
 	List<String> getLanguage();
+	List<EmployeeDto> checkId(String employeeId);
 	
 	void insertEmp(Map<String, String> map);
 	void deleteEmp(int employeeSeq);
