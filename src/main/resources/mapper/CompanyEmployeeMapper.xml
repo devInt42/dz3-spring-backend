@@ -22,6 +22,11 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="companyName" column="company_name"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeName" column="employee_name"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeBirth" column="employee_birth"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+
 	</resultMap>
 
 	<select id="check"
@@ -42,11 +47,13 @@
 		ce.company_seq =
 		c.company_seq
 		WHERE
-		employee_id = #{employeeId}
+		employee_id =
+		#{employeeId}
 		AND
 		company_code =
 		#{companyCode}
-		AND employee_pwd = #{employeePwd}
+		AND employee_pwd =
+		#{employeePwd}
 		AND e.use_yn = 'Y'
 	</select>
 	<select id="response"
@@ -94,6 +101,31 @@
 				AND ce.company_seq = #{companySeq}
 			</if>
 		</where>
+	</select>
+
+	<select id="getEmployeeList"
+		parameterType="com.example.backend.dto.mapping.CompanyEmployeeDto"
+		resultMap="companyEmployeeMap">
+		SELECT*FROM company_employee ce
+		JOIN employee e
+		ON
+		ce.employee_seq =
+		e.employee_seq
+		where
+		1=1
+		<if test="companySeq != null and companySeq !=''">
+			AND ce.company_seq = #{companySeq}
+		</if>
+		<if test="employeeName != null and employeeName !=''">
+			AND(
+			e.employee_name like CONCAT('%',#{employeeName},'%')
+			or
+			e.employee_id like CONCAT('%',#{employeeName},'%')
+			or
+			e.employee_cmail like CONCAT('%',#{employeeName},'%')
+			)
+		</if>
+
 	</select>
 
 </mapper> 

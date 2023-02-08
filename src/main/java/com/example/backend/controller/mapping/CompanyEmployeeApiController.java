@@ -59,4 +59,30 @@ public class CompanyEmployeeApiController {
 		return companyEmployeeService.getCompanyList(dto);
 	}
 
+	// 사원 소속 회사명 조회
+	@GetMapping("/emplist")
+	public List<CompanyEmployeeDto> getCompanyEmployeeList(
+			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
+			@RequestParam(required = false, name = "employeeName", defaultValue = "") String employeeName,
+			CompanyEmployeeDto dto, HttpServletRequest request) throws JSONException {
+		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+		dto.setEmployeeSeq((int) jObject.getInt("employeeSeq"));
+
+		if ((int) jObject.getInt("employeeSeq") == 999) {
+			// 마스터계정이 회사를 선택해서 본경우
+			if (!companySeq.equals(null) && !companySeq.equals("0")) {
+				dto.setCompanySeq(Integer.parseInt(companySeq));
+			}	
+		} else {
+			dto.setCompanySeq((int) jObject.getInt("companySeq"));
+		}
+
+		// 헤더로 보낸 토큰값의 회사번호를 dto에 set
+		if (!employeeName.equals(null) && !employeeName.equals("")) {
+			dto.setEmployeeName(employeeName);
+		}
+		System.out.println(dto);
+		return companyEmployeeService.getEmployeeList(dto);
+	}
+
 }
