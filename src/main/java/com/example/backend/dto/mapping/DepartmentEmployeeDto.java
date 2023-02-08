@@ -37,7 +37,8 @@ public class DepartmentEmployeeDto {
 	private String departmentFax;
 	private int departmentDepth;
 	private int departmentParent;
-	private int departmentZipCode;
+	private String departmentZipCode;
 	private String dutyCode;
 	private String positionCode;
+	private String employeeCode;
 }

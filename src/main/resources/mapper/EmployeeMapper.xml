@@ -7,8 +7,6 @@
 		type="com.example.backend.dto.EmployeeDto">
 		<result property="employeeSeq" column="employee_seq"
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
-		<result property="employeeCode" column="employee_code"
-			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeId" column="employee_id"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeName" column="employee_name"

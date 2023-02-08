@@ -20,4 +20,5 @@ public class CompanyEmployeeDto {
 	private String companyName;
 
 	private String companyCode;
+	private String employeeCode;
 }
