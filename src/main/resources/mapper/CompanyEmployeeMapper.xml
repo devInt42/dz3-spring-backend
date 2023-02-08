@@ -26,7 +26,8 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeBirth" column="employee_birth"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
-
+		<result property="employeeCode" column="employee_code"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="check"

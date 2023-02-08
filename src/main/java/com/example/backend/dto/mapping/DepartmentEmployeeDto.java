@@ -40,4 +40,5 @@ public class DepartmentEmployeeDto {
 	private	String departmentZipCode;
 	private String dutyCode;
 	private String positionCode;
+	private String employeeCode;
 }
