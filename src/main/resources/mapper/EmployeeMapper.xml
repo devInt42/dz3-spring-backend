@@ -27,10 +27,6 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeePicture" column="employee_picture"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
-		<result property="employeeJoin" column="employee_join"
-			javaType="java.sql.Date" jdbcType="DATE" />
-		<result property="employeeLeave" column="employee_leave"
-			javaType="java.sql.Date" jdbcType="DATE" />
 		<result property="useYN" column="use_yn"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeGender" column="employee_gender"
@@ -60,7 +56,7 @@
 	<insert id="insertEmp">
 		insert into employee 
 		(employee_code, employee_id, employee_name, employee_birth, employee_call, employee_pwd,
-		employee_ph, employee_pmail, employee_cmail, employee_addr, employee_picture, employee_join, employee_leave,
+		employee_ph, employee_pmail, employee_cmail, employee_addr, employee_picture, 
 		use_yn, employee_gender, employee_language, employee_hcall, approval_pwd)
 		VALUES
 		(#{employeeCode}, #{employeeId}, #{employeeName}, #{employeeBirth}, #{employeeCall}, #{employeePwd},
@@ -73,7 +69,7 @@
 		employee_code = #{employeeCode}, employee_id = #{employeeId}, employee_name = #{employeeName},
 		employee_birth = #{employeeBirth}, employee_call = #{employeeCall}, employee_pwd = #{employeePwd}, employee_ph = #{employeePh},
 		employee_pmail = #{employeePmail}, employee_cmail = #{employeeCmail}, employee_addr = #{employeeAddr}, employee_picture = #{employeePicture},
-		employee_join = #{employeeJoin}, employee_leave = #{employeeLeave}, use_yn = #{useYN}, employee_gender = #{employeeGender},
+		use_yn = #{useYN}, employee_gender = #{employeeGender},
 		employee_language = #{employeeLanguage}, employee_hcall = #{employeeHcall}, approval_pwd = #{approvalPwd}
 		where employee_seq = #{employeeSeq}
 	</update>

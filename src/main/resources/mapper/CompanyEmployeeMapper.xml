@@ -26,8 +26,12 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeBirth" column="employee_birth"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
-<result property="employeeCode" column="employee_code"
+		<result property="employeeCode" column="employee_code"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeJoin" column="employee_join"
+			javaType="java.sql.Date" jdbcType="DATE" />
+		<result property="employeeLeave" column="employee_leave"
+			javaType="java.sql.Date" jdbcType="DATE" />
 	</resultMap>
 
 	<select id="check"
