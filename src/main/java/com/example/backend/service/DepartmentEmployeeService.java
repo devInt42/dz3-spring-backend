@@ -37,4 +37,6 @@ public interface DepartmentEmployeeService {
 
 	List<DepartmentEmployeeDto> getCompanyEmp(DepartmentEmployeeDto dto);
 
+	List<DepartmentEmployeeDto> getDeptTree(DepartmentEmployeeDto dto);
+
 }
