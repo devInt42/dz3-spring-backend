@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class DepartmentApiController {
 	@Autowired
 	private DepartmentServiceImpl departmentService;
-	
+
 	@GetMapping("/list")
 	public List<DepartmentDto> getDepartmentList(@RequestParam("departmentDepth") String departmentDepth,
 			@RequestParam("departmentParent") String departmentParent, DepartmentDto dto) {
@@ -45,16 +45,17 @@ public class DepartmentApiController {
 		}
 		return departmentService.GetDepartmentCount(dto);
 	}
-	
+
 	@GetMapping("/list/company/{companySeq}")
-	public List<DepartmentDto> getCompany(@PathVariable("companySeq")int companySeq) {
+	public List<DepartmentDto> getCompany(@PathVariable("companySeq") int companySeq) {
 		return departmentService.GetCompany(companySeq);
 	}
+
 	@GetMapping("/list/company")
 	public List<DepartmentDto> getCompanyList(HttpServletRequest request) throws JSONException {
 		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
 		int companySeq = 0;
-		if(jObject.getInt("employeeSeq") != 999) {
+		if (jObject.getInt("employeeSeq") != 999) {
 			companySeq = jObject.getInt("companySeq");
 		}
 		return departmentService.GetCompanyList(companySeq);
@@ -87,6 +88,7 @@ public class DepartmentApiController {
 	public List<DepartmentDto> GetDepartmentParent(@PathVariable("workplaceSeq") int workplaceSeq) {
 		return departmentService.GetDepartmentParent(workplaceSeq);
 	}
+
 	@GetMapping("/info/check/")
 	public int DupliCheck(@RequestParam("departmentCode") int departmentCode,
 			@RequestParam("companySeq") int companySeq, DepartmentDto dto) {
@@ -155,4 +157,5 @@ public class DepartmentApiController {
 		System.out.println(dto);
 		return departmentService.FindDepartment(dto);
 	}
+
 }

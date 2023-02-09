@@ -9,12 +9,10 @@ import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.backend.dto.DepartmentDto;
 import com.example.backend.dto.mapping.DepartmentEmployeeDto;
 import com.example.backend.service.DepartmentEmployeeServiceImpl;
 
@@ -253,6 +251,11 @@ public class DepartmentEmployeeApiController {
 			dto.setCompanySeq((int) jObject.get("companySeq"));
 		}
 		return departmentEmployeeService.getEmployeeDepartmentTree(dto);
+	}
+	
+	@GetMapping("/tree")
+	public List<DepartmentEmployeeDto> getDepartmentList(@RequestParam("departmentSeq") String departmentSeq, DepartmentEmployeeDto dto) {
+		return departmentEmployeeService.getDeptTree(dto);
 	}
 
 	// 해당 직원의 회사, 사업장, 부서 이름 select

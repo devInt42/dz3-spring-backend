@@ -472,32 +472,53 @@
 	<select id="getTree"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
-		SELECT distinct de.department_seq, d.department_name,
-		d.department_depth,
-		d.department_parent FROM department_employee de
-		JOIN department d
-		ON de.department_seq = d.department_seq
-		JOIN employee
-		e
-		ON de.employee_seq = e.employee_seq
-		where
-		de.company_seq =
-		#{companySeq}
-		and
-		de.department_seq = #{departmentSeq}
-		<if test="employeeSeq != null and employeeSeq !=''">
-			and de.employee_seq = #{employeeSeq}
-		</if>
-		UNION ALL
-		SELECT d2.department_seq, d2.department_name,
-		d2.department_depth, d2.department_parent from department d2
+		WITH recursive cte AS (
+		SELECT d.department_seq,
+		d.department_parent,
+		d.department_name, d.department_depth
+		FROM
+		department d
+		JOIN
+		department_employee de
+		ON d.department_seq =
+		de.department_seq
 		WHERE
-		d2.department_seq = (
-		SELECT department_parent FROM department d3 WHERE
-		department_seq= #{departmentSeq}
+		d.department_seq=#{departmentSeq} AND
+		de.employee_seq=#{employeeSeq} AND
+		de.company_seq=#{companySeq}
+		UNION
+		ALL
+		SELECT d2.department_seq,
+		d2.department_parent, d2.department_name,
+		d2.department_depth
+		FROM cte
+		INNER JOIN department d2
+		ON
+		cte.department_parent = d2.department_seq
 		)
-		ORDER BY department_depth asc
+		SELECT * FROM cte ORDER BY
+		department_depth
 	</select>
+
+	<select id="getDeptTree"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
+		resultMap="departmentEmployeeMap">
+		WITH recursive cte AS (
+		SELECT department_seq,
+		department_parent, department_name, department_depth
+		FROM department
+		WHERE department_seq=#{departmentSeq}
+		UNION ALL
+		SELECT d.department_seq,
+		d.department_parent, d.department_name,
+		d.department_depth
+		FROM cte
+		INNER JOIN department d
+		ON cte.department_parent = d.department_seq
+		)
+		SELECT * FROM cte ORDER BY department_depth
+	</select>
+
 	<select id="getBelongNames"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
