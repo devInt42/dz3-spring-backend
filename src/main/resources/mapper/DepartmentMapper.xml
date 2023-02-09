@@ -52,9 +52,6 @@
 		resultMap="departmentMap">
 		SELECT company_seq,
 		company_code, company_name from company
-		<if test="companySeq == 0">
-			LIMIT 1
-		</if>
 		<where>
 		<if test="companySeq != 0">
 				company_seq = #{companySeq}
