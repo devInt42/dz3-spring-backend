@@ -10,6 +10,8 @@ public class EmployeeDto {
 	private String employeeId;
 	private String employeeName;
 	private Date employeeBirth;
+	private Date employeeJoin;
+	private Date employeeLeave;
 	private String employeeCall;
 	private String employeePwd;
 	private String employeePh;
