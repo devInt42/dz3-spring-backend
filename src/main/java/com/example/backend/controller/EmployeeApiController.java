@@ -68,9 +68,12 @@ public class EmployeeApiController {
    // 사원 저장시 로그인ID 중복조회
    @GetMapping("/emplist/checkid")
    public List<EmployeeDto> checkID(@RequestParam("employeeId") String employeeId){
-	   System.out.println(employeeService.checkId(employeeId));
 	   return employeeService.checkId(employeeId);
    }
    
    // 사원 저장시 메일ID 중복조회
+   @GetMapping("/emplist/checkcmail")
+   public List<EmployeeDto> checkCmail(@RequestParam("employeeCmail") String employeeCmail){
+	   return employeeService.checkCmail(employeeCmail);
+   }
 }

@@ -86,4 +86,8 @@
 	<select id="checkId" parameterType="String" resultMap="employeeMap">
 		select * from employee where employee_id = #{employeeId}
 	</select>
+	
+	<select id="checkCmail" parameterType="String" resultMap="employeeMap">
+		select * from employee where employee_cmail = #{employeeCmail}
+	</select>
 </mapper>  
