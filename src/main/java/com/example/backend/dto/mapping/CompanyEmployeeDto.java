@@ -1,5 +1,7 @@
 package com.example.backend.dto.mapping;
 
+import java.sql.Date;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
@@ -21,4 +23,7 @@ public class CompanyEmployeeDto {
 
 	private String companyCode;
 	private String employeeCode;
+	
+	private Date employeeJoin;
+	private Date employeeLeave;
 }

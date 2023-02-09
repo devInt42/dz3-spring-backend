@@ -17,8 +17,6 @@ public class EmployeeDto {
 	private String employeeCmail;
 	private String employeeAddr;
 	private String employeePicture;
-	private Date employeeJoin;
-	private Date employeeLeave;
 	private String useYN;
 	private String employeeGender;
 	private String employeeLanguage;
