@@ -54,4 +54,9 @@ public class AuthEmployeeServiceImpl implements AuthEmployeeService {
 		return sqlSession.getMapper(AuthEmployeeMapper.class).getMenuListByAuthEmployee(dto);
 	}
 
+	@Override
+	public int checkAvailability(AuthEmployeeDto dto) {
+		return sqlSession.getMapper(AuthEmployeeMapper.class).checkAvailability(dto);
+	}
+
 }

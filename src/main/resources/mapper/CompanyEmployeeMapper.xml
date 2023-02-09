@@ -111,7 +111,7 @@
 	<select id="getEmployeeList"
 		parameterType="com.example.backend.dto.mapping.CompanyEmployeeDto"
 		resultMap="companyEmployeeMap">
-		SELECT*FROM company_employee ce
+		SELECT  distinct ce.employee_seq, e.employee_name, e.employee_birth, e.employee_id FROM company_employee ce
 		JOIN employee e
 		ON
 		ce.employee_seq =

@@ -135,4 +135,18 @@ public class AuthEmployeeApiController {
 			authEmployeeService.deleteAuthEmployee(list);
 		}
 	}
+
+	// 사용자별 페이지 권한 조회
+	@GetMapping("/availability")
+	public int checkAvailability(@RequestParam("menuUrl") String menuUrl,
+			AuthEmployeeDto dto, HttpServletRequest request) throws JSONException {
+		JSONObject jObject = new JSONObject(request.getHeader("Authorization"));
+		dto.setEmployeeSeq((int) jObject.getInt("employeeSeq"));
+		dto.setCompanySeq((int) jObject.getInt("companySeq"));
+
+		dto.setMenuUrl(menuUrl);
+		System.out.println(dto);
+		return authEmployeeService.checkAvailability(dto);
+	}
+
 }
