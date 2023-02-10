@@ -36,5 +36,8 @@ public interface DepartmentEmployeeService {
 	List<DepartmentEmployeeDto> getDepartmentSelectList(int companySeq);
 
 	List<DepartmentEmployeeDto> getCompanyEmp(DepartmentEmployeeDto dto);
-
+	
+	List<DepartmentEmployeeDto> getPosition();
+	
+	List<DepartmentEmployeeDto> getDuty();
 }

@@ -276,4 +276,15 @@ public class DepartmentEmployeeApiController {
 		System.out.println(departmentEmployeeService.getCompanyEmp(dto));
 		return departmentEmployeeService.getCompanyEmp(dto);
 	}
+	
+	//직급 조회
+	@GetMapping("/position")
+	public List<DepartmentEmployeeDto> getPosition() {
+		return departmentEmployeeService.getPosition();
+	}
+	//직책 조회
+	@GetMapping("/duty")
+	public List<DepartmentEmployeeDto> getDuty() {
+		return departmentEmployeeService.getDuty();
+	}
 }

@@ -67,6 +67,10 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="positionCode" column="position_code"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property= "employeeJoin" column = "employee_join"
+			javaType = "java.sql.Date" jdbcType = "DATE"/>
+		<result property= "employeeLeave" column = "employee_leave"
+			javaType = "java.sql.Date" jdbcType = "DATE"/>
 	</resultMap>
 
 	<select id="getList"
@@ -500,10 +504,10 @@
 		SELECT distinct c.company_name, de.company_seq,
 		d.department_name, de.department_seq,
 		d.department_call, d.department_fax, d.department_loc,
-		e.employee_seq, e.employee_join, e.employee_leave, de.main_company_yn,
+		e.employee_seq, de.main_company_yn,
 		de.main_department_yn,
 		cod.duty, cod.position, d.department_zipcode,de.duty_code, de.position_code,
-		ce.employee_code
+		ce.employee_code, ce.employee_join, ce.employee_leave
 		FROM department_employee de
 		JOIN company_employee ce
 		ON de.employee_seq = ce.employee_seq
@@ -560,5 +564,12 @@
 		where
 		ce.company_seq =
 		#{companySeq}
+	</select>
+	
+	<select id = "getPosition" resultMap = "departmentEmployeeMap">
+		select detail_code as position_code, detail_code_name as position from code where code = 'POSITION'
+	</select>
+	<select id = "getDuty" resultMap = "departmentEmployeeMap">
+		select detail_code as duty_code, detail_code_name as duty from code where code = 'DUTY'
 	</select>
 </mapper>
