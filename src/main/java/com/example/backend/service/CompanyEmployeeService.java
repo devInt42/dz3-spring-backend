@@ -12,5 +12,7 @@ public interface CompanyEmployeeService {
 	List<CompanyEmployeeDto> getCompanyList(CompanyEmployeeDto dto);
 
 	List<CompanyEmployeeDto> getEmployeeList(CompanyEmployeeDto dto);
+	
+	List<CompanyEmployeeDto> getAllCompanyList(CompanyEmployeeDto dto);
 
 }

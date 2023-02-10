@@ -13,4 +13,6 @@ public interface CompanyEmployeeMapper {
 
 	List<CompanyEmployeeDto> getEmployeeList(CompanyEmployeeDto dto);
 
+	List<CompanyEmployeeDto> getAllList(CompanyEmployeeDto dto);
+
 }

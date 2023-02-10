@@ -30,5 +30,9 @@ public class CompanyEmployeeServiceImpl implements CompanyEmployeeService {
 		return sqlSession.getMapper(CompanyEmployeeMapper.class).getEmployeeList(dto);
 
 	}
+	@Override
+	public List<CompanyEmployeeDto> getAllCompanyList(CompanyEmployeeDto dto) {
+		return sqlSession.getMapper(CompanyEmployeeMapper.class).getAllList(dto);
+	}
 
 }
