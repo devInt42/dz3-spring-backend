@@ -594,4 +594,10 @@
 		ce.company_seq =
 		#{companySeq}
 	</select>
+
+	<select id="getAllCompany" parameterType="int"
+		resultMap="departmentEmployeeMap">
+		SELECT company_seq, company_name from company
+	</select>
+	
 </mapper>

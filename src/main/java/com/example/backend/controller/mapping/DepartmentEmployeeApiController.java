@@ -79,11 +79,19 @@ public class DepartmentEmployeeApiController {
 
 		if (!companySeq.equals(null) && !companySeq.equals("")) {
 			dto.setCompanySeq(Integer.parseInt(companySeq));
+			return departmentEmployeeService.getCompanyElement(dto);
+
 		} else { // 회사 seq가 없을 경우 헤더로 보낸 토큰값의 회사번호를 dto에 set함.
-			dto.setCompanySeq((int) jObject.get("companySeq"));
-			dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
+			if ((int) jObject.get("employeeSeq") == 999) {
+				return departmentEmployeeService.getAllCompany(dto);
+
+			} else {// admin 계정이 아닌 경우
+				dto.setCompanySeq((int) jObject.get("companySeq"));
+				dto.setEmployeeSeq((int) jObject.get("employeeSeq"));
+				return departmentEmployeeService.getCompanyElement(dto);
+
+			}
 		}
-		return departmentEmployeeService.getCompanyElement(dto);
 
 	}
 
@@ -252,15 +260,17 @@ public class DepartmentEmployeeApiController {
 		}
 		return departmentEmployeeService.getEmployeeDepartmentTree(dto);
 	}
-	
+
 	@GetMapping("/tree")
-	public List<DepartmentEmployeeDto> getDepartmentList(@RequestParam("departmentSeq") String departmentSeq, DepartmentEmployeeDto dto) {
+	public List<DepartmentEmployeeDto> getDepartmentList(@RequestParam("departmentSeq") String departmentSeq,
+			DepartmentEmployeeDto dto) {
 		return departmentEmployeeService.getDeptTree(dto);
 	}
 
 	// 해당 직원의 회사, 사업장, 부서 이름 select
 	@GetMapping("/belong")
-	public List<DepartmentEmployeeDto> getBelongNames(@RequestParam("employeeSeq") int employeeSeq, DepartmentEmployeeDto dto) {
+	public List<DepartmentEmployeeDto> getBelongNames(@RequestParam("employeeSeq") int employeeSeq,
+			DepartmentEmployeeDto dto) {
 		dto.setEmployeeSeq(employeeSeq);
 		return departmentEmployeeService.getBelongNames(dto);
 	}

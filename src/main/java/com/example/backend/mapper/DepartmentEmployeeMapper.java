@@ -36,10 +36,13 @@ public interface DepartmentEmployeeMapper {
 	List<DepartmentEmployeeDto> getTree(DepartmentEmployeeDto dto);
 
 	List<DepartmentEmployeeDto> getDeptTree(DepartmentEmployeeDto dto);
-	
+
 	List<DepartmentEmployeeDto> getBelongNames(DepartmentEmployeeDto dto);
 
 	List<DepartmentEmployeeDto> getDepartmentSelectList(int companySeq);
 
 	List<DepartmentEmployeeDto> getCompanyEmp(DepartmentEmployeeDto dto);
+
+	List<DepartmentEmployeeDto> getAllCompany(DepartmentEmployeeDto dto);
+
 }
