@@ -56,6 +56,9 @@ public class EmployeeApiController {
 	public void updateEmp(@PathVariable(required = true) String employeeSeq,
 			@RequestBody(required = true) Map<String, String> map) {
 	   map.put("employeeSeq", employeeSeq);
+	   if(map.get("employeeLeave").equals("")) {
+		   map.put("employeeLeave", null);
+	   }
 	   employeeService.updateEmp(map);
    }
    

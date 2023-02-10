@@ -59,21 +59,21 @@
 	
 	<insert id="insertEmp">
 		insert into employee 
-		(employee_code, employee_id, employee_name, employee_birth, employee_call, employee_pwd,
-		employee_ph, employee_pmail, employee_cmail, employee_addr, employee_picture, 
+		(employee_id, employee_name, employee_birth, employee_call, employee_pwd,
+		employee_ph, employee_pmail, employee_cmail, employee_addr, employee_picture, employee_join,
 		use_yn, employee_gender, employee_language, employee_hcall, approval_pwd)
 		VALUES
-		(#{employeeCode}, #{employeeId}, #{employeeName}, #{employeeBirth}, #{employeeCall}, #{employeePwd},
+		(#{employeeId}, #{employeeName}, #{employeeBirth}, #{employeeCall}, #{employeePwd},
 		#{employeePh}, #{employeePmail}, #{employeeCmail}, #{employeeAddr}, #{employeePicture}, #{employeeJoin},
-		#{employeeLeave}, #{useYN}, #{employeeGender}, #{employeeLanguage}, #{employeeHcall}, #{approvalPwd})
+		 #{useYN}, #{employeeGender}, #{employeeLanguage}, #{employeeHcall}, #{approvalPwd})
 	</insert>
 	
 	<update id="updateEmp">
 		update employee set 
-		employee_code = #{employeeCode}, employee_id = #{employeeId}, employee_name = #{employeeName},
+		employee_id = #{employeeId}, employee_name = #{employeeName},
 		employee_birth = #{employeeBirth}, employee_call = #{employeeCall}, employee_pwd = #{employeePwd}, employee_ph = #{employeePh},
 		employee_pmail = #{employeePmail}, employee_cmail = #{employeeCmail}, employee_addr = #{employeeAddr}, employee_picture = #{employeePicture},
-		use_yn = #{useYN}, employee_gender = #{employeeGender},
+		use_yn = #{useYN}, employee_gender = #{employeeGender}, employee_join = #{employeeJoin}, employee_leave = #{employeeLeave},
 		employee_language = #{employeeLanguage}, employee_hcall = #{employeeHcall}, approval_pwd = #{approvalPwd}
 		where employee_seq = #{employeeSeq}
 	</update>
