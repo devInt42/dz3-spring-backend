@@ -111,29 +111,27 @@ public class DepartmentApiController {
 	}
 
 	@PostMapping("/insert")
-	public void InsertDepartment(@RequestBody DepartmentDto dto,
-			@RequestParam("departmentParentDepth") int departmentParentDepth) {
+	public void InsertDepartment(@RequestBody DepartmentDto dto) {
+		dto.setDepartmentSeq(0);
 		if (dto.getUseYN() == null || dto.getUseYN() == "") {
 			dto.setUseYN("N");
 		}
 		if (dto.getDepartmentParent() == 0) {
 			dto.setDepartmentDepth(0);
 		} else {
-			dto.setDepartmentDepth(departmentParentDepth + 1);
+			dto.setDepartmentDepth(dto.getDepartmentDepth() + 1);
 		}
 		departmentService.InsertDepartment(dto);
 	}
 
-	@PostMapping("/update/{seq}")
-	public void UpdateDepartment(@RequestBody DepartmentDto dto, @PathVariable("seq") int seq,
-			@RequestParam("departmentParentDepth") int departmentParentDepth) {
+	@PostMapping("/update")
+	public void UpdateDepartment(@RequestBody DepartmentDto dto) {
 
 		if (dto.getDepartmentParent() == 0) {
 			dto.setDepartmentDepth(0);
 		} else {
-			dto.setDepartmentDepth(departmentParentDepth + 1);
+			dto.setDepartmentDepth(dto.getDepartmentDepth() + 1);
 		}
-		dto.setDepartmentSeq(seq);
 		departmentService.UpdateDepartment(dto);
 	}
 
