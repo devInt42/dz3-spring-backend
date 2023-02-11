@@ -71,6 +71,8 @@
 			javaType = "java.sql.Date" jdbcType = "DATE"/>
 		<result property= "employeeLeave" column = "employee_leave"
 			javaType = "java.sql.Date" jdbcType = "DATE"/>
+		<result property= "employeeClassification" column = "employee_classification"
+			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
 	</resultMap>
 
 	<select id="getList"
@@ -507,7 +509,7 @@
 		e.employee_seq, de.main_company_yn,
 		de.main_department_yn,
 		cod.duty, cod.position, d.department_zipcode,de.duty_code, de.position_code,
-		ce.employee_code, ce.employee_join, ce.employee_leave
+		ce.employee_code, ce.employee_join, ce.employee_leave, ce.employee_classification
 		FROM department_employee de
 		JOIN company_employee ce
 		ON de.employee_seq = ce.employee_seq
