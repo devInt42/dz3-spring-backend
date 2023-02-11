@@ -574,4 +574,8 @@
 	<select id = "getDuty" resultMap = "departmentEmployeeMap">
 		select detail_code as duty_code, detail_code_name as duty from code where code = 'DUTY'
 	</select>
+	
+	<update id = "updateGroupInfo" parameterType = "com.example.backend.dto.mapping.DepartmentEmployeeDto">
+	
+	</update>
 </mapper>

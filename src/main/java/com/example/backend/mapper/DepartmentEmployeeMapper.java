@@ -44,4 +44,6 @@ public interface DepartmentEmployeeMapper {
 	List<DepartmentEmployeeDto> getPosition();
 	
 	List<DepartmentEmployeeDto> getDuty();
+	
+	void updateGroupInfo(DepartmentEmployeeDto dto);
 }

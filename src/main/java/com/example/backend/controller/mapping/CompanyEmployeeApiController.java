@@ -84,5 +84,15 @@ public class CompanyEmployeeApiController {
 		System.out.println(dto);
 		return companyEmployeeService.getEmployeeList(dto);
 	}
-
+	
+	//사원 코드 중복체크
+	@GetMapping("/duplicheck")
+	public int codeDupliCheck(@RequestParam("companySeq") int companySeq,
+			@RequestParam("employeeCode") String employeeCode, CompanyEmployeeDto dto) {
+		
+		dto.setCompanySeq(companySeq);
+		dto.setEmployeeCode(employeeCode);
+		return companyEmployeeService.codeDupliCheck(dto);
+	}
+	
 }

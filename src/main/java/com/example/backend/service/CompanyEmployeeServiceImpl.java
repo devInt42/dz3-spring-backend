@@ -30,5 +30,9 @@ public class CompanyEmployeeServiceImpl implements CompanyEmployeeService {
 		return sqlSession.getMapper(CompanyEmployeeMapper.class).getEmployeeList(dto);
 
 	}
+	@Override
+	public int codeDupliCheck(CompanyEmployeeDto dto) {
+		return sqlSession.getMapper(CompanyEmployeeMapper.class).codeDupliCheck(dto);
+	}
 
 }

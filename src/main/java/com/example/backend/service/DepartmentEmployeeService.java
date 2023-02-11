@@ -40,4 +40,6 @@ public interface DepartmentEmployeeService {
 	List<DepartmentEmployeeDto> getPosition();
 	
 	List<DepartmentEmployeeDto> getDuty();
+	
+	void updateGroupInfo(DepartmentEmployeeDto dto);
 }

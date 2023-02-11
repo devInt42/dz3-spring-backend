@@ -106,6 +106,11 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 	public List<DepartmentEmployeeDto> getDuty() {
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getDuty();
 	}
+
+	@Override
+	public void updateGroupInfo(DepartmentEmployeeDto dto) {
+		sqlSession.getMapper(DepartmentEmployeeMapper.class).updateGroupInfo(dto);
+	}
 	
 	
 	

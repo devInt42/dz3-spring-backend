@@ -12,5 +12,7 @@ public interface CompanyEmployeeMapper {
 	List<CompanyEmployeeDto> getList(CompanyEmployeeDto dto);
 
 	List<CompanyEmployeeDto> getEmployeeList(CompanyEmployeeDto dto);
+	
+	int codeDupliCheck(CompanyEmployeeDto dto);
 
 }
