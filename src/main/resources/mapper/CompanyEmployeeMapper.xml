@@ -32,6 +32,9 @@
 			javaType="java.sql.Date" jdbcType="DATE" />
 		<result property="employeeLeave" column="employee_leave"
 			javaType="java.sql.Date" jdbcType="DATE" />
+		<result property="employeeClassification"
+			column="employee_classification" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="check"
@@ -86,8 +89,8 @@
 		AND
 		employee_pwd = #{employeePwd}
 		AND e.use_yn = 'Y'
-
 	</select>
+
 	<select id="getList"
 		parameterType="com.example.backend.dto.mapping.CompanyEmployeeDto"
 		resultMap="companyEmployeeMap">
@@ -113,11 +116,13 @@
 		resultMap="companyEmployeeMap">
 		SELECT*FROM company
 	</select>
+
 	<select id="getEmployeeList"
 		parameterType="com.example.backend.dto.mapping.CompanyEmployeeDto"
 		resultMap="companyEmployeeMap">
 		SELECT distinct ce.employee_seq, e.employee_name, e.employee_birth,
-		e.employee_id FROM company_employee ce
+		e.employee_id
+		FROM company_employee ce
 		JOIN employee e
 		ON
 		ce.employee_seq =
@@ -136,12 +141,17 @@
 			e.employee_cmail like CONCAT('%',#{employeeName},'%')
 			)
 		</if>
-
+		<if
+			test='employeeClassification != null and employeeClassification !="" and employeeClassification !="0"'>
+			And ce.employee_classification = #{employeeClassification}
+		</if>
 	</select>
-	
-	<select id = "codeDupliCheck" parameterType = "com.example.backend.dto.mapping.CompanyEmployeeDto"
-	resultType = "int">
-		SELECT COUNT(*) FROM company_employee where company_seq = #{companySeq} and 
+
+	<select id="codeDupliCheck"
+		parameterType="com.example.backend.dto.mapping.CompanyEmployeeDto"
+		resultType="int">
+		SELECT COUNT(*) FROM company_employee where company_seq =
+		#{companySeq} and
 		employee_code = #{employeeCode}
 	</select>
 

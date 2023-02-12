@@ -37,6 +37,7 @@ public class CompanyEmployeeServiceImpl implements CompanyEmployeeService {
 	public List<CompanyEmployeeDto> getAllCompanyList(CompanyEmployeeDto dto) {
 		return sqlSession.getMapper(CompanyEmployeeMapper.class).getAllList(dto);
 	}
+
 	public int codeDupliCheck(CompanyEmployeeDto dto) {
 		return sqlSession.getMapper(CompanyEmployeeMapper.class).codeDupliCheck(dto);
 	}
