@@ -9,13 +9,13 @@ import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.backend.dto.mapping.DepartmentEmployeeDto;
 import com.example.backend.service.DepartmentEmployeeServiceImpl;
-
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -288,5 +288,23 @@ public class DepartmentEmployeeApiController {
 		dto.setCompanySeq(Integer.parseInt(companySeq));
 		System.out.println(departmentEmployeeService.getCompanyEmp(dto));
 		return departmentEmployeeService.getCompanyEmp(dto);
+	}
+
+	// 직급 조회
+	@GetMapping("/position")
+	public List<DepartmentEmployeeDto> getPosition() {
+		return departmentEmployeeService.getPosition();
+	}
+
+	// 직책 조회
+	@GetMapping("/duty")
+	public List<DepartmentEmployeeDto> getDuty() {
+		return departmentEmployeeService.getDuty();
+	}
+
+	// 직원 조직정보 수정
+	@PostMapping("/update")
+	public void updateGroupInfo(@RequestBody DepartmentEmployeeDto dto) {
+		departmentEmployeeService.updateGroupInfo(dto);
 	}
 }

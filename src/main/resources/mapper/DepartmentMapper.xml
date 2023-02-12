@@ -52,9 +52,6 @@
 		resultMap="departmentMap">
 		SELECT company_seq,
 		company_code, company_name from company
-		<if test="companySeq == 0">
-			LIMIT 1
-		</if>
 		<where>
 		<if test="companySeq != 0">
 				company_seq = #{companySeq}
@@ -118,7 +115,7 @@
 		parameterType="com.example.backend.dto.DepartmentDto">
 		INSERT INTO department values
 		(#{departmentSeq}, #{companySeq},#{workplaceSeq},#{departmentCode}, #{departmentName}, #{departmentCall}, #{departmentFax},
-		#{departmentLoc}, #{departmentParent},#{useYN}, #{departmentDepth})
+		#{departmentLoc}, #{departmentParent},#{useYN}, #{departmentDepth}, #{departmentZipCode})
 	</insert>
 
 	<update id="UpdateDepartment"
@@ -126,7 +123,7 @@
 		UPDATE department SET department_code = #{departmentCode},
 		department_name=#{departmentName},department_call = #{departmentCall}, department_fax = #{departmentFax}, department_loc = #{departmentLoc},
 		department_parent = #{departmentParent}
-		, use_yn = #{useYN}, department_depth = #{departmentDepth} where
+		, use_yn = #{useYN}, department_depth = #{departmentDepth}, department_zipcode = #{departmentZipCode} where
 		department_seq = #{departmentSeq}
 	</update>
 

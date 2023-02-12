@@ -45,4 +45,9 @@ public interface DepartmentEmployeeMapper {
 
 	List<DepartmentEmployeeDto> getAllCompany(DepartmentEmployeeDto dto);
 
+	List<DepartmentEmployeeDto> getPosition();
+
+	List<DepartmentEmployeeDto> getDuty();
+
+	void updateGroupInfo(DepartmentEmployeeDto dto);
 }

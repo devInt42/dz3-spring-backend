@@ -138,5 +138,11 @@
 		</if>
 
 	</select>
+	
+	<select id = "codeDupliCheck" parameterType = "com.example.backend.dto.mapping.CompanyEmployeeDto"
+	resultType = "int">
+		SELECT COUNT(*) FROM company_employee where company_seq = #{companySeq} and 
+		employee_code = #{employeeCode}
+	</select>
 
 </mapper> 
