@@ -74,6 +74,9 @@
 		<result property="employeeClassification"
 			column="employee_classification" javaType="java.lang.String"
 			jdbcType="VARCHAR" />
+		<result property="companyHomepage"
+			column="company_homepage" javaType="java.lang.String"
+			jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="getList"
@@ -139,7 +142,7 @@
 		SELECT
 		de.company_seq,de.workplace_seq,de.department_seq,de.employee_seq,w.workplace_name,d.department_name,
 		c.company_name,e.employee_name,e.employee_pmail,
-		e.employee_cmail,cod.duty,cod.position ,
+		e.employee_cmail,cod.duty,cod.position ,c.company_homepage,
 		e.employee_id
 		FROM
 		department_employee de
@@ -372,7 +375,7 @@
 		resultMap="departmentEmployeeMap">
 		SELECT distinct
 		de.company_seq,de.workplace_seq,de.department_seq,de.employee_seq,w.workplace_name,d.department_name,
-		c.company_name,e.employee_name,e.employee_pmail, e.employee_cmail,
+		c.company_name,e.employee_name,e.employee_pmail, e.employee_cmail,c.company_homepage,
 		cod.duty,cod.position ,
 		e.employee_id
 		FROM

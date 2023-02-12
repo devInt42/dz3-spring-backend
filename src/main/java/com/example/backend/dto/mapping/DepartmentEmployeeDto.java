@@ -44,4 +44,5 @@ public class DepartmentEmployeeDto {
 	private Date employeeJoin;
 	private Date employeeLeave;
 	private String employeeClassification;
+	private String companyHomepage;
 }
