@@ -17,6 +17,7 @@ public class CompanyEmployeeServiceImpl implements CompanyEmployeeService {
 	public CompanyEmployeeDto checkLogin(CompanyEmployeeDto dto) {
 		return sqlSession.getMapper(CompanyEmployeeMapper.class).check(dto);
 	}
+
 	public CompanyEmployeeDto responseLogin(CompanyEmployeeDto dto) {
 		return sqlSession.getMapper(CompanyEmployeeMapper.class).response(dto);
 	}
@@ -25,10 +26,19 @@ public class CompanyEmployeeServiceImpl implements CompanyEmployeeService {
 	public List<CompanyEmployeeDto> getCompanyList(CompanyEmployeeDto dto) {
 		return sqlSession.getMapper(CompanyEmployeeMapper.class).getList(dto);
 	}
+
 	@Override
 	public List<CompanyEmployeeDto> getEmployeeList(CompanyEmployeeDto dto) {
 		return sqlSession.getMapper(CompanyEmployeeMapper.class).getEmployeeList(dto);
 
+	}
+
+	@Override
+	public List<CompanyEmployeeDto> getAllCompanyList(CompanyEmployeeDto dto) {
+		return sqlSession.getMapper(CompanyEmployeeMapper.class).getAllList(dto);
+	}
+	public int codeDupliCheck(CompanyEmployeeDto dto) {
+		return sqlSession.getMapper(CompanyEmployeeMapper.class).codeDupliCheck(dto);
 	}
 
 }

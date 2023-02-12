@@ -55,8 +55,11 @@ public class CompanyEmployeeApiController {
 		// 헤더로 보낸 토큰값의 회사번호를 dto에 set
 		if ((int) jObject.get("employeeSeq") != 999) {// admin 계정이 아닐경우
 			dto.setCompanySeq((int) jObject.get("companySeq"));
+			return companyEmployeeService.getCompanyList(dto);
+
+		}else {
+			return companyEmployeeService.getAllCompanyList(dto);
 		}
-		return companyEmployeeService.getCompanyList(dto);
 	}
 
 	// 사원 소속 회사명 조회
@@ -84,5 +87,15 @@ public class CompanyEmployeeApiController {
 		System.out.println(dto);
 		return companyEmployeeService.getEmployeeList(dto);
 	}
-
+	
+	//사원 코드 중복체크
+	@GetMapping("/duplicheck")
+	public int codeDupliCheck(@RequestParam("companySeq") int companySeq,
+			@RequestParam("employeeCode") String employeeCode, CompanyEmployeeDto dto) {
+		
+		dto.setCompanySeq(companySeq);
+		dto.setEmployeeCode(employeeCode);
+		return companyEmployeeService.codeDupliCheck(dto);
+	}
+	
 }

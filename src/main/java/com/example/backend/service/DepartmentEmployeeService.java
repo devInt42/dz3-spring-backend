@@ -39,4 +39,11 @@ public interface DepartmentEmployeeService {
 
 	List<DepartmentEmployeeDto> getDeptTree(DepartmentEmployeeDto dto);
 
+	List<DepartmentEmployeeDto> getAllCompany(DepartmentEmployeeDto dto);
+
+	List<DepartmentEmployeeDto> getPosition();
+
+	List<DepartmentEmployeeDto> getDuty();
+
+	void updateGroupInfo(DepartmentEmployeeDto dto);
 }

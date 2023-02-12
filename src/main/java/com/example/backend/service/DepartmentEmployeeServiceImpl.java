@@ -102,4 +102,24 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getDeptTree(dto);
 	}
 
+	@Override
+	public List<DepartmentEmployeeDto> getAllCompany(DepartmentEmployeeDto dto) {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getAllCompany(dto);
+
+	}
+
+	public List<DepartmentEmployeeDto> getPosition() {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getPosition();
+	}
+
+	@Override
+	public List<DepartmentEmployeeDto> getDuty() {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getDuty();
+	}
+
+	@Override
+	public void updateGroupInfo(DepartmentEmployeeDto dto) {
+		sqlSession.getMapper(DepartmentEmployeeMapper.class).updateGroupInfo(dto);
+	}
+
 }

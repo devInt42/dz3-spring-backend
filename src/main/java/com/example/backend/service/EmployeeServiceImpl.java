@@ -51,4 +51,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public List<EmployeeDto> checkId(String employeeId) {
 		return sqlSession.getMapper(EmployeeMapper.class).checkId(employeeId);
 	}
+
+	@Override
+	public List<EmployeeDto> checkCmail(String employeeCmail) {
+		return sqlSession.getMapper(EmployeeMapper.class).checkCmail(employeeCmail);
+	}
 }
