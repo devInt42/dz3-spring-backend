@@ -506,7 +506,7 @@
 		SELECT distinct c.company_name, de.company_seq,
 		d.department_name, de.department_seq,
 		d.department_call, d.department_fax, d.department_loc,
-		e.employee_seq, de.main_company_yn,
+		e.employee_seq, de.main_company_yn, w.workplace_seq, w.workplace_name,
 		de.main_department_yn,
 		cod.duty, cod.position, d.department_zipcode,de.duty_code, de.position_code,
 		ce.employee_code, ce.employee_join, ce.employee_leave, ce.employee_classification
