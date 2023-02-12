@@ -599,5 +599,5 @@
 		resultMap="departmentEmployeeMap">
 		SELECT company_seq, company_name from company
 	</select>
-	
+
 </mapper>
