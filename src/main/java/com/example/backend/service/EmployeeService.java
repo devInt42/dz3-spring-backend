@@ -11,6 +11,7 @@ public interface EmployeeService {
 	List<EmployeeDto> getEmployeeBySeq(int employeeSeq);
 	List<String> getLanguage();
 	List<EmployeeDto> checkId(String employeeId);
+	List<EmployeeDto> checkCmail(String employeeCmail);
 	
 	void insertEmp(Map<String, String> map);
 	void updateEmp(Map<String, String> map);
