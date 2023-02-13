@@ -210,6 +210,27 @@
 		workplace w
 		on
 		de.workplace_seq = w.workplace_seq
+		JOIN
+		(
+		SELECT dres.detail_code as
+		duty_code, dres.detail_code_name AS duty,
+		pres.detail_code AS
+		position_code,pres.detail_code_name AS position
+		FROM
+		(SELECT dcode.code,
+		dcode.detail_code, dcode.detail_code_name
+		FROM code dcode
+		WHERE
+		code='DUTY') dres,
+		(SELECT pcode.code, pcode.detail_code,
+		pcode.detail_code_name
+		FROM code pcode
+		WHERE code='POSITION') pres
+		) cod
+		ON
+		de.position_code = cod.position_code
+		AND
+		de.duty_code = cod.duty_code
 		where
 		de.employee_seq =
 		#{employeeSeq}
@@ -304,13 +325,13 @@
 		resultMap="departmentEmployeeMap">
 		SELECT DISTINCT de.company_seq, c.company_name from
 		department_employee de
-		LEFT JOIN
+		JOIN
 		company c ON de.company_seq=
 		c.company_seq
-		LEFT JOIN workplace w ON
+		JOIN workplace w ON
 		de.workplace_seq =
 		w.workplace_seq
-		LEFT JOIN department d ON
+		JOIN department d ON
 		de.department_seq =
 		d.department_seq
 		<where>
@@ -329,10 +350,10 @@
 		de.workplace_seq,
 		w.workplace_name from
 		department_employee de
-		LEFT JOIN
+		JOIN
 		company c ON
 		de.company_seq= c.company_seq
-		LEFT JOIN workplace w ON
+		JOIN workplace w ON
 		de.workplace_seq
 		= w.workplace_seq
 		WHERE de.company_seq = #{companySeq}
@@ -348,11 +369,11 @@
 		w.workplace_name, de.department_seq,
 		d.department_name from
 		department_employee de
-		LEFT JOIN company c ON
+		JOIN company c ON
 		de.company_seq= c.company_seq
-		LEFT JOIN workplace w ON de.workplace_seq
+		JOIN workplace w ON de.workplace_seq
 		= w.workplace_seq
-		LEFT JOIN department d ON de.department_seq =
+		JOIN department d ON de.department_seq =
 		d.department_seq
 		WHERE de.company_seq = #{companySeq}
 
@@ -363,12 +384,33 @@
 		resultMap="departmentEmployeeMap">
 		SELECT * FROM
 		department_employee de
-		LEFT JOIN
+		JOIN
 		company c ON
 		de.company_seq = c.company_seq
-		LEFT JOIN
+		JOIN
 		employee e ON de.employee_seq =
 		e.employee_seq
+		JOIN
+		(
+		SELECT dres.detail_code as
+		duty_code, dres.detail_code_name AS duty,
+		pres.detail_code AS
+		position_code,pres.detail_code_name AS position
+		FROM
+		(SELECT dcode.code,
+		dcode.detail_code, dcode.detail_code_name
+		FROM code dcode
+		WHERE
+		code='DUTY') dres,
+		(SELECT pcode.code, pcode.detail_code,
+		pcode.detail_code_name
+		FROM code pcode
+		WHERE code='POSITION') pres
+		) cod
+		ON
+		de.position_code = cod.position_code
+		AND
+		de.duty_code = cod.duty_code
 		WHERE de.employee_seq = #{employeeSeq} AND
 		de.company_seq = #{companySeq}
 	</select>
