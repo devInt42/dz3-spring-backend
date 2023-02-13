@@ -34,6 +34,12 @@ public class MenuServiceImpl implements MenuService {
 	public List<MenuDto> getMenuList() {
 		return sqlSession.getMapper(MenuMapper.class).getMenuList();
 	}
+	
+	// 해당 시퀀스의 메뉴 조회
+	@Override
+	public List<MenuDto> getSelectMenu(int menuSequence) {
+		return sqlSession.getMapper(MenuMapper.class).getSelectMenu(menuSequence);
+	}
 
 	// 하위 메뉴 조회
 	@Override

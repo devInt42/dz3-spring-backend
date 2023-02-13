@@ -10,9 +10,8 @@ import com.example.backend.dto.MenuDto;
 @Mapper
 public interface MenuMapper {
 	List<MenuDto> getChildListByDepth(MenuDto dto);
-
+	List<MenuDto> getSelectMenu(int menuSequence);
 	int getCountListByDepth(MenuDto dto);
-
 	
 	List<MenuDto> getMenuList();
 

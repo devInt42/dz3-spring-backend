@@ -65,6 +65,12 @@ public class MenuApiController {
 	public List<MenuDto> getMenuList() {
 		return menuService.getMenuList();
 	}
+	
+	// 해당 시퀀스의 메뉴 조회
+	@GetMapping("/menulist/selectmenu/{menuSequence}")
+	public List<MenuDto> getSelectMenu(@PathVariable(required = true) int menuSequence){
+		return menuService.getSelectMenu(menuSequence);
+	}
 
 	// 하위 메뉴 조회
 	@GetMapping("/menulist/{menuSequence}")
