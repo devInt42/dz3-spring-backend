@@ -74,6 +74,8 @@
 		<result property="employeeClassification"
 			column="employee_classification" javaType="java.lang.String"
 			jdbcType="VARCHAR" />
+		<result property="companyHomepage" column="company_homepage"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="getList"
@@ -89,7 +91,8 @@
 		e.employee_picture, e.employee_call,
 		c.company_name,
 		w.workplace_name,
-		e.employee_birth, d.department_name
+		e.employee_birth, d.department_name,
+		c.company_homepage,e.employee_cmail, cod.duty, cod.position
 		FROM
 		department_employee de
 		join
@@ -110,6 +113,31 @@
 		workplace w
 		on
 		de.workplace_seq = w.workplace_seq
+		JOIN
+		(
+		SELECT
+		dres.detail_code as
+		duty_code, dres.detail_code_name AS duty,
+		pres.detail_code AS
+		position_code,pres.detail_code_name AS position
+		FROM
+		(SELECT dcode.code,
+		dcode.detail_code, dcode.detail_code_name
+		FROM
+		code dcode
+		WHERE
+		code='DUTY') dres,
+		(SELECT pcode.code,
+		pcode.detail_code,
+		pcode.detail_code_name
+		FROM code pcode
+		WHERE
+		code='POSITION') pres
+		) cod
+		ON
+		de.position_code = cod.position_code
+		AND
+		de.duty_code = cod.duty_code
 		<where>
 			<if
 				test="companySeq != null and companySeq !='' and employeeSeq != 999">
@@ -139,7 +167,7 @@
 		SELECT
 		de.company_seq,de.workplace_seq,de.department_seq,de.employee_seq,w.workplace_name,d.department_name,
 		c.company_name,e.employee_name,e.employee_pmail,
-		e.employee_cmail,cod.duty,cod.position ,
+		e.employee_cmail,cod.duty,cod.position ,c.company_homepage,
 		e.employee_id
 		FROM
 		department_employee de
@@ -163,20 +191,24 @@
 		de.workplace_seq = w.workplace_seq
 		JOIN
 		(
-		SELECT dres.detail_code as
+		SELECT
+		dres.detail_code as
 		duty_code, dres.detail_code_name AS duty,
 		pres.detail_code AS
 		position_code,pres.detail_code_name AS position
 		FROM
 		(SELECT dcode.code,
 		dcode.detail_code, dcode.detail_code_name
-		FROM code dcode
+		FROM
+		code dcode
 		WHERE
 		code='DUTY') dres,
-		(SELECT pcode.code, pcode.detail_code,
+		(SELECT pcode.code,
+		pcode.detail_code,
 		pcode.detail_code_name
 		FROM code pcode
-		WHERE code='POSITION') pres
+		WHERE
+		code='POSITION') pres
 		) cod
 		ON
 		de.position_code = cod.position_code
@@ -186,6 +218,7 @@
 		de.department_seq
 		= #{departmentSeq}
 	</select>
+
 	<select id="getEmployeeInfo"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
@@ -204,6 +237,31 @@
 		workplace w
 		on
 		de.workplace_seq = w.workplace_seq
+		JOIN
+		(
+		SELECT
+		dres.detail_code as
+		duty_code, dres.detail_code_name AS duty,
+		pres.detail_code AS
+		position_code,pres.detail_code_name AS position
+		FROM
+		(SELECT dcode.code,
+		dcode.detail_code, dcode.detail_code_name
+		FROM
+		code dcode
+		WHERE
+		code='DUTY') dres,
+		(SELECT pcode.code,
+		pcode.detail_code,
+		pcode.detail_code_name
+		FROM code pcode
+		WHERE
+		code='POSITION') pres
+		) cod
+		ON
+		de.position_code = cod.position_code
+		AND
+		de.duty_code = cod.duty_code
 		where
 		de.employee_seq =
 		#{employeeSeq}
@@ -298,13 +356,14 @@
 		resultMap="departmentEmployeeMap">
 		SELECT DISTINCT de.company_seq, c.company_name from
 		department_employee de
-		LEFT JOIN
+		JOIN
 		company c ON de.company_seq=
 		c.company_seq
-		LEFT JOIN workplace w ON
+		JOIN workplace w ON
 		de.workplace_seq =
 		w.workplace_seq
-		LEFT JOIN department d ON
+		JOIN department d
+		ON
 		de.department_seq =
 		d.department_seq
 		<where>
@@ -323,10 +382,10 @@
 		de.workplace_seq,
 		w.workplace_name from
 		department_employee de
-		LEFT JOIN
+		JOIN
 		company c ON
 		de.company_seq= c.company_seq
-		LEFT JOIN workplace w ON
+		JOIN workplace w ON
 		de.workplace_seq
 		= w.workplace_seq
 		WHERE de.company_seq = #{companySeq}
@@ -342,11 +401,12 @@
 		w.workplace_name, de.department_seq,
 		d.department_name from
 		department_employee de
-		LEFT JOIN company c ON
+		JOIN company c ON
 		de.company_seq= c.company_seq
-		LEFT JOIN workplace w ON de.workplace_seq
-		= w.workplace_seq
-		LEFT JOIN department d ON de.department_seq =
+		JOIN workplace w ON de.workplace_seq
+		=
+		w.workplace_seq
+		JOIN department d ON de.department_seq =
 		d.department_seq
 		WHERE de.company_seq = #{companySeq}
 
@@ -357,14 +417,37 @@
 		resultMap="departmentEmployeeMap">
 		SELECT * FROM
 		department_employee de
-		LEFT JOIN
+		JOIN
 		company c ON
 		de.company_seq = c.company_seq
-		LEFT JOIN
+		JOIN
 		employee e ON de.employee_seq =
 		e.employee_seq
+		JOIN
+		(
+		SELECT dres.detail_code as
+		duty_code,
+		dres.detail_code_name AS duty,
+		pres.detail_code AS
+		position_code,pres.detail_code_name AS position
+		FROM
+		(SELECT dcode.code,
+		dcode.detail_code, dcode.detail_code_name
+		FROM code dcode
+		WHERE
+		code='DUTY') dres,
+		(SELECT pcode.code, pcode.detail_code,
+		pcode.detail_code_name
+		FROM code pcode
+		WHERE code='POSITION') pres
+		) cod
+		ON
+		de.position_code = cod.position_code
+		AND
+		de.duty_code = cod.duty_code
 		WHERE de.employee_seq = #{employeeSeq} AND
-		de.company_seq = #{companySeq}
+		de.company_seq =
+		#{companySeq}
 	</select>
 
 	<select id="getListByAuth"
@@ -372,7 +455,8 @@
 		resultMap="departmentEmployeeMap">
 		SELECT distinct
 		de.company_seq,de.workplace_seq,de.department_seq,de.employee_seq,w.workplace_name,d.department_name,
-		c.company_name,e.employee_name,e.employee_pmail, e.employee_cmail,
+		c.company_name,e.employee_name,e.employee_pmail,
+		e.employee_cmail,c.company_homepage,
 		cod.duty,cod.position ,
 		e.employee_id
 		FROM
@@ -530,42 +614,31 @@
 		d.department_call,
 		d.department_fax, d.department_loc,
 		e.employee_seq, de.main_company_yn,
+		w.workplace_seq, w.workplace_name,
 		de.main_department_yn,
 		cod.duty,
-		cod.position,
-		d.department_zipcode,de.duty_code, de.position_code,
-		ce.employee_code,
-		ce.employee_join, ce.employee_leave,
+		cod.position, d.department_zipcode,de.duty_code, de.position_code,
+		ce.employee_code, ce.employee_join, ce.employee_leave,
 		ce.employee_classification
-		FROM
-		department_employee de
-		JOIN company_employee ce
-		ON
-		de.employee_seq =
-		ce.employee_seq
+		FROM department_employee de
+		JOIN
+		company_employee ce
+		ON de.employee_seq = ce.employee_seq
 		AND
 		de.company_seq = ce.company_seq
 		JOIN company c
-		ON
-		de.company_seq =
+		ON de.company_seq =
 		c.company_seq
 		JOIN workplace w
-		ON
-		de.workplace_seq =
-		w.workplace_seq
-		JOIN
-		department d
-		ON
-		de.department_seq = d.department_seq
-		JOIN employee e
-		ON
-		de.employee_seq
-		= e.employee_seq
+		ON de.workplace_seq = w.workplace_seq
+		JOIN department d
+		ON de.department_seq = d.department_seq
+		JOIN employee
+		e
+		ON de.employee_seq = e.employee_seq
 		JOIN (
-		SELECT
-		dres.detail_code as
-		duty_code,
-		dres.detail_code_name AS duty,
+		SELECT dres.detail_code as
+		duty_code, dres.detail_code_name AS duty,
 		pres.detail_code AS
 		position_code,pres.detail_code_name AS position
 		FROM

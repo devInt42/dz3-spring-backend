@@ -307,4 +307,8 @@ public class DepartmentEmployeeApiController {
 	public void updateGroupInfo(@RequestBody DepartmentEmployeeDto dto) {
 		departmentEmployeeService.updateGroupInfo(dto);
 	}
+	
+	
+	
+	
 }

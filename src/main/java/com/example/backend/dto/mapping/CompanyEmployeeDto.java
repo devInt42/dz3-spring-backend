@@ -26,4 +26,6 @@ public class CompanyEmployeeDto {
 	
 	private Date employeeJoin;
 	private Date employeeLeave;
+	
+	private String employeeClassification;
 }

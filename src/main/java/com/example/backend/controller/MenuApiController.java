@@ -100,14 +100,22 @@ public class MenuApiController {
 	}
 
 	// 삽입 전 중복조회(메뉴코드)
-	@GetMapping("/menulist/checkcode/{menuCode}")
-	public List<MenuDto> checkCode(@PathVariable(required = true) String menuCode) {
+//	@GetMapping("/menulist/checkcode/{menuCode}")
+//	public List<MenuDto> checkCode(@PathVariable(required = true) String menuCode) {
+//		return menuService.checkCode(menuCode);
+//	}
+	@GetMapping("/menulist/checkcode")
+	public List<MenuDto> checkCode(@RequestParam("menuCode") String menuCode) {
 		return menuService.checkCode(menuCode);
 	}
 
 	// 삽입 전 중복조회(메뉴이름)
-	@GetMapping("/menulist/checkname/{menuName}")
-	public List<MenuDto> checkName(@PathVariable(required = true) String menuName) {
+//	@GetMapping("/menulist/checkname/{menuName}")
+//	public List<MenuDto> checkName(@PathVariable(required = true) String menuName) {
+//		return menuService.checkName(menuName);
+//	}
+	@GetMapping("/menulist/checkname")
+	public List<MenuDto> checkName(@RequestParam("menuName") String menuName) {
 		return menuService.checkName(menuName);
 	}
 
