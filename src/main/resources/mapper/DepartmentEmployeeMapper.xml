@@ -192,6 +192,7 @@
 		de.department_seq
 		= #{departmentSeq}
 	</select>
+	
 	<select id="getEmployeeInfo"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
@@ -212,20 +213,24 @@
 		de.workplace_seq = w.workplace_seq
 		JOIN
 		(
-		SELECT dres.detail_code as
+		SELECT
+		dres.detail_code as
 		duty_code, dres.detail_code_name AS duty,
 		pres.detail_code AS
 		position_code,pres.detail_code_name AS position
 		FROM
 		(SELECT dcode.code,
 		dcode.detail_code, dcode.detail_code_name
-		FROM code dcode
+		FROM
+		code dcode
 		WHERE
 		code='DUTY') dres,
-		(SELECT pcode.code, pcode.detail_code,
+		(SELECT pcode.code,
+		pcode.detail_code,
 		pcode.detail_code_name
 		FROM code pcode
-		WHERE code='POSITION') pres
+		WHERE
+		code='POSITION') pres
 		) cod
 		ON
 		de.position_code = cod.position_code
@@ -331,7 +336,8 @@
 		JOIN workplace w ON
 		de.workplace_seq =
 		w.workplace_seq
-		JOIN department d ON
+		JOIN department d
+		ON
 		de.department_seq =
 		d.department_seq
 		<where>
@@ -372,7 +378,8 @@
 		JOIN company c ON
 		de.company_seq= c.company_seq
 		JOIN workplace w ON de.workplace_seq
-		= w.workplace_seq
+		=
+		w.workplace_seq
 		JOIN department d ON de.department_seq =
 		d.department_seq
 		WHERE de.company_seq = #{companySeq}
@@ -393,7 +400,8 @@
 		JOIN
 		(
 		SELECT dres.detail_code as
-		duty_code, dres.detail_code_name AS duty,
+		duty_code,
+		dres.detail_code_name AS duty,
 		pres.detail_code AS
 		position_code,pres.detail_code_name AS position
 		FROM
@@ -412,7 +420,8 @@
 		AND
 		de.duty_code = cod.duty_code
 		WHERE de.employee_seq = #{employeeSeq} AND
-		de.company_seq = #{companySeq}
+		de.company_seq =
+		#{companySeq}
 	</select>
 
 	<select id="getListByAuth"
