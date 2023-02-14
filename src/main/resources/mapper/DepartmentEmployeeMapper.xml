@@ -518,16 +518,20 @@
 	<select id="getDepartmentGroup"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
-		SELECT company_seq, workplace_seq, department_seq,
-		department_code,
-		department_name, department_parent, department_depth,
-		use_yn FROM
-		department
-		WHERE company_seq = #{companySeq} and
-		department_parent = #{departmentParent} and
-		department_depth =
+		SELECT d.company_seq, d.workplace_seq, d.department_seq,
+		d.department_code,
+		d.department_name, d.department_parent, d.department_depth,
+		d.use_yn, c.company_name, w.workplace_name FROM
+		department d
+		JOIN company c
+		on c.company_seq = d.company_seq
+		JOIN workplace w
+		on w.workplace_seq = d.workplace_seq
+		WHERE d.company_seq = #{companySeq} and
+		d.department_parent = #{departmentParent} and
+		d.department_depth =
 		#{departmentDepth} and
-		workplace_seq = #{workplaceSeq}
+		d.workplace_seq = #{workplaceSeq}
 	</select>
 
 	<select id="getDepartmentCount"
