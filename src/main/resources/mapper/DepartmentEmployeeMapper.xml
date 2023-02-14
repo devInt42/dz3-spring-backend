@@ -91,7 +91,8 @@
 		e.employee_picture, e.employee_call,
 		c.company_name,
 		w.workplace_name,
-		e.employee_birth, d.department_name
+		e.employee_birth, d.department_name,
+		c.company_homepage,e.employee_cmail, cod.duty, cod.position
 		FROM
 		department_employee de
 		join
@@ -112,6 +113,31 @@
 		workplace w
 		on
 		de.workplace_seq = w.workplace_seq
+		JOIN
+		(
+		SELECT
+		dres.detail_code as
+		duty_code, dres.detail_code_name AS duty,
+		pres.detail_code AS
+		position_code,pres.detail_code_name AS position
+		FROM
+		(SELECT dcode.code,
+		dcode.detail_code, dcode.detail_code_name
+		FROM
+		code dcode
+		WHERE
+		code='DUTY') dres,
+		(SELECT pcode.code,
+		pcode.detail_code,
+		pcode.detail_code_name
+		FROM code pcode
+		WHERE
+		code='POSITION') pres
+		) cod
+		ON
+		de.position_code = cod.position_code
+		AND
+		de.duty_code = cod.duty_code
 		<where>
 			<if
 				test="companySeq != null and companySeq !='' and employeeSeq != 999">
@@ -192,7 +218,7 @@
 		de.department_seq
 		= #{departmentSeq}
 	</select>
-	
+
 	<select id="getEmployeeInfo"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
