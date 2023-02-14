@@ -21,7 +21,6 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 
 	@Override
 	public List<DepartmentEmployeeDto> getEmployeePagebyDepartment(DepartmentEmployeeDto dto) {
-
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getListByDepartment(dto);
 	}
 
