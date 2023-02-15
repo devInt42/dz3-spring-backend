@@ -50,7 +50,7 @@
 
 	<!-- 메뉴리스트 조회 -->
 	<select id="getMenuList" resultMap="menuMap">
-		select * from menu
+		select * from menu order by menu_name asc
 		<!-- where menu_parent = 0 -->
 	</select>
 	
