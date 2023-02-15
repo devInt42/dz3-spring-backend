@@ -44,4 +44,5 @@ public interface MenuService {
 
 	// 하위메뉴 개수 조회
 	Integer countMenu(int menuSeq);
+	
 }
