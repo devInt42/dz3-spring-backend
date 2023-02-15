@@ -13,7 +13,7 @@
 
 	<select id="getList" parameterType="INTEGER"
 		resultMap="authMenuMap">
-		select * from auth_menu where
+		select distinct * from auth_menu where
 		<if test="authSeq != 0 and authSeq !=''">
 			auth_seq = #{authSeq}
 		</if>

@@ -84,13 +84,15 @@
 	<!-- 메뉴 삭제 -->
 	<delete id="deleteMenu" parameterType="Integer">
 		delete from menu
-		where menu_seq = #{menuSeq}
+		where
+		menu_seq = #{menuSeq}
 	</delete>
 
 	<!-- 메뉴 수정 -->
 	<update id="updateMenu">
 		update menu set menu_code = #{menuCode},
-		menu_name = #{menuName}, menu_parent = #{menuParent}, menu_depth =
+		menu_name =
+		#{menuName}, menu_parent = #{menuParent}, menu_depth =
 		#{menuDepth}
 		where menu_seq = #{menuSeq}
 	</update>
