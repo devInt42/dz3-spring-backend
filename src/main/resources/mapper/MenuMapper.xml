@@ -53,9 +53,10 @@
 		select * from menu order by menu_name asc
 		<!-- where menu_parent = 0 -->
 	</select>
-	
+
 	<!-- 해당 시퀀스의 메뉴 조회 -->
-	<select id="getSelectMenu" parameterType="Integer" resultMap="menuMap">
+	<select id="getSelectMenu" parameterType="Integer"
+		resultMap="menuMap">
 		select * from menu where menu_seq = #{menuSequence}
 	</select>
 
@@ -124,5 +125,36 @@
 		resultType="Integer">
 		select count(*) from menu where menu_parent =
 		#{menuSeq}
+	</select>
+
+	<!-- 자손 메뉴 조회 -->
+	<select id="getTree" parameterType="INTEGER"
+		resultMap="menuMap">
+		WITH recursive cte AS (
+		SELECT m.menu_seq,
+		m.menu_parent,
+		m.menu_name,
+		m.menu_depth
+		FROM
+		menu m
+		WHERE
+		m.menu_seq=#{menuParent}
+
+
+		UNION
+		ALL
+		SELECT m2.menu_seq,
+		m2.menu_parent,
+		m2.menu_name, m2.menu_depth
+		FROM
+		cte
+		INNER JOIN menu m2
+		ON
+		cte.menu_seq = m2.menu_parent
+		)
+		SELECT * FROM
+		cte
+		ORDER BY
+		menu_depth;
 	</select>
 </mapper>

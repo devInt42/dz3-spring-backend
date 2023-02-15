@@ -15,7 +15,7 @@ public interface MenuService {
 
 	// 메뉴 리스트 조회
 	List<MenuDto> getMenuList();
-	
+
 	// 해당 시퀀스의 메뉴 조회
 	List<MenuDto> getSelectMenu(int menuSequence);
 
@@ -47,5 +47,7 @@ public interface MenuService {
 
 	// 하위메뉴 개수 조회
 	Integer countMenu(int menuSeq);
-	
+
+	List<MenuDto> getMenuTree(int menuParent);
+
 }

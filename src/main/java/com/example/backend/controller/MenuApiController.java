@@ -3,10 +3,7 @@ package com.example.backend.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.dto.MenuDto;
+import com.example.backend.dto.mapping.AuthMenuDto;
 import com.example.backend.service.MenuServiceImpl;
 
 @RestController
@@ -53,7 +51,6 @@ public class MenuApiController {
 		return menuService.getCountMenuListByDepth(dto);
 	}
 
-
 	// 깊이별 메뉴 테이블 카운트
 	@GetMapping("/select")
 	public List<MenuDto> getAllList() {
@@ -65,10 +62,10 @@ public class MenuApiController {
 	public List<MenuDto> getMenuList() {
 		return menuService.getMenuList();
 	}
-	
+
 	// 해당 시퀀스의 메뉴 조회
 	@GetMapping("/menulist/selectmenu/{menuSequence}")
-	public List<MenuDto> getSelectMenu(@PathVariable(required = true) int menuSequence){
+	public List<MenuDto> getSelectMenu(@PathVariable(required = true) int menuSequence) {
 		return menuService.getSelectMenu(menuSequence);
 	}
 
@@ -127,7 +124,7 @@ public class MenuApiController {
 
 	// 해당 시퀀스의 URL 조회
 	@GetMapping("/menulist/geturl/{menuSeq}")
-	public String getURL(@PathVariable(required=true) int menuSeq) {
+	public String getURL(@PathVariable(required = true) int menuSeq) {
 		return menuService.getURL(menuSeq);
 	}
 
@@ -137,4 +134,9 @@ public class MenuApiController {
 		return menuService.countMenu(menuSeq);
 	}
 
+	// 메뉴별 하위메뉴 조회
+	@GetMapping("/tree/{menuParent}")
+	public List<MenuDto> getMenuTree(@PathVariable int menuParent) {
+		return menuService.getMenuTree(menuParent);
+	}
 }

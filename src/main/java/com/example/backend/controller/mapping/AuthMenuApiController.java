@@ -40,7 +40,7 @@ public class AuthMenuApiController {
 	@PostMapping("/delete")
 	public void removeMenu(@RequestBody(required = true) List<Object> list) {
 		if (list.size() > 0) {
-		authMenuService.removeAuthMenu(list);
+			authMenuService.removeAuthMenu(list);
 		}
 	}
 
