@@ -223,6 +223,7 @@
 				AND m.menu_parent = #{menuParent}
 			</if>
 		</where>
+		order by m.menu_seq asc
 	</select>
 
 	<select id="origin"
