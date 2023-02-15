@@ -100,6 +100,10 @@ public class MenuServiceImpl implements MenuService {
 		return sqlSession.getMapper(MenuMapper.class).countMenu(menuSeq);
 	}
 
+	@Override
+	public List<MenuDto> getMenuTree(int menuParent) {
+		return sqlSession.getMapper(MenuMapper.class).getTree(menuParent);
+	}
 
 
 }
