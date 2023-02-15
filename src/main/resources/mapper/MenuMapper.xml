@@ -53,6 +53,11 @@
 		select * from menu
 		<!-- where menu_parent = 0 -->
 	</select>
+	
+	<!-- 해당 시퀀스의 메뉴 조회 -->
+	<select id="getSelectMenu" parameterType="Integer" resultMap="menuMap">
+		select * from menu where menu_seq = #{menuSequence}
+	</select>
 
 	<!-- 하위메뉴 조회 -->
 	<select id="getSubMenuList" parameterType="Integer"

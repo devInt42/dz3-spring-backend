@@ -15,6 +15,9 @@ public interface MenuService {
 
 	// 메뉴 리스트 조회
 	List<MenuDto> getMenuList();
+	
+	// 해당 시퀀스의 메뉴 조회
+	List<MenuDto> getSelectMenu(int menuSequence);
 
 	// 하위 메뉴 조회
 	List<MenuDto> getSubMenuList(int menuSequence);
