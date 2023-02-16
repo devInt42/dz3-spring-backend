@@ -10,4 +10,5 @@ public class MenuDto {
 	private int menuParent;
 	private int menuDepth;
 	private String menuURL;
+	private String useYN;
 }

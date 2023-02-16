@@ -85,6 +85,9 @@ public class MenuApiController {
 	// 메뉴 저장
 	@PostMapping
 	public void insertMenu(@RequestBody(required = true) Map<String, String> map) {
+		if(map.get("menuParent").equals("0")) {
+			map.put("menuDepth", "0");
+		}
 		menuService.insertMenu(map);
 	}
 
@@ -99,6 +102,9 @@ public class MenuApiController {
 	public void updateMenu(@PathVariable(required = true) String menuSeq,
 			@RequestBody(required = true) Map<String, String> map) {
 		map.put("menuSeq", menuSeq);
+		if(map.get("menuParent").equals("0")) {
+			map.put("menuDepth", "0");
+		}
 		menuService.updateMenu(map);
 	}
 

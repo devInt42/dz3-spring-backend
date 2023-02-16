@@ -19,6 +19,8 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="menuURL" column="menu_url"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="useYN" column="use_yn"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<!-- 깊이별 메뉴 조회 -->
@@ -77,9 +79,9 @@
 	<insert id="insertMenu">
 		insert into menu (menu_code, menu_name,
 		menu_parent,
-		menu_depth) VALUES(#{menuCode}, #{menuName},
+		menu_depth, use_yn) VALUES(#{menuCode}, #{menuName},
 		#{menuParent},
-		#{menuDepth})
+		#{menuDepth}, #{useYN})
 	</insert>
 
 	<!-- 메뉴 삭제 -->
@@ -94,7 +96,7 @@
 		update menu set menu_code = #{menuCode},
 		menu_name =
 		#{menuName}, menu_parent = #{menuParent}, menu_depth =
-		#{menuDepth}
+		#{menuDepth}, use_yn = #{useYN}
 		where menu_seq = #{menuSeq}
 	</update>
 
