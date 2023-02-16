@@ -222,6 +222,7 @@
 			<if test="menuParent != null and menuParent !=''">
 				AND m.menu_parent = #{menuParent}
 			</if>
+			AND m.use_yn = 'Y'
 		</where>
 		order by m.menu_seq asc
 	</select>
