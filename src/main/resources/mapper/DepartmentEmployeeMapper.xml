@@ -703,6 +703,33 @@
 
 	<update id="updateGroupInfo"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
-
+		
+	</update>
+	
+	<insert id = "insertGroupInfo"
+	 parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
+		insert all 
+		into department_employee values(#{companySeq},#{workplaceSeq},#{departmentSeq},#{employeeSeq},#{mainCompanyYN}, #{mainDepartmentYN},#{positionCode}
+		,#{dutyCode})
+		into company_employee values(#{companySeq}, #{workplaceSeq}, #{departmentSeq}, #{employeeSeq}, #{employeeCode}, #{employeeJoin}, #{employeeLeave}
+		,#{employeeClassfication})
+	</insert>
+	
+	<insert id = "insertBasicInfo"
+	parameterType = "com.example.backend.dto.mapping.DepartmentEmployeeDto">
+		insert into employee
+		values (#{employeeSeq}, #{employeeId}, #{employeeName}, #{employeeBirth}, #{employeeCall}, #{employeePwd}, #{employeePh}, #{employeePmail},
+		#{employeeCmail}, #{employeeAddr}, #{employeePicture}, #{useYN}, #{employeeGender}, #{employeeLanguage}, #{ApprovalPwd},#{employeeHcall}, #{employeeJoin}
+		,#{employeeLeave})
+	</insert>
+	
+	<update id = "updateBasicInfo"
+	parameterType = "com.example.backend.dto.mapping.DepartmentEmployeeDto">
+		update employee set
+		employee_id = #{employeeId}, employee_name = #{employeeName}, employee_birth = #{employeeBirth}, employee_call = #{employeeCall},
+		employee_pwd = #{employeePwd}, employee_ph = #{employeePh}, employee_pmail = #{employeePmail}, employee_cmail = #{employeeCmail},
+		employee_addr = #{employeeAddr}, employee_picture = #{employeePicture}, use_yn = #{useYN}, employee_gender = #{employeeGender},
+		employee_language = #{employeeLanguage}, approval_pwd = #{approvalPwd}, employee_hcall = #{employeeHCall}, employee_join = #{employeeJoin},
+		employee_leave = #{employeeLeave} where employee_seq = #{employeeSeq}
 	</update>
 </mapper>

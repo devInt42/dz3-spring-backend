@@ -50,4 +50,10 @@ public interface DepartmentEmployeeMapper {
 	List<DepartmentEmployeeDto> getDuty();
 
 	void updateGroupInfo(DepartmentEmployeeDto dto);
+	
+	void insertGroupInfo(DepartmentEmployeeDto dto);
+	
+	void insertBasicInfo(DepartmentEmployeeDto dto);
+	
+	void updateBasicInfo(DepartmentEmployeeDto dto);
 }

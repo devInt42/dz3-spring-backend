@@ -308,7 +308,27 @@ public class DepartmentEmployeeApiController {
 		departmentEmployeeService.updateGroupInfo(dto);
 	}
 	
-	
-	
+	//사용자 추가 및 수정
+	@PostMapping("/addupdateemp")
+	public void updateEmp(@RequestBody DepartmentEmployeeDto dto) {
+		for(int i = 0;  i < dto.getGroupData().size(); i ++) {
+			if(dto.getGroupData().get(i).getEmployeeSeq() == 0 ) {
+				dto.getGroupData().get(i).setEmployeeSeq(dto.getEmployeeSeq());
+			}
+			if(dto.getGroupData().get(i).getInsertData() == null) {
+				departmentEmployeeService.insertGroupInfo(dto.getGroupData().get(i));
+			}
+			else {
+				departmentEmployeeService.updateGroupInfo(dto.getGroupData().get(i));
+			}
+			System.out.println(dto.getGroupData().get(i));
+		}
+		if(dto.getInsertData() == null) {
+			departmentEmployeeService.insertBasicInfo(dto);
+		}
+		else {
+			departmentEmployeeService.updateBasicInfo(dto);
+		}
+	}
 	
 }
