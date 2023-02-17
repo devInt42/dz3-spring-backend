@@ -521,7 +521,7 @@
 		SELECT d.company_seq, d.workplace_seq, d.department_seq,
 		d.department_code,
 		d.department_name, d.department_parent, d.department_depth,d.department_call,d.department_fax,department_loc,
-		d.use_yn, c.company_name, w.workplace_name FROM
+		d.use_yn, c.company_name, w.workplace_name, d.department_zipcode FROM
 		department d
 		JOIN company c
 		on c.company_seq = d.company_seq
