@@ -140,8 +140,8 @@
 		FROM
 		menu m
 		WHERE
-		m.menu_seq=#{menuParent}
-
+		<!-- m.menu_seq=#{menuParent} -->
+		m.menu_parent=#{menuParent}
 
 		UNION
 		ALL
