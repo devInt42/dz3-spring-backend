@@ -141,4 +141,9 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 		sqlSession.getMapper(DepartmentEmployeeMapper.class).insertCompanyGroupInfo(dto);
 	}
 
+	@Override
+	public int getInsertSeq(DepartmentEmployeeDto dto) {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getInsertSeq(dto);
+	}
+
 }

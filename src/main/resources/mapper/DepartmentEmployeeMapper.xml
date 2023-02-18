@@ -751,7 +751,10 @@
 		#{employeeCmail}, #{employeeAddr}, #{employeePicture}, #{useYN}, #{employeeGender}, #{employeeLanguage}, #{approvalPwd},#{employeeHCall}, #{employeeJoin}
 		,#{employeeLeave})
 	</insert>
-	
+	<select id = "getInsertSeq"
+	parameterType = "com.example.backend.dto.mapping.DepartmentEmployeeDto"  resultType = "int">
+		select employee_seq from employee where employee_id = #{employeeId} and employee_name = #{employeeName}
+	</select>
 	<update id = "updateBasicInfo"
 	parameterType = "com.example.backend.dto.mapping.DepartmentEmployeeDto">
 		update employee set

@@ -50,6 +50,8 @@ public interface DepartmentEmployeeService {
 	void insertGroupInfo(DepartmentEmployeeDto dto);
 	
 	void insertBasicInfo(DepartmentEmployeeDto dto);
+
+	int getInsertSeq(DepartmentEmployeeDto dto);
 	
 	void updateBasicInfo(DepartmentEmployeeDto dto);
 	
