@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class DepartmentEmployeeDto {
 	private List<DepartmentEmployeeDto> groupData;
+	private List<DepartmentEmployeeDto> groupFirstData;
 	private int employeeSeq;
 	private int workplaceSeq;
 	private int departmentSeq;
@@ -48,4 +49,14 @@ public class DepartmentEmployeeDto {
 	private String employeeClassification;
 	private String companyHomepage;
 	private String insertData;
+	private String employeePwd;
+	private String approvalPwd;
+	private String employeeAddr;
+	private String useYN;
+	private String employeeGender;
+	private String employeeLanguage;
+	private String employeeHCall;
+	private int firstDepartmentSeq;
+	private int firstCompanySeq;
+	private int firstWorkplaceSeq;
 }

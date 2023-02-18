@@ -56,4 +56,6 @@ public interface DepartmentEmployeeMapper {
 	void insertBasicInfo(DepartmentEmployeeDto dto);
 	
 	void updateBasicInfo(DepartmentEmployeeDto dto);
+	
+	void insertCompanyGroupInfo(DepartmentEmployeeDto dto);
 }

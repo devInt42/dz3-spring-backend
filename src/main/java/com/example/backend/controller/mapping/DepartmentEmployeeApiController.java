@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.example.backend.dto.mapping.DepartmentEmployeeDto;
 import com.example.backend.service.DepartmentEmployeeServiceImpl;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -307,28 +309,29 @@ public class DepartmentEmployeeApiController {
 	public void updateGroupInfo(@RequestBody DepartmentEmployeeDto dto) {
 		departmentEmployeeService.updateGroupInfo(dto);
 	}
-	
-	//사용자 추가 및 수정
+
+	// 사용자 추가 및 수정
 	@PostMapping("/addupdateemp")
 	public void updateEmp(@RequestBody DepartmentEmployeeDto dto) {
-		for(int i = 0;  i < dto.getGroupData().size(); i ++) {
-			if(dto.getGroupData().get(i).getEmployeeSeq() == 0 ) {
+		for (int i = 0; i < dto.getGroupData().size(); i++) {
+			if (dto.getGroupData().get(i).getEmployeeSeq() == 0) {
 				dto.getGroupData().get(i).setEmployeeSeq(dto.getEmployeeSeq());
 			}
-			if(dto.getGroupData().get(i).getInsertData() == null) {
-				departmentEmployeeService.insertGroupInfo(dto.getGroupData().get(i));
-			}
-			else {
-				departmentEmployeeService.updateGroupInfo(dto.getGroupData().get(i));
-			}
-			System.out.println(dto.getGroupData().get(i));
+				if (dto.getGroupFirstData().get(i).getInsertData() == null) {
+					dto.setFirstDepartmentSeq(dto.getGroupFirstData().get(i).getDepartmentSeq());
+					dto.setFirstCompanySeq(dto.getGroupFirstData().get(i).getCompanySeq());
+					dto.setFirstWorkplaceSeq(dto.getGroupFirstData().get(i).getEmployeeSeq());
+					departmentEmployeeService.updateGroupInfo(dto.getGroupData().get(i));
+				}
+				else {
+					departmentEmployeeService.insertGroupInfo(dto.getGroupData().get(i));
+					departmentEmployeeService.insertCompanyGroupInfo(dto.getGroupData().get(i));
+				}
 		}
-		if(dto.getInsertData() == null) {
+		if (dto.getInsertData() == null) {
+			departmentEmployeeService.updateBasicInfo(dto);
+		} else {
 			departmentEmployeeService.insertBasicInfo(dto);
 		}
-		else {
-			departmentEmployeeService.updateBasicInfo(dto);
-		}
 	}
-	
 }

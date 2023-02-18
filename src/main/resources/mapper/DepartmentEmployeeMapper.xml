@@ -76,6 +76,20 @@
 			jdbcType="VARCHAR" />
 		<result property="companyHomepage" column="company_homepage"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property = "employeePwd" column = "employee_pwd"
+			javaType = "java.lang.String" jdbcType = "VARCHAR" />
+		<result property = "approvalPwd" column = "approval_pwd"
+			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
+		<result property = "employeeAddr" column = "employee_addr"
+			javaType = "java.lang.String" jdbcType = "VARCHAR" />
+		<result property = "useYN" column = "use_yn"
+			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
+		<result property = "employeeGender" column = "employee_gender"
+			javaType = "java.lang.String" jdbcType = "VARCHAR" />
+		<result property = "employeeLanguage" column = "employee_language"
+			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
+		<result property = "employeeHcall" column = "employee_hcall"
+			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
 	</resultMap>
 
 	<select id="getList"
@@ -703,23 +717,38 @@
 
 	<update id="updateGroupInfo"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
-		
+		update department_employee as de, company_employee as ce
+		set 
+		de.company_seq = #{companySeq}, de.workplace_seq = #{workplaceSeq}, de.department_seq = #{departmentSeq}
+		, de.main_company_yn = #{mainCompanyYN}, de.main_department_yn = #{mainDepartmentYN}, de.position_code = #{positionCode},
+		de.duty_code = #{dutyCode}, 
+		ce.company_seq = #{companySeq}, ce.workplace_seq = #{workplaceSeq}, ce.department_seq = #{departmentSeq},
+		ce.employee_join = #{employeeJoin}, ce.employee_leave = #{employeeLeave}, ce.employee_classification = #{employeeClassification}
+		where 
+		de.company_seq = #{firstCompanySeq} and de.workplace_seq = #{firstWorkplaceSeq} and de.department_seq = #{firstDepartmentSeq} and 
+		de.employee_seq = #{employeeSeq}
+		and 
+		ce.company_seq = #{firstCompanySeq} and ce.workplace_seq = #{firstWorkplaceSeq} and ce.department_seq = #{firstDepartmentSeq} and 
+		ce.employee_seq = #{employeeSeq}
 	</update>
 	
 	<insert id = "insertGroupInfo"
 	 parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
-		insert all 
+		insert
 		into department_employee values(#{companySeq},#{workplaceSeq},#{departmentSeq},#{employeeSeq},#{mainCompanyYN}, #{mainDepartmentYN},#{positionCode}
 		,#{dutyCode})
-		into company_employee values(#{companySeq}, #{workplaceSeq}, #{departmentSeq}, #{employeeSeq}, #{employeeCode}, #{employeeJoin}, #{employeeLeave}
-		,#{employeeClassfication})
 	</insert>
-	
+	<insert id = "insertCompanyGroupInfo"
+	parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
+	insert
+		into company_employee values(#{companySeq}, #{workplaceSeq}, #{departmentSeq}, #{employeeSeq}, #{employeeCode}, #{employeeJoin}, #{employeeLeave}
+		,#{employeeClassification})
+	</insert>
 	<insert id = "insertBasicInfo"
 	parameterType = "com.example.backend.dto.mapping.DepartmentEmployeeDto">
 		insert into employee
 		values (#{employeeSeq}, #{employeeId}, #{employeeName}, #{employeeBirth}, #{employeeCall}, #{employeePwd}, #{employeePh}, #{employeePmail},
-		#{employeeCmail}, #{employeeAddr}, #{employeePicture}, #{useYN}, #{employeeGender}, #{employeeLanguage}, #{ApprovalPwd},#{employeeHcall}, #{employeeJoin}
+		#{employeeCmail}, #{employeeAddr}, #{employeePicture}, #{useYN}, #{employeeGender}, #{employeeLanguage}, #{approvalPwd},#{employeeHCall}, #{employeeJoin}
 		,#{employeeLeave})
 	</insert>
 	
