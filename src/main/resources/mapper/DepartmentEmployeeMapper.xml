@@ -730,6 +730,9 @@
 		and 
 		ce.company_seq = #{firstCompanySeq} and ce.workplace_seq = #{firstWorkplaceSeq} and ce.department_seq = #{firstDepartmentSeq} and 
 		ce.employee_seq = #{employeeSeq}
+		and 
+		de.company_seq = #{firstCompanySeq} and de.workplace_seq = #{firstWorkplaceSeq} and de.department_seq = #{firstDepartmentSeq} and 
+		de.employee_seq = #{employeeSeq}
 	</update>
 	
 	<insert id = "insertGroupInfo"

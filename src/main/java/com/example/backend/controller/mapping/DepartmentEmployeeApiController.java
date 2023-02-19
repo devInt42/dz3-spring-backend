@@ -312,6 +312,7 @@ public class DepartmentEmployeeApiController {
 	//입사처리
 	@PostMapping("/joinemp")
 	public void joinEmp(@RequestBody DepartmentEmployeeDto dto) {
+		dto.setInsertData(null);
 		departmentEmployeeService.insertBasicInfo(dto);
 	}
 	//입사처리 후 seq 찾기
@@ -326,10 +327,8 @@ public class DepartmentEmployeeApiController {
 	@PostMapping("/addupdateemp")
 	public void updateEmp(@RequestBody DepartmentEmployeeDto dto) {
 		for (int i = 0; i < dto.getGroupData().size(); i++) {
-			System.out.println(dto.getGroupData().get(i).getEmployeeSeq());
-			if (dto.getGroupData().get(i).getEmployeeSeq() == 0) {
-				dto.getGroupData().get(i).setEmployeeSeq(dto.getEmployeeSeq());
-			}
+			
+			dto.getGroupData().get(i).setEmployeeSeq(dto.getEmployeeSeq());
 				if (dto.getGroupFirstData().get(i).getInsertData() == null) {
 					dto.setFirstDepartmentSeq(dto.getGroupFirstData().get(i).getDepartmentSeq());
 					dto.setFirstCompanySeq(dto.getGroupFirstData().get(i).getCompanySeq());
@@ -337,6 +336,7 @@ public class DepartmentEmployeeApiController {
 					departmentEmployeeService.updateGroupInfo(dto.getGroupData().get(i));
 				}
 				else {
+					dto.getGroupData().get(i).setInsertData(null);
 					departmentEmployeeService.insertGroupInfo(dto.getGroupData().get(i)); //department-emp
 					departmentEmployeeService.insertCompanyGroupInfo(dto.getGroupData().get(i)); //company-emp
 				}
