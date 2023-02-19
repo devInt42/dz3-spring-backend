@@ -21,6 +21,8 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="useYN" column="use_yn"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="menuIcons" column="menu_icons"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<!-- 깊이별 메뉴 조회 -->
@@ -79,9 +81,9 @@
 	<insert id="insertMenu">
 		insert into menu (menu_code, menu_name,
 		menu_parent,
-		menu_depth, use_yn) VALUES(#{menuCode}, #{menuName},
+		menu_depth, use_yn, menu_icons) VALUES(#{menuCode}, #{menuName},
 		#{menuParent},
-		#{menuDepth}, #{useYN})
+		#{menuDepth}, #{useYN}, #{menuIcons})
 	</insert>
 
 	<!-- 메뉴 삭제 -->
@@ -96,7 +98,7 @@
 		update menu set menu_code = #{menuCode},
 		menu_name =
 		#{menuName}, menu_parent = #{menuParent}, menu_depth =
-		#{menuDepth}, use_yn = #{useYN}
+		#{menuDepth}, use_yn = #{useYN}, menu_icons = #{menuIcons}
 		where menu_seq = #{menuSeq}
 	</update>
 

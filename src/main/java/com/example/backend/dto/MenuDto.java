@@ -11,4 +11,5 @@ public class MenuDto {
 	private int menuDepth;
 	private String menuURL;
 	private String useYN;
+	private String menuIcons;
 }
