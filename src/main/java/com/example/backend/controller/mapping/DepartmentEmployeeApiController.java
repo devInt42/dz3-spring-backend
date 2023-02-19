@@ -350,4 +350,20 @@ public class DepartmentEmployeeApiController {
 			departmentEmployeeService.updateBasicInfo(dto);
 		}
 	}
+	//사용자 조직정보 삭제 
+	@GetMapping("selectdelete")
+	public void selectDelete(@RequestParam("employeeSeq") int EmployeeSeq, @RequestParam("departmentSeq") int DepartmentSeq,
+			@RequestParam("isEmpDelete") boolean isEmpDelete, DepartmentEmployeeDto dto) {
+		
+		dto.setEmployeeSeq(EmployeeSeq);
+		if(isEmpDelete) {
+			departmentEmployeeService.deleteEmp(dto);
+		}
+		else {
+			dto.setDepartmentSeq(DepartmentSeq);
+		}
+		departmentEmployeeService.selectCompanyDelete(dto);
+		departmentEmployeeService.selectDelete(dto);
+	}
+	
 }

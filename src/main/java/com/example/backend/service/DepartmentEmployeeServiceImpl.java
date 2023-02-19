@@ -151,4 +151,19 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 		sqlSession.getMapper(DepartmentEmployeeMapper.class).updateCompanyGroupInfo(dto);
 	}
 
+	@Override
+	public void selectDelete(DepartmentEmployeeDto dto) {
+		sqlSession.getMapper(DepartmentEmployeeMapper.class).selectDelete(dto);
+	}
+
+	@Override
+	public void selectCompanyDelete(DepartmentEmployeeDto dto) {
+		sqlSession.getMapper(DepartmentEmployeeMapper.class).selectCompanyDelete(dto);
+	}
+
+	@Override
+	public void deleteEmp(DepartmentEmployeeDto dto) {
+		sqlSession.getMapper(DepartmentEmployeeMapper.class).deleteEmp(dto);
+	}
+
 }

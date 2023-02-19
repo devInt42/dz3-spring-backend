@@ -778,4 +778,25 @@
 		employee_language = #{employeeLanguage}, approval_pwd = #{approvalPwd}, employee_hcall = #{employeeHCall}, employee_join = #{employeeJoin},
 		employee_leave = #{employeeLeave} where employee_seq = #{employeeSeq}
 	</update>
+	
+	<delete id = "selectDelete" parameterType = "com.example.backend.dto.mapping.DepartmentEmployeeDto">
+		delete from department_employee 
+		where employee_seq = #{employeeSeq} 
+		<if test = "departmentSeq != 0" >
+		and department_seq = #{departmentSeq}
+		</if>
+	</delete>
+	
+	<delete id = "selectCompanyDelete" parameterType = "com.example.backend.dto.mapping.DepartmentEmployeeDto">
+		delete from company_employee
+		where employee_seq = #{employeeSeq}
+		<if test = "departmentSeq != 0" >
+		and department_seq = #{departmentSeq}
+		</if>
+	</delete>
+	
+	<delete id = "deleteEmp" parameterType ="com.example.backend.dto.mapping.DepartmentEmployeeDto">
+		delete from employee
+		where employee_seq = #{employeeSeq}
+	</delete>
 </mapper>
