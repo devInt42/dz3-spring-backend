@@ -88,8 +88,8 @@ public class MenuApiController {
 		if(map.get("menuParent").equals("0")) {
 			map.put("menuDepth", "0");
 		}
-		menuService.insertMenu(map);
-	}
+			menuService.insertMenu(map);
+		}
 
 	// 메뉴 삭제
 	@DeleteMapping("/menulist/delete/{menuSeq}")
@@ -145,4 +145,5 @@ public class MenuApiController {
 	public List<MenuDto> getMenuTree(@PathVariable int menuParent) {
 		return menuService.getMenuTree(menuParent);
 	}
+
 }
