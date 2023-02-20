@@ -330,13 +330,18 @@ public class DepartmentEmployeeApiController {
 			
 			dto.getGroupData().get(i).setEmployeeSeq(dto.getEmployeeSeq());
 				if (dto.getGroupFirstData().get(i).getInsertData() == null) {
-					dto.setFirstDepartmentSeq(dto.getGroupFirstData().get(i).getDepartmentSeq());
-					dto.setFirstCompanySeq(dto.getGroupFirstData().get(i).getCompanySeq());
-					dto.setFirstWorkplaceSeq(dto.getGroupFirstData().get(i).getEmployeeSeq());
+					dto.getGroupData().get(i).setFirstDepartmentSeq(dto.getGroupFirstData().get(i).getDepartmentSeq());
+					dto.getGroupData().get(i).setFirstCompanySeq(dto.getGroupFirstData().get(i).getCompanySeq());
+					dto.getGroupData().get(i).setFirstWorkplaceSeq(dto.getGroupFirstData().get(i).getWorkplaceSeq());
+					System.out.println("여기는 수정");
+					System.out.println(dto.getFirstCompanySeq());
+					System.out.println(dto.getGroupData().get(i));
 					departmentEmployeeService.updateGroupInfo(dto.getGroupData().get(i));
+					departmentEmployeeService.updateCompanyGroupInfo(dto.getGroupData().get(i));
 				}
 				else {
 					dto.getGroupData().get(i).setInsertData(null);
+					System.out.println("여기는 추가");
 					departmentEmployeeService.insertGroupInfo(dto.getGroupData().get(i)); //department-emp
 					departmentEmployeeService.insertCompanyGroupInfo(dto.getGroupData().get(i)); //company-emp
 				}
@@ -345,4 +350,20 @@ public class DepartmentEmployeeApiController {
 			departmentEmployeeService.updateBasicInfo(dto);
 		}
 	}
+	//사용자 조직정보 삭제 
+	@GetMapping("selectdelete")
+	public void selectDelete(@RequestParam("employeeSeq") int EmployeeSeq, @RequestParam("departmentSeq") int DepartmentSeq,
+			@RequestParam("isEmpDelete") boolean isEmpDelete, DepartmentEmployeeDto dto) {
+		
+		dto.setEmployeeSeq(EmployeeSeq);
+		if(isEmpDelete) {
+			departmentEmployeeService.deleteEmp(dto);
+		}
+		else {
+			dto.setDepartmentSeq(DepartmentSeq);
+		}
+		departmentEmployeeService.selectCompanyDelete(dto);
+		departmentEmployeeService.selectDelete(dto);
+	}
+	
 }

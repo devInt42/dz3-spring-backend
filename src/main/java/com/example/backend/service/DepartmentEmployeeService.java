@@ -47,6 +47,8 @@ public interface DepartmentEmployeeService {
 
 	void updateGroupInfo(DepartmentEmployeeDto dto);
 	
+	void updateCompanyGroupInfo(DepartmentEmployeeDto dto);
+	
 	void insertGroupInfo(DepartmentEmployeeDto dto);
 	
 	void insertBasicInfo(DepartmentEmployeeDto dto);
@@ -56,4 +58,10 @@ public interface DepartmentEmployeeService {
 	void updateBasicInfo(DepartmentEmployeeDto dto);
 	
 	void insertCompanyGroupInfo(DepartmentEmployeeDto dto);
+	
+	void selectDelete(DepartmentEmployeeDto dto);
+	
+	void selectCompanyDelete(DepartmentEmployeeDto dto);
+	
+	void deleteEmp(DepartmentEmployeeDto dto);
 }
