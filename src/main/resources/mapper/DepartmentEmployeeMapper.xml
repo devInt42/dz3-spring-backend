@@ -749,13 +749,15 @@
 	<insert id = "insertGroupInfo"
 	 parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
 		insert
-		into department_employee values(#{companySeq},#{workplaceSeq},#{departmentSeq},#{employeeSeq},#{mainCompanyYN}, #{mainDepartmentYN},#{positionCode}
+		into department_employee(company_seq, workplace_seq, department_seq, employee_seq, main_company_yn, main_department_yn, position_code, duty_code) 
+		values(#{companySeq},#{workplaceSeq},#{departmentSeq},#{employeeSeq},#{mainCompanyYN}, #{mainDepartmentYN},#{positionCode}
 		,#{dutyCode})
 	</insert>
 	<insert id = "insertCompanyGroupInfo"
 	parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
 	insert
-		into company_employee values(#{companySeq}, #{workplaceSeq}, #{departmentSeq}, #{employeeSeq}, #{employeeCode}, #{employeeJoin}, #{employeeLeave}
+		into company_employee(company_seq, workplace_seq, department_seq, employee_seq, employee_code, employee_join, employee_leave, employee_classification) 
+		values(#{companySeq}, #{workplaceSeq}, #{departmentSeq}, #{employeeSeq}, #{employeeCode}, #{employeeJoin}, #{employeeLeave}
 		,#{employeeClassification})
 	</insert>
 	<insert id = "insertBasicInfo"
