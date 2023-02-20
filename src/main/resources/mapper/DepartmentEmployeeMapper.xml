@@ -76,20 +76,20 @@
 			jdbcType="VARCHAR" />
 		<result property="companyHomepage" column="company_homepage"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
-		<result property = "employeePwd" column = "employee_pwd"
-			javaType = "java.lang.String" jdbcType = "VARCHAR" />
-		<result property = "approvalPwd" column = "approval_pwd"
-			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
-		<result property = "employeeAddr" column = "employee_addr"
-			javaType = "java.lang.String" jdbcType = "VARCHAR" />
-		<result property = "useYN" column = "use_yn"
-			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
-		<result property = "employeeGender" column = "employee_gender"
-			javaType = "java.lang.String" jdbcType = "VARCHAR" />
-		<result property = "employeeLanguage" column = "employee_language"
-			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
-		<result property = "employeeHcall" column = "employee_hcall"
-			javaType = "java.lang.String" jdbcType = "VARCHAR"/>
+		<result property="employeePwd" column="employee_pwd"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="approvalPwd" column="approval_pwd"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeAddr" column="employee_addr"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="useYN" column="use_yn"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeGender" column="employee_gender"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeLanguage" column="employee_language"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="employeeHCall" column="employee_hcall"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="getList"
@@ -168,6 +168,7 @@
 			<if test="employeeName != null and employeeName !=''">
 				And e.employee_name like CONCAT('%',#{employeeName},'%')
 			</if>
+			
 		</where>
 		ORDER BY workplace_seq
 		ASC,
@@ -534,14 +535,18 @@
 		resultMap="departmentEmployeeMap">
 		SELECT d.company_seq, d.workplace_seq, d.department_seq,
 		d.department_code,
-		d.department_name, d.department_parent, d.department_depth,d.department_call,d.department_fax,department_loc,
+		d.department_name, d.department_parent,
+		d.department_depth,d.department_call,d.department_fax,department_loc,
 		d.use_yn, c.company_name, w.workplace_name FROM
 		department d
-		JOIN company c
+		JOIN
+		company c
 		on c.company_seq = d.company_seq
 		JOIN workplace w
-		on w.workplace_seq = d.workplace_seq
-		WHERE d.company_seq = #{companySeq} and
+		on
+		w.workplace_seq = d.workplace_seq
+		WHERE d.company_seq = #{companySeq}
+		and
 		d.department_parent = #{departmentParent} and
 		d.department_depth =
 		#{departmentDepth} and
@@ -628,64 +633,68 @@
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
 		resultMap="departmentEmployeeMap">
 		SELECT distinct c.company_name, de.company_seq,
-      d.department_name, de.department_seq,
-      d.department_call,
-      d.department_fax, d.department_loc,
-      e.employee_seq, de.main_company_yn,
-      w.workplace_seq, w.workplace_name,
-      de.main_department_yn,
-      cod.duty,
-      cod.position, d.department_zipcode,de.duty_code, de.position_code,
-      ce.employee_code, ce.employee_join, ce.employee_leave,
-      ce.employee_classification
-      FROM department_employee de
-       JOIN
-      company_employee ce
-      ON 
-      de.employee_seq = ce.employee_seq
-      and
-      de.company_seq=ce.company_seq
-      AND
-      de.workplace_seq= ce.workplace_seq
-      AND 
-      de.department_seq = ce.department_seq
-      AND de.company_seq=ce.company_seq
-      JOIN company c
-      ON de.company_seq =
-      c.company_seq
-      JOIN workplace w
-      ON de.workplace_seq = w.workplace_seq
-      JOIN department d
-      ON de.department_seq = d.department_seq
-      JOIN employee
-      e
-      ON de.employee_seq = e.employee_seq
-      JOIN (
-      SELECT dres.detail_code as
-      duty_code, dres.detail_code_name AS duty,
-      pres.detail_code AS
-      position_code,pres.detail_code_name AS position
-      FROM
-      (SELECT dcode.code,
-      dcode.detail_code, dcode.detail_code_name
-      FROM
-      code dcode
-      WHERE
-      code='DUTY') dres,
-      (SELECT pcode.code,
-      pcode.detail_code,
-      pcode.detail_code_name
-      FROM code pcode
-      WHERE
-      code='POSITION') pres
-      ) cod
-      ON
-      de.position_code = cod.position_code
-      AND
-      de.duty_code = cod.duty_code
-      WHERE
-      de.employee_seq =
-      #{employeeSeq}
+		d.department_name, de.department_seq,
+		d.department_call,
+		d.department_fax, d.department_loc,
+		e.employee_seq, de.main_company_yn,
+		w.workplace_seq, w.workplace_name,
+		de.main_department_yn,
+		cod.duty,
+		cod.position, d.department_zipcode,de.duty_code, de.position_code,
+		ce.employee_code, ce.employee_join, ce.employee_leave,
+		ce.employee_classification
+		FROM department_employee de
+		JOIN
+		company_employee ce
+		ON
+		de.employee_seq = ce.employee_seq
+		and
+		de.company_seq=ce.company_seq
+		AND
+		de.workplace_seq= ce.workplace_seq
+		AND
+		de.department_seq = ce.department_seq
+		AND de.company_seq=ce.company_seq
+		JOIN company c
+		ON de.company_seq =
+		c.company_seq
+		JOIN workplace w
+		ON
+		de.workplace_seq = w.workplace_seq
+		JOIN department d
+		ON
+		de.department_seq = d.department_seq
+		JOIN employee
+		e
+		ON de.employee_seq =
+		e.employee_seq
+		JOIN (
+		SELECT dres.detail_code as
+		duty_code,
+		dres.detail_code_name AS duty,
+		pres.detail_code AS
+		position_code,pres.detail_code_name AS position
+		FROM
+		(SELECT dcode.code,
+		dcode.detail_code, dcode.detail_code_name
+		FROM
+		code dcode
+		WHERE
+		code='DUTY') dres,
+		(SELECT pcode.code,
+		pcode.detail_code,
+		pcode.detail_code_name
+		FROM code pcode
+		WHERE
+		code='POSITION') pres
+		) cod
+		ON
+		de.position_code = cod.position_code
+		AND
+		de.duty_code = cod.duty_code
+		WHERE
+		de.employee_seq =
+		#{employeeSeq}
 	</select>
 
 	<select id="getDepartmentSelectList" parameterType="int"
@@ -724,80 +733,127 @@
 	<update id="updateGroupInfo"
 		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
 		update department_employee
-		set 
-		company_seq = #{companySeq}, workplace_seq = #{workplaceSeq}, department_seq = #{departmentSeq}
-		, main_company_yn = #{mainCompanyYN}, main_department_yn = #{mainDepartmentYN}, 
-		position_code = #{positionCode},
+		set
+		company_seq =
+		#{companySeq}, workplace_seq = #{workplaceSeq}, department_seq =
+		#{departmentSeq}
+		, main_company_yn = #{mainCompanyYN},
+		main_department_yn = #{mainDepartmentYN},
+		position_code =
+		#{positionCode},
 		duty_code = #{dutyCode}
-		where 
-		company_seq = #{firstCompanySeq} and workplace_seq = #{firstWorkplaceSeq} and department_seq = #{firstDepartmentSeq} and 
+		where
+		company_seq =
+		#{firstCompanySeq} and workplace_seq = #{firstWorkplaceSeq} and
+		department_seq = #{firstDepartmentSeq} and
+		employee_seq =
+		#{employeeSeq}
+	</update>
+
+	<update id="updateCompanyGroupInfo"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
+		update company_employee
+		set
+		company_seq = #{companySeq},
+		workplace_seq = #{workplaceSeq}, department_seq =
+		#{departmentSeq},
+		employee_join = #{employeeJoin}, employee_leave =
+		#{employeeLeave},
+		employee_classification = #{employeeClassification},
+		employee_code =
+		#{employeeCode}
+		where
+		company_seq = #{firstCompanySeq} and workplace_seq
+		= #{firstWorkplaceSeq} and
+		department_seq = #{firstDepartmentSeq} and
 		employee_seq = #{employeeSeq}
 	</update>
-	
-	<update id = "updateCompanyGroupInfo"
-	parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
-	update company_employee
-		set 
-		company_seq = #{companySeq}, workplace_seq = #{workplaceSeq}, department_seq = #{departmentSeq},
-		employee_join = #{employeeJoin}, employee_leave = #{employeeLeave}, employee_classification = #{employeeClassification},
-		employee_code = #{employeeCode}
-		where 
-		company_seq = #{firstCompanySeq} and workplace_seq = #{firstWorkplaceSeq} and department_seq = #{firstDepartmentSeq} and 
-		employee_seq = #{employeeSeq}
-	</update>
-	
-	<insert id = "insertGroupInfo"
-	 parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
+
+	<insert id="insertGroupInfo"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
 		insert
-		into department_employee(company_seq, workplace_seq, department_seq, employee_seq, main_company_yn, main_department_yn, position_code, duty_code) 
-		values(#{companySeq},#{workplaceSeq},#{departmentSeq},#{employeeSeq},#{mainCompanyYN}, #{mainDepartmentYN},#{positionCode}
+		into department_employee(company_seq,
+		workplace_seq, department_seq, employee_seq, main_company_yn,
+		main_department_yn, position_code, duty_code)
+		values(#{companySeq},#{workplaceSeq},#{departmentSeq},#{employeeSeq},#{mainCompanyYN},
+		#{mainDepartmentYN},#{positionCode}
 		,#{dutyCode})
 	</insert>
-	<insert id = "insertCompanyGroupInfo"
-	parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
-	insert
-		into company_employee(company_seq, workplace_seq, department_seq, employee_seq, employee_code, employee_join, employee_leave, employee_classification) 
-		values(#{companySeq}, #{workplaceSeq}, #{departmentSeq}, #{employeeSeq}, #{employeeCode}, #{employeeJoin}, #{employeeLeave}
+	<insert id="insertCompanyGroupInfo"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
+		insert
+		into company_employee(company_seq, workplace_seq,
+		department_seq,
+		employee_seq, employee_code, employee_join,
+		employee_leave,
+		employee_classification)
+		values(#{companySeq},
+		#{workplaceSeq}, #{departmentSeq}, #{employeeSeq}, #{employeeCode},
+		#{employeeJoin}, #{employeeLeave}
 		,#{employeeClassification})
 	</insert>
-	<insert id = "insertBasicInfo"
-	parameterType = "com.example.backend.dto.mapping.DepartmentEmployeeDto">
+	<insert id="insertBasicInfo"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
 		insert into employee
-		values (#{employeeSeq}, #{employeeId}, #{employeeName}, #{employeeBirth}, #{employeeCall}, #{employeePwd}, #{employeePh}, #{employeePmail},
-		#{employeeCmail}, #{employeeAddr}, #{employeePicture}, #{useYN}, #{employeeGender}, #{employeeLanguage}, #{approvalPwd},#{employeeHCall}, #{employeeJoin}
+		(employee_seq,employee_id,employee_name,employee_birth,employee_call,
+		employee_pwd,employee_ph,employee_pmail,employee_cmail,employee_addr,employee_picture,use_yn,employee_gender,employee_language,
+		approval_pwd,employee_hcall,employee_join,employee_leave)
+		values
+		(#{employeeSeq}, #{employeeId}, #{employeeName},
+		#{employeeBirth},
+		#{employeeCall}, #{employeePwd}, #{employeePh},
+		#{employeePmail},
+		#{employeeCmail}, #{employeeAddr},
+		#{employeePicture}, #{useYN},
+		#{employeeGender}, #{employeeLanguage},
+		#{approvalPwd},#{employeeHCall}, #{employeeJoin}
 		,#{employeeLeave})
 	</insert>
-	<select id = "getInsertSeq"
-	parameterType = "com.example.backend.dto.mapping.DepartmentEmployeeDto"  resultType = "int">
-		select employee_seq from employee where employee_id = #{employeeId} and employee_name = #{employeeName}
+	<select id="getInsertSeq"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto"
+		resultType="int">
+		select employee_seq from employee where employee_id =
+		#{employeeId} and employee_name = #{employeeName}
 	</select>
-	<update id = "updateBasicInfo"
-	parameterType = "com.example.backend.dto.mapping.DepartmentEmployeeDto">
+	<update id="updateBasicInfo"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
 		update employee set
-		employee_id = #{employeeId}, employee_name = #{employeeName}, employee_birth = #{employeeBirth}, employee_call = #{employeeCall},
-		employee_pwd = #{employeePwd}, employee_ph = #{employeePh}, employee_pmail = #{employeePmail}, employee_cmail = #{employeeCmail},
-		employee_addr = #{employeeAddr}, employee_picture = #{employeePicture}, use_yn = #{useYN}, employee_gender = #{employeeGender},
-		employee_language = #{employeeLanguage}, approval_pwd = #{approvalPwd}, employee_hcall = #{employeeHCall}, employee_join = #{employeeJoin},
-		employee_leave = #{employeeLeave} where employee_seq = #{employeeSeq}
+		employee_id = #{employeeId},
+		employee_name = #{employeeName}, employee_birth = #{employeeBirth},
+		employee_call = #{employeeCall},
+		employee_pwd = #{employeePwd},
+		employee_ph = #{employeePh}, employee_pmail = #{employeePmail},
+		employee_cmail = #{employeeCmail},
+		employee_addr = #{employeeAddr},
+		employee_picture = #{employeePicture}, use_yn = #{useYN},
+		employee_gender = #{employeeGender},
+		employee_language =
+		#{employeeLanguage}, approval_pwd = #{approvalPwd}, employee_hcall =
+		#{employeeHCall}, employee_join = #{employeeJoin},
+		employee_leave =
+		#{employeeLeave} where employee_seq = #{employeeSeq}
 	</update>
-	
-	<delete id = "selectDelete" parameterType = "com.example.backend.dto.mapping.DepartmentEmployeeDto">
-		delete from department_employee 
-		where employee_seq = #{employeeSeq} 
-		<if test = "departmentSeq != 0" >
-		and department_seq = #{departmentSeq}
+
+	<delete id="selectDelete"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
+		delete from department_employee
+		where employee_seq = #{employeeSeq}
+		<if test="departmentSeq != 0">
+			and department_seq = #{departmentSeq}
 		</if>
 	</delete>
-	
-	<delete id = "selectCompanyDelete" parameterType = "com.example.backend.dto.mapping.DepartmentEmployeeDto">
+
+	<delete id="selectCompanyDelete"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
 		delete from company_employee
 		where employee_seq = #{employeeSeq}
-		<if test = "departmentSeq != 0" >
-		and department_seq = #{departmentSeq}
+		<if test="departmentSeq != 0">
+			and department_seq = #{departmentSeq}
 		</if>
 	</delete>
-	
-	<delete id = "deleteEmp" parameterType ="com.example.backend.dto.mapping.DepartmentEmployeeDto">
+
+	<delete id="deleteEmp"
+		parameterType="com.example.backend.dto.mapping.DepartmentEmployeeDto">
 		delete from employee
 		where employee_seq = #{employeeSeq}
 	</delete>
