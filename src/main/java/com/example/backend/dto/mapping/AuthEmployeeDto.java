@@ -34,4 +34,6 @@ public class AuthEmployeeDto {
 	private int page;
 	private int startPgNum;
 	private int endPgNum;
+	
+	private String menuIcons;
 }
