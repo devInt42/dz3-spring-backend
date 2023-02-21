@@ -47,6 +47,8 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="position" column="position"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="menuIcons" column="menu_icons"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="getAuthListByCompany"
@@ -197,7 +199,7 @@
 		parameterType="com.example.backend.dto.mapping.AuthEmployeeDto"
 		resultMap="authEmployeeMap">
 		SELECT distinct m.menu_seq, m.menu_code, m.menu_name, m.menu_parent,
-		m.menu_depth, m.menu_url from
+		m.menu_depth, m.menu_url, m.menu_icons from
 		auth_menu am
 		JOIN
 		auth_employee ae
