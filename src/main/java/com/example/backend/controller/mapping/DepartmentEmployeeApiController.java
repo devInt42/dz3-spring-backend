@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.example.backend.dto.mapping.DepartmentEmployeeDto;
 import com.example.backend.service.DepartmentEmployeeServiceImpl;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -307,8 +309,61 @@ public class DepartmentEmployeeApiController {
 	public void updateGroupInfo(@RequestBody DepartmentEmployeeDto dto) {
 		departmentEmployeeService.updateGroupInfo(dto);
 	}
-	
-	
-	
+	//입사처리
+	@PostMapping("/joinemp")
+	public void joinEmp(@RequestBody DepartmentEmployeeDto dto) {
+		dto.setInsertData(null);
+		departmentEmployeeService.insertBasicInfo(dto);
+	}
+	//입사처리 후 seq 찾기
+	@GetMapping("/findempseq")
+	public int getInsertSeq(@RequestParam("employeeId") String employeeId, @RequestParam("employeeName") String employeeName
+			, DepartmentEmployeeDto dto) {
+		dto.setEmployeeId(employeeId);
+		dto.setEmployeeName(employeeName);
+		return departmentEmployeeService.getInsertSeq(dto);
+	}
+	// 사용자 추가 및 수정
+	@PostMapping("/addupdateemp")
+	public void updateEmp(@RequestBody DepartmentEmployeeDto dto) {
+		for (int i = 0; i < dto.getGroupData().size(); i++) {
+			
+			dto.getGroupData().get(i).setEmployeeSeq(dto.getEmployeeSeq());
+				if (dto.getGroupFirstData().get(i).getInsertData() == null) {
+					dto.getGroupData().get(i).setFirstDepartmentSeq(dto.getGroupFirstData().get(i).getDepartmentSeq());
+					dto.getGroupData().get(i).setFirstCompanySeq(dto.getGroupFirstData().get(i).getCompanySeq());
+					dto.getGroupData().get(i).setFirstWorkplaceSeq(dto.getGroupFirstData().get(i).getWorkplaceSeq());
+					System.out.println("여기는 수정");
+					System.out.println(dto.getFirstCompanySeq());
+					System.out.println(dto.getGroupData().get(i));
+					departmentEmployeeService.updateGroupInfo(dto.getGroupData().get(i));
+					departmentEmployeeService.updateCompanyGroupInfo(dto.getGroupData().get(i));
+				}
+				else {
+					dto.getGroupData().get(i).setInsertData(null);
+					System.out.println("여기는 추가");
+					departmentEmployeeService.insertGroupInfo(dto.getGroupData().get(i)); //department-emp
+					departmentEmployeeService.insertCompanyGroupInfo(dto.getGroupData().get(i)); //company-emp
+				}
+		}
+		if (dto.getInsertData() == null) {
+			departmentEmployeeService.updateBasicInfo(dto);
+		}
+	}
+	//사용자 조직정보 삭제 
+	@GetMapping("selectdelete")
+	public void selectDelete(@RequestParam("employeeSeq") int EmployeeSeq, @RequestParam("departmentSeq") int DepartmentSeq,
+			@RequestParam("isEmpDelete") boolean isEmpDelete, DepartmentEmployeeDto dto) {
+		
+		dto.setEmployeeSeq(EmployeeSeq);
+		if(isEmpDelete) {
+			departmentEmployeeService.deleteEmp(dto);
+		}
+		else {
+			dto.setDepartmentSeq(DepartmentSeq);
+		}
+		departmentEmployeeService.selectCompanyDelete(dto);
+		departmentEmployeeService.selectDelete(dto);
+	}
 	
 }
