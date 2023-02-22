@@ -158,10 +158,14 @@ public class DepartmentEmployeeApiController {
 	public DepartmentEmployeeDto getSelectEmployeeInfo(
 			@RequestParam(required = false, name = "employeeSeq", defaultValue = "") String employeeSeq,
 			@RequestParam(required = false, name = "companySeq", defaultValue = "") String companySeq,
+			@RequestParam(required = false, name = "departmentSeq", defaultValue = "") String departmentSeq,
+
 			DepartmentEmployeeDto dto) throws JSONException {
 
 		dto.setCompanySeq(Integer.parseInt(companySeq));
 		dto.setEmployeeSeq(Integer.parseInt(employeeSeq));
+		dto.setDepartmentSeq(Integer.parseInt(departmentSeq));
+
 		return departmentEmployeeService.getSelectEmployeeInfo(dto);
 	}
 

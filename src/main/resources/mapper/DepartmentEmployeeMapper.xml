@@ -282,6 +282,8 @@
 		#{employeeSeq}
 		and
 		de.company_seq=#{companySeq}
+		and
+		de.department_seq = #{departmentSeq}
 	</select>
 
 	<select id="getEmployeeCount"
