@@ -47,6 +47,8 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="position" column="position"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="menuIcons" column="menu_icons"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="getAuthListByCompany"
@@ -141,7 +143,8 @@
 		JOIN
 		auth_employee ae
 		ON
-		de.employee_seq = ae.employee_seq
+		de.employee_seq =
+		ae.employee_seq
 		JOIN
 		department d
 		ON
@@ -159,11 +162,13 @@
 		JOIN
 		workplace w
 		ON
-		de.workplace_seq = w.workplace_seq
+		de.workplace_seq =
+		w.workplace_seq
 		JOIN
 		(
 		SELECT dres.detail_code as
-		duty_code, dres.detail_code_name AS duty,
+		duty_code,
+		dres.detail_code_name AS duty,
 		pres.detail_code AS
 		position_code,pres.detail_code_name AS position
 		FROM
@@ -180,7 +185,7 @@
 		ON
 		de.position_code = cod.position_code
 		AND
-		de.duty_code = cod.duty_code	
+		de.duty_code = cod.duty_code
 		WHERE
 		auth_seq =
 		#{authSeq}
@@ -194,7 +199,7 @@
 		parameterType="com.example.backend.dto.mapping.AuthEmployeeDto"
 		resultMap="authEmployeeMap">
 		SELECT distinct m.menu_seq, m.menu_code, m.menu_name, m.menu_parent,
-		m.menu_depth, m.menu_url from
+		m.menu_depth, m.menu_url, m.menu_icons from
 		auth_menu am
 		JOIN
 		auth_employee ae
@@ -219,7 +224,9 @@
 			<if test="menuParent != null and menuParent !=''">
 				AND m.menu_parent = #{menuParent}
 			</if>
+			AND m.use_yn = 'Y'
 		</where>
+		order by m.menu_seq asc
 	</select>
 
 	<select id="origin"
@@ -262,5 +269,25 @@
 			#{item.departmentSeq})
 		</foreach>
 	</delete>
+
+	<select id="checkAvailability"
+		parameterType="com.example.backend.dto.mapping.AuthEmployeeDto"
+		resultType="INTEGER">
+		SELECT COUNT(m.menu_url) FROM auth_menu am
+		JOIN
+		auth_employee ae
+		ON
+		ae.auth_seq=am.auth_seq
+		JOIN
+		menu m
+		ON
+		am.menu_seq = m.menu_seq
+		WHERE
+		m.menu_url = #{menuUrl}
+		AND
+		ae.employee_seq= #{employeeSeq}
+		AND
+		ae.company_seq= #{companySeq}
+	</select>
 
 </mapper> 

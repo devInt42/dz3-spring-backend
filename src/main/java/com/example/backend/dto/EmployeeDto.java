@@ -7,10 +7,11 @@ import lombok.Data;
 @Data
 public class EmployeeDto {
 	private int employeeSeq;
-	private String employeeCode;
 	private String employeeId;
 	private String employeeName;
 	private Date employeeBirth;
+	private Date employeeJoin;
+	private Date employeeLeave;
 	private String employeeCall;
 	private String employeePwd;
 	private String employeePh;
@@ -18,8 +19,6 @@ public class EmployeeDto {
 	private String employeeCmail;
 	private String employeeAddr;
 	private String employeePicture;
-	private Date employeeJoin;
-	private Date employeeLeave;
 	private String useYN;
 	private String employeeGender;
 	private String employeeLanguage;

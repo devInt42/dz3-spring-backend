@@ -35,8 +35,37 @@ public interface DepartmentEmployeeMapper {
 
 	List<DepartmentEmployeeDto> getTree(DepartmentEmployeeDto dto);
 
-	DepartmentEmployeeDto getBelongNames(int employeeSeq);
-	
+	List<DepartmentEmployeeDto> getDeptTree(DepartmentEmployeeDto dto);
+
+	List<DepartmentEmployeeDto> getBelongNames(DepartmentEmployeeDto dto);
+
 	List<DepartmentEmployeeDto> getDepartmentSelectList(int companySeq);
+
 	List<DepartmentEmployeeDto> getCompanyEmp(DepartmentEmployeeDto dto);
+
+	List<DepartmentEmployeeDto> getAllCompany(DepartmentEmployeeDto dto);
+
+	List<DepartmentEmployeeDto> getPosition();
+
+	List<DepartmentEmployeeDto> getDuty();
+
+	void updateGroupInfo(DepartmentEmployeeDto dto);
+	
+	void updateCompanyGroupInfo(DepartmentEmployeeDto dto);
+	
+	void insertGroupInfo(DepartmentEmployeeDto dto);
+	
+	void insertBasicInfo(DepartmentEmployeeDto dto);
+	
+	int getInsertSeq(DepartmentEmployeeDto dto);
+	
+	void updateBasicInfo(DepartmentEmployeeDto dto);
+	
+	void insertCompanyGroupInfo(DepartmentEmployeeDto dto);
+	
+	void selectDelete(DepartmentEmployeeDto dto);
+	
+	void selectCompanyDelete(DepartmentEmployeeDto dto);
+	
+	void deleteEmp(DepartmentEmployeeDto dto);
 }

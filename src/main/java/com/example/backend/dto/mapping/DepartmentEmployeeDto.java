@@ -1,11 +1,14 @@
 package com.example.backend.dto.mapping;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 
 @Data
 public class DepartmentEmployeeDto {
+	private List<DepartmentEmployeeDto> groupData;
+	private List<DepartmentEmployeeDto> groupFirstData;
 	private int employeeSeq;
 	private int workplaceSeq;
 	private int departmentSeq;
@@ -25,7 +28,7 @@ public class DepartmentEmployeeDto {
 	private int authSeq;
 	private String duty;
 	private String position;
-	private String mainComapny;
+	private String mainCompany;
 	private String mainDepartment;
 	private int Page;
 	private int startPgNum;
@@ -37,4 +40,23 @@ public class DepartmentEmployeeDto {
 	private String departmentFax;
 	private int departmentDepth;
 	private int departmentParent;
+	private	String departmentZipCode;
+	private String dutyCode;
+	private String positionCode;
+	private String employeeCode;
+	private Date employeeJoin;
+	private Date employeeLeave;
+	private String employeeClassification;
+	private String companyHomepage;
+	private String insertData;
+	private String employeePwd;
+	private String approvalPwd;
+	private String employeeAddr;
+	private String useYN;
+	private String employeeGender;
+	private String employeeLanguage;
+	private String employeeHCall;
+	private int firstDepartmentSeq;
+	private int firstCompanySeq;
+	private int firstWorkplaceSeq;
 }

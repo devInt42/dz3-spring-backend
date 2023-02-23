@@ -19,6 +19,10 @@
 			javaType="java.lang.Integer" jdbcType="INTEGER" />
 		<result property="menuURL" column="menu_url"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="useYN" column="use_yn"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result property="menuIcons" column="menu_icons"
+			javaType="java.lang.String" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<!-- 깊이별 메뉴 조회 -->
@@ -50,8 +54,14 @@
 
 	<!-- 메뉴리스트 조회 -->
 	<select id="getMenuList" resultMap="menuMap">
-		select * from menu
+		select * from menu order by menu_name asc
 		<!-- where menu_parent = 0 -->
+	</select>
+
+	<!-- 해당 시퀀스의 메뉴 조회 -->
+	<select id="getSelectMenu" parameterType="Integer"
+		resultMap="menuMap">
+		select * from menu where menu_seq = #{menuSequence}
 	</select>
 
 	<!-- 하위메뉴 조회 -->
@@ -71,22 +81,24 @@
 	<insert id="insertMenu">
 		insert into menu (menu_code, menu_name,
 		menu_parent,
-		menu_depth) VALUES(#{menuCode}, #{menuName},
+		menu_depth, use_yn, menu_icons) VALUES(#{menuCode}, #{menuName},
 		#{menuParent},
-		#{menuDepth})
+		#{menuDepth}, #{useYN}, #{menuIcons})
 	</insert>
 
 	<!-- 메뉴 삭제 -->
 	<delete id="deleteMenu" parameterType="Integer">
 		delete from menu
-		where menu_seq = #{menuSeq}
+		where
+		menu_seq = #{menuSeq}
 	</delete>
 
 	<!-- 메뉴 수정 -->
 	<update id="updateMenu">
 		update menu set menu_code = #{menuCode},
-		menu_name = #{menuName}, menu_parent = #{menuParent}, menu_depth =
-		#{menuDepth}
+		menu_name =
+		#{menuName}, menu_parent = #{menuParent}, menu_depth =
+		#{menuDepth}, use_yn = #{useYN}, menu_icons = #{menuIcons}
 		where menu_seq = #{menuSeq}
 	</update>
 
@@ -117,5 +129,36 @@
 		resultType="Integer">
 		select count(*) from menu where menu_parent =
 		#{menuSeq}
+	</select>
+
+	<!-- 자손 메뉴 조회 -->
+	<select id="getTree" parameterType="INTEGER"
+		resultMap="menuMap">
+		WITH recursive cte AS (
+		SELECT m.menu_seq,
+		m.menu_parent,
+		m.menu_name,
+		m.menu_depth
+		FROM
+		menu m
+		WHERE
+		<!-- m.menu_seq=#{menuParent} -->
+		m.menu_parent=#{menuParent}
+
+		UNION
+		ALL
+		SELECT m2.menu_seq,
+		m2.menu_parent,
+		m2.menu_name, m2.menu_depth
+		FROM
+		cte
+		INNER JOIN menu m2
+		ON
+		cte.menu_seq = m2.menu_parent
+		)
+		SELECT * FROM
+		cte
+		ORDER BY
+		menu_depth;
 	</select>
 </mapper>

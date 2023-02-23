@@ -12,5 +12,5 @@ public interface AuthEmployeeService {
 	void addAuthEmployee(List<Object> list);
 	void deleteAuthEmployee(List<Object> list);
 	List<AuthEmployeeDto> getMenuListByAuthEmployee(AuthEmployeeDto dto);
-
+	int checkAvailability(AuthEmployeeDto dto);
 }

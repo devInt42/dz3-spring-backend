@@ -21,7 +21,6 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 
 	@Override
 	public List<DepartmentEmployeeDto> getEmployeePagebyDepartment(DepartmentEmployeeDto dto) {
-
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getListByDepartment(dto);
 	}
 
@@ -82,9 +81,9 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getTree(dto);
 	}
 
-	public DepartmentEmployeeDto getBelongNames(int employeeSeq) {
+	public List<DepartmentEmployeeDto> getBelongNames(DepartmentEmployeeDto dto) {
 
-		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getBelongNames(employeeSeq);
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getBelongNames(dto);
 	}
 
 	@Override
@@ -95,6 +94,76 @@ public class DepartmentEmployeeServiceImpl implements DepartmentEmployeeService 
 	@Override
 	public List<DepartmentEmployeeDto> getCompanyEmp(DepartmentEmployeeDto dto) {
 		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getCompanyEmp(dto);
+	}
+
+	@Override
+	public List<DepartmentEmployeeDto> getDeptTree(DepartmentEmployeeDto dto) {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getDeptTree(dto);
+	}
+
+	@Override
+	public List<DepartmentEmployeeDto> getAllCompany(DepartmentEmployeeDto dto) {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getAllCompany(dto);
+
+	}
+
+	public List<DepartmentEmployeeDto> getPosition() {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getPosition();
+	}
+
+	@Override
+	public List<DepartmentEmployeeDto> getDuty() {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getDuty();
+	}
+
+	@Override
+	public void updateGroupInfo(DepartmentEmployeeDto dto) {
+		sqlSession.getMapper(DepartmentEmployeeMapper.class).updateGroupInfo(dto);
+	}
+
+	@Override
+	public void insertGroupInfo(DepartmentEmployeeDto dto) {
+		sqlSession.getMapper(DepartmentEmployeeMapper.class).insertGroupInfo(dto);
+	}
+
+	@Override
+	public void insertBasicInfo(DepartmentEmployeeDto dto) {
+		sqlSession.getMapper(DepartmentEmployeeMapper.class).insertBasicInfo(dto);
+	}
+
+	@Override
+	public void updateBasicInfo(DepartmentEmployeeDto dto) {
+		sqlSession.getMapper(DepartmentEmployeeMapper.class).updateBasicInfo(dto);
+	}
+
+	@Override
+	public void insertCompanyGroupInfo(DepartmentEmployeeDto dto) {
+		sqlSession.getMapper(DepartmentEmployeeMapper.class).insertCompanyGroupInfo(dto);
+	}
+
+	@Override
+	public int getInsertSeq(DepartmentEmployeeDto dto) {
+		return sqlSession.getMapper(DepartmentEmployeeMapper.class).getInsertSeq(dto);
+	}
+
+	@Override
+	public void updateCompanyGroupInfo(DepartmentEmployeeDto dto) {
+		sqlSession.getMapper(DepartmentEmployeeMapper.class).updateCompanyGroupInfo(dto);
+	}
+
+	@Override
+	public void selectDelete(DepartmentEmployeeDto dto) {
+		sqlSession.getMapper(DepartmentEmployeeMapper.class).selectDelete(dto);
+	}
+
+	@Override
+	public void selectCompanyDelete(DepartmentEmployeeDto dto) {
+		sqlSession.getMapper(DepartmentEmployeeMapper.class).selectCompanyDelete(dto);
+	}
+
+	@Override
+	public void deleteEmp(DepartmentEmployeeDto dto) {
+		sqlSession.getMapper(DepartmentEmployeeMapper.class).deleteEmp(dto);
 	}
 
 }

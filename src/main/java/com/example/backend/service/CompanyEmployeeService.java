@@ -13,4 +13,7 @@ public interface CompanyEmployeeService {
 
 	List<CompanyEmployeeDto> getEmployeeList(CompanyEmployeeDto dto);
 
+	List<CompanyEmployeeDto> getAllCompanyList(CompanyEmployeeDto dto);
+
+	int codeDupliCheck(CompanyEmployeeDto dto);
 }

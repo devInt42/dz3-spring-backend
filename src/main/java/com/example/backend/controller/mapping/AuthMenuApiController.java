@@ -31,7 +31,6 @@ public class AuthMenuApiController {
 	// 권한-메뉴 추가
 	@PostMapping("/insert")
 	public void addAuthMenu(@RequestBody(required = true) List<Object> list) {
-		
 		if (list.size() > 0) {
 			authMenuService.addAuthMenu(list);
 		}
@@ -41,7 +40,7 @@ public class AuthMenuApiController {
 	@PostMapping("/delete")
 	public void removeMenu(@RequestBody(required = true) List<Object> list) {
 		if (list.size() > 0) {
-		authMenuService.removeAuthMenu(list);
+			authMenuService.removeAuthMenu(list);
 		}
 	}
 

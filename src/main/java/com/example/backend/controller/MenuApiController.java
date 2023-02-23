@@ -3,10 +3,7 @@ package com.example.backend.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.dto.MenuDto;
+import com.example.backend.dto.mapping.AuthMenuDto;
 import com.example.backend.service.MenuServiceImpl;
 
 @RestController
@@ -53,7 +51,6 @@ public class MenuApiController {
 		return menuService.getCountMenuListByDepth(dto);
 	}
 
-
 	// 깊이별 메뉴 테이블 카운트
 	@GetMapping("/select")
 	public List<MenuDto> getAllList() {
@@ -64,6 +61,12 @@ public class MenuApiController {
 	@GetMapping("/menulist")
 	public List<MenuDto> getMenuList() {
 		return menuService.getMenuList();
+	}
+
+	// 해당 시퀀스의 메뉴 조회
+	@GetMapping("/menulist/selectmenu/{menuSequence}")
+	public List<MenuDto> getSelectMenu(@PathVariable(required = true) int menuSequence) {
+		return menuService.getSelectMenu(menuSequence);
 	}
 
 	// 하위 메뉴 조회
@@ -82,8 +85,11 @@ public class MenuApiController {
 	// 메뉴 저장
 	@PostMapping
 	public void insertMenu(@RequestBody(required = true) Map<String, String> map) {
-		menuService.insertMenu(map);
-	}
+		if(map.get("menuParent").equals("0")) {
+			map.put("menuDepth", "0");
+		}
+			menuService.insertMenu(map);
+		}
 
 	// 메뉴 삭제
 	@DeleteMapping("/menulist/delete/{menuSeq}")
@@ -96,24 +102,35 @@ public class MenuApiController {
 	public void updateMenu(@PathVariable(required = true) String menuSeq,
 			@RequestBody(required = true) Map<String, String> map) {
 		map.put("menuSeq", menuSeq);
+		if(map.get("menuParent").equals("0")) {
+			map.put("menuDepth", "0");
+		}
 		menuService.updateMenu(map);
 	}
 
 	// 삽입 전 중복조회(메뉴코드)
-	@GetMapping("/menulist/checkcode/{menuCode}")
-	public List<MenuDto> checkCode(@PathVariable(required = true) String menuCode) {
+//	@GetMapping("/menulist/checkcode/{menuCode}")
+//	public List<MenuDto> checkCode(@PathVariable(required = true) String menuCode) {
+//		return menuService.checkCode(menuCode);
+//	}
+	@GetMapping("/menulist/checkcode")
+	public List<MenuDto> checkCode(@RequestParam("menuCode") String menuCode) {
 		return menuService.checkCode(menuCode);
 	}
 
 	// 삽입 전 중복조회(메뉴이름)
-	@GetMapping("/menulist/checkname/{menuName}")
-	public List<MenuDto> checkName(@PathVariable(required = true) String menuName) {
+//	@GetMapping("/menulist/checkname/{menuName}")
+//	public List<MenuDto> checkName(@PathVariable(required = true) String menuName) {
+//		return menuService.checkName(menuName);
+//	}
+	@GetMapping("/menulist/checkname")
+	public List<MenuDto> checkName(@RequestParam("menuName") String menuName) {
 		return menuService.checkName(menuName);
 	}
 
 	// 해당 시퀀스의 URL 조회
 	@GetMapping("/menulist/geturl/{menuSeq}")
-	public String getURL(@PathVariable(required=true) int menuSeq) {
+	public String getURL(@PathVariable(required = true) int menuSeq) {
 		return menuService.getURL(menuSeq);
 	}
 
@@ -121,6 +138,12 @@ public class MenuApiController {
 	@GetMapping("/menulist/getcount/{menuSeq}")
 	public Integer countMenu(@PathVariable(required = true) int menuSeq) {
 		return menuService.countMenu(menuSeq);
+	}
+
+	// 메뉴별 하위메뉴 조회
+	@GetMapping("/tree/{menuParent}")
+	public List<MenuDto> getMenuTree(@PathVariable int menuParent) {
+		return menuService.getMenuTree(menuParent);
 	}
 
 }
