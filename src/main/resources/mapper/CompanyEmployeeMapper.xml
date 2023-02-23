@@ -45,6 +45,13 @@
 		ce.employee_seq, e.employee_id, e.employee_pwd, c.company_code
 		FROM
 		company_employee ce
+		JOIN department_employee de
+		ON
+		ce.company_seq = de.company_seq
+		and
+		ce.department_seq = de.department_seq
+		and
+		ce.employee_seq=de.employee_seq
 		JOIN
 		employee e
 		ON
@@ -63,32 +70,42 @@
 		AND employee_pwd =
 		#{employeePwd}
 		AND e.use_yn = 'Y'
+		AND de.main_department_yn='Y'
 	</select>
 	<select id="response"
 		parameterType="com.example.backend.dto.mapping.CompanyEmployeeDto"
 		resultMap="companyEmployeeMap">
 		SELECT
 		ce.company_seq, ce.department_seq, ce.workplace_seq,
-		ce.employee_seq, c.company_code
+		ce.employee_seq, e.employee_id, e.employee_pwd, c.company_code
 		FROM
 		company_employee ce
+		JOIN department_employee de
+		ON
+		ce.company_seq = de.company_seq
+		and
+		ce.department_seq = de.department_seq
+		and
+		ce.employee_seq=de.employee_seq
 		JOIN
 		employee e
 		ON
-		ce.employee_seq
-		= e.employee_seq
+		ce.employee_seq = e.employee_seq
 		JOIN
 		company c
 		ON
 		ce.company_seq =
 		c.company_seq
 		WHERE
-		employee_id = #{employeeId}
-		AND company_code =
-		#{companyCode}
+		employee_id =
+		#{employeeId}
 		AND
-		employee_pwd = #{employeePwd}
+		company_code =
+		#{companyCode}
+		AND employee_pwd =
+		#{employeePwd}
 		AND e.use_yn = 'Y'
+		AND de.main_department_yn='Y'
 	</select>
 
 	<select id="getList"
