@@ -12,7 +12,6 @@ public class AppController {
 	@RequestMapping("/")
 	public String mainPage(Model model) {
 		model.addAttribute("innerPage","index");
-		System.out.println("hi");
 		return "pageContainer";
 	}
 }

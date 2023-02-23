@@ -45,7 +45,6 @@ public class CompanyApiController {
 	@PostMapping("/update/{companySeq}")
 	public void updateCompany(@PathVariable("companySeq") int companySeq, @RequestBody CompanyDto dto) {
 		 dto.setCompanySeq(companySeq);
-		System.out.println("dto :: " + dto.toString());
 		companyService.updateCompany(dto);
 	}
 	
@@ -57,7 +56,6 @@ public class CompanyApiController {
 	public List<CompanyDto> GetFindList(@RequestParam int companycode, 
 			@RequestParam String companyname, @RequestParam String useyn) {
 		CompanyDto dto = new CompanyDto(companycode, companyname, useyn);
-		System.out.println(dto.toString());
 		return companyService.FindCompany(dto);
 	}
 }
