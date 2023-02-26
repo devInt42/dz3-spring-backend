@@ -337,9 +337,7 @@ public class DepartmentEmployeeApiController {
 					dto.getGroupData().get(i).setFirstDepartmentSeq(dto.getGroupFirstData().get(i).getDepartmentSeq());
 					dto.getGroupData().get(i).setFirstCompanySeq(dto.getGroupFirstData().get(i).getCompanySeq());
 					dto.getGroupData().get(i).setFirstWorkplaceSeq(dto.getGroupFirstData().get(i).getWorkplaceSeq());
-					System.out.println("여기는 수정");
-					System.out.println(dto.getFirstCompanySeq());
-					System.out.println(dto.getGroupData().get(i));
+					
 					departmentEmployeeService.updateGroupInfo(dto.getGroupData().get(i));
 					departmentEmployeeService.updateCompanyGroupInfo(dto.getGroupData().get(i));
 				}

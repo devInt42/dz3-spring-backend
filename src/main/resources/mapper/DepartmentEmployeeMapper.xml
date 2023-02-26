@@ -364,6 +364,7 @@
 		AND
 		de.duty_code = cod.duty_code
 		WHERE de.employee_seq = #{employeeSeq}
+		and de.main_department_yn='Y'
 		ORDER BY de.main_company_yn
 		DESC, de.main_department_yn desc
 	</select>
