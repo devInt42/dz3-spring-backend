@@ -22,6 +22,6 @@ public class EmployeeDto {
 	private String useYN;
 	private String employeeGender;
 	private String employeeLanguage;
-	private String employeeHcall;
+	private String employeeHCall;
 	private String approvalPwd;
 }

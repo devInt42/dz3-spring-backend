@@ -37,7 +37,7 @@
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="employeeLanguage" column="employee_language"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
-		<result property="employeeHcall" column="employee_hcall"
+		<result property="employeeHCall" column="employee_hcall"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
 		<result property="approvalPwd" column="approval_pwd"
 			javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -65,7 +65,7 @@
 		VALUES
 		(#{employeeId}, #{employeeName}, #{employeeBirth}, #{employeeCall}, #{employeePwd},
 		#{employeePh}, #{employeePmail}, #{employeeCmail}, #{employeeAddr}, #{employeePicture}, #{employeeJoin},
-		 #{useYN}, #{employeeGender}, #{employeeLanguage}, #{employeeHcall}, #{approvalPwd})
+		 #{useYN}, #{employeeGender}, #{employeeLanguage}, #{employeeHCall}, #{approvalPwd})
 	</insert>
 	
 	<update id="updateEmp">
@@ -74,7 +74,7 @@
 		employee_birth = #{employeeBirth}, employee_call = #{employeeCall}, employee_pwd = #{employeePwd}, employee_ph = #{employeePh},
 		employee_pmail = #{employeePmail}, employee_cmail = #{employeeCmail}, employee_addr = #{employeeAddr}, employee_picture = #{employeePicture},
 		use_yn = #{useYN}, employee_gender = #{employeeGender}, employee_join = #{employeeJoin}, employee_leave = #{employeeLeave},
-		employee_language = #{employeeLanguage}, employee_hcall = #{employeeHcall}, approval_pwd = #{approvalPwd}
+		employee_language = #{employeeLanguage}, employee_hcall = #{employeeHCall}, approval_pwd = #{approvalPwd}
 		where employee_seq = #{employeeSeq}
 	</update>
 	

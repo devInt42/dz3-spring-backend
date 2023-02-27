@@ -330,22 +330,19 @@ public class DepartmentEmployeeApiController {
 	// 사용자 추가 및 수정
 	@PostMapping("/addupdateemp")
 	public void updateEmp(@RequestBody DepartmentEmployeeDto dto) {
+		System.out.println(dto);
 		for (int i = 0; i < dto.getGroupData().size(); i++) {
-			
 			dto.getGroupData().get(i).setEmployeeSeq(dto.getEmployeeSeq());
 				if (dto.getGroupFirstData().get(i).getInsertData() == null) {
 					dto.getGroupData().get(i).setFirstDepartmentSeq(dto.getGroupFirstData().get(i).getDepartmentSeq());
 					dto.getGroupData().get(i).setFirstCompanySeq(dto.getGroupFirstData().get(i).getCompanySeq());
 					dto.getGroupData().get(i).setFirstWorkplaceSeq(dto.getGroupFirstData().get(i).getWorkplaceSeq());
-					System.out.println("여기는 수정");
-					System.out.println(dto.getFirstCompanySeq());
-					System.out.println(dto.getGroupData().get(i));
+
 					departmentEmployeeService.updateGroupInfo(dto.getGroupData().get(i));
 					departmentEmployeeService.updateCompanyGroupInfo(dto.getGroupData().get(i));
 				}
 				else {
 					dto.getGroupData().get(i).setInsertData(null);
-					System.out.println("여기는 추가");
 					departmentEmployeeService.insertGroupInfo(dto.getGroupData().get(i)); //department-emp
 					departmentEmployeeService.insertCompanyGroupInfo(dto.getGroupData().get(i)); //company-emp
 				}

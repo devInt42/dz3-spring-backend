@@ -60,7 +60,6 @@ public class AuthApiController {
 	public void setAuth(@PathVariable(required = true) String authSeq,
 			@RequestBody(required = true) Map<String, String> map) {
 		map.put("authSeq", authSeq);
-		System.out.println(map);
 		authService.setAuth(map);
 	}
 
